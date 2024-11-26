@@ -25,6 +25,7 @@ public class LibrarianEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+    @Column(unique = true)
     private String cpf;
     private String password;
     private UserRole role;

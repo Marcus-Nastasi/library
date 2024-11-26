@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class LibrarianUseCase {
-    public final LibrarianGateway librarianGateway;
+    private final LibrarianGateway librarianGateway;
 
     public LibrarianUseCase(LibrarianGateway librarianGateway) {
         this.librarianGateway = librarianGateway;
