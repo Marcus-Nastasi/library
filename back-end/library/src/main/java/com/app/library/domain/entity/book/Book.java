@@ -1,4 +1,4 @@
-package com.app.library.domain.entities.book;
+package com.app.library.domain.entity.book;
 
 import com.app.library.infrastructure.entities.book.BookEntity;
 import lombok.AllArgsConstructor;
@@ -24,19 +24,4 @@ public class Book {
     private BookType type;
     private String edition;
     private LocalDate dateOfPublish;
-
-    public BookEntity mapToBookEntity() {
-        return new BookEntity(
-            this.id,
-            this.author,
-            this.name,
-            this.price,
-            this.quantity,
-            this.image_url,
-            this.isAvailable,
-            this.type,
-            this.edition,
-            this.dateOfPublish
-        );
-    }
 }

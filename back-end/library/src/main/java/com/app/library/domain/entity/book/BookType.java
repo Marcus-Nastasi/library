@@ -1,4 +1,4 @@
-package com.app.library.domain.entities.book;
+package com.app.library.domain.entity.book;
 
 public enum BookType {
     REGULAR("regular"),

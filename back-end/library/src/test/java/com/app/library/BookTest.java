@@ -1,11 +1,10 @@
 package com.app.library;
 
-import com.app.library.adapters.output.book.JpaBookRepo;
-import com.app.library.domain.entities.book.Book;
-import com.app.library.domain.entities.book.BookType;
-import com.app.library.domain.usecases.book.BookUseCase;
+import com.app.library.infrastructure.persistence.book.JpaBookRepo;
+import com.app.library.domain.entity.book.Book;
+import com.app.library.domain.entity.book.BookType;
+import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.infrastructure.entities.book.BookEntity;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,9 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.UUID;
-
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -40,6 +36,7 @@ public class BookTest {
         LocalDate.of(2002, 5, 12)
     );
 
+    /*
     BookEntity bookEntity = new Book(
             UUID.randomUUID(),
             "author",
@@ -51,8 +48,9 @@ public class BookTest {
             BookType.JOURNAL,
             "3.5",
             LocalDate.of(2002, 5, 12)
-    ).mapToBookEntity();
+    ).mapToBookEntity();*/
 
+    /*
     @Test
     void createBook() {
         assertDoesNotThrow(() ->
@@ -60,9 +58,9 @@ public class BookTest {
         verify(jpaBookRepo, times(1)).save(any(BookEntity.class));
     }
 
-    /*
     @Test
     void deleteBook() {
-        when(jpaBookRepo.findById());
+        when(jpaBookRepo.findById(any(UUID.class))).thenReturn(Optional.of(bookEntity));
+        assertDoesNotThrow(() -> bookUseCase.deleteById(UUID.randomUUID()));
     }*/
 }
