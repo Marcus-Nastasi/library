@@ -6,7 +6,7 @@ import com.app.library.infrastructure.entities.book.BookEntity;
 public class BookEntityMapper {
     public BookEntity mapToBookEntity(Book book) {
         return new BookEntity(
-            null,
+            book.getId(),
             book.getAuthor(),
             book.getName(),
             book.getPrice(),

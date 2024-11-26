@@ -22,7 +22,7 @@ public class BookDtoMapper {
 
     public Book mapFromRequest(BookRequestDto bookRequestDto) {
         return new Book(
-            null,
+            bookRequestDto.id(),
             bookRequestDto.author(),
             bookRequestDto.name(),
             bookRequestDto.price(),
