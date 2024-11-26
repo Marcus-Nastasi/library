@@ -1,7 +1,7 @@
 package com.app.library.infrastructure.gateway.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,10 +32,10 @@ public class FileManager {
         return "";
     }
 
-    public boolean deleteImage(String image_url) {
-        //S3Object object = s3Client.getObject(bucketName, image_url);
-        s3Client.deleteObject(bucketName, image_url);
-        return true;
+    public void deleteImage(String image_url) {
+        try {
+            s3Client.deleteObject(new DeleteObjectRequest(bucketName, image_url.substring(image_url.lastIndexOf("/") + 1)));
+        } catch (Exception e) {}
     }
 
     private java.io.File convertMultipartToFile(MultipartFile multipartFile) throws IOException {

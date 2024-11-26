@@ -39,7 +39,11 @@ public class BookUseCase {
 
     public Book delete(UUID id) {
         Book book = get(id);
-        fileManager.deleteImage(book.getImage_url());
-        return bookGateway.delete(id);
+        try {
+            fileManager.deleteImage(book.getImage_url());
+            return bookGateway.delete(id);
+        } catch (Exception e) {
+            return bookGateway.delete(id);
+        }
     }
 }
