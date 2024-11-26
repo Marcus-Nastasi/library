@@ -1,5 +1,6 @@
-package com.app.library.domain.entities;
+package com.app.library.domain.entities.book;
 
+import com.app.library.infrastructure.entities.book.BookEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +21,22 @@ public class Book {
     private int quantity;
     private String image_url;
     private boolean isAvailable;
-    /*
-    private BookStatus status;
-    private BookType type;*/
+    private BookType type;
     private String edition;
     private LocalDate dateOfPublish;
+
+    public BookEntity mapToBookEntity() {
+        return new BookEntity(
+            this.id,
+            this.author,
+            this.name,
+            this.price,
+            this.quantity,
+            this.image_url,
+            this.isAvailable,
+            this.type,
+            this.edition,
+            this.dateOfPublish
+        );
+    }
 }
