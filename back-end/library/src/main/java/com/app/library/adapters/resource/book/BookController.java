@@ -5,11 +5,15 @@ import com.app.library.adapters.mapper.book.BookDtoMapper;
 import com.app.library.adapters.output.book.BookResponseDto;
 import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.domain.entity.book.Book;
+import com.app.library.domain.entity.book.BookType;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,8 +39,30 @@ public class BookController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<BookResponseDto> register(@RequestBody @Valid BookRequestDto bookRequestDto) {
-        Book created = bookUseCase.create(bookDtoMapper.mapFromRequest(bookRequestDto));
+    public ResponseEntity<BookResponseDto> register(
+            @RequestParam("author") String author,
+            @RequestParam("name") String name,
+            @RequestParam("price") double price,
+            @RequestParam("quantity") int quantity,
+            @RequestParam("available") boolean isAvailable,
+            @RequestParam("type") BookType type,
+            @RequestParam("edition") String edition,
+            @RequestParam("dateOfPublish") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfPublish,
+            @RequestParam("image") MultipartFile image
+    ) {
+        BookRequestDto bookRequestDto = new BookRequestDto(
+            null,
+            author,
+            name,
+            price,
+            quantity,
+            null,
+            isAvailable,
+            type,
+            edition,
+            dateOfPublish
+        );
+        Book created = bookUseCase.create(bookDtoMapper.mapFromRequest(bookRequestDto), image);
         return ResponseEntity
             .created(URI.create("/api/book/" + created.getId()))
             .body(bookDtoMapper.mapToResponse(created));
