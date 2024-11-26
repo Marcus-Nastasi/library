@@ -8,8 +8,8 @@ public class LibrarianEntityMapper {
         return new LibrarianEntity(
             librarian.getId(),
             librarian.getName(),
-            librarian.getPassword(),
             librarian.getCpf(),
+            librarian.getPassword(),
             librarian.getRole()
         );
     }
@@ -18,8 +18,8 @@ public class LibrarianEntityMapper {
         return new Librarian(
             librarianEntity.getId(),
             librarianEntity.getName(),
-            librarianEntity.getPassword(),
             librarianEntity.getCpf(),
+            librarianEntity.getPassword(),
             librarianEntity.getRole()
         );
     }

@@ -21,13 +21,13 @@ public class LibrarianUseCase {
         return librarianGateway.get(id);
     }
 
-    public Librarian create(Librarian book) {
-        return librarianGateway.create(book);
+    public Librarian create(Librarian librarian) {
+        return librarianGateway.create(librarian);
     }
 
-    public Librarian update(UUID id, Librarian book) {
+    public Librarian update(UUID id, Librarian librarian) {
         Librarian toUpdate = get(id);
-        return librarianGateway.update(toUpdate.updateDetails(book));
+        return librarianGateway.update(toUpdate.updateDetails(librarian));
     }
 
     public Librarian delete(UUID id) {
