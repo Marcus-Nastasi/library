@@ -18,11 +18,11 @@ public class AuthUseCase {
     }
 
     public String login(String cpf, String password) {
-        Librarian userDetails = getByCpf(cpf);
-        if (userDetails == null) {
-            System.out.println(userDetails);
+        Librarian librarian = getByCpf(cpf);
+        if (librarian == null) {
+            return null;
         }
-        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+        if (!passwordEncoder.matches(password, librarian.getPassword())) {
             throw new RuntimeException("Password wrong");
         }
         return authGateway.login(cpf);

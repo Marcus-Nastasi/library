@@ -24,7 +24,7 @@ public class SecurityFilter extends DelegatingWebMvcConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(h -> {
-                h.requestMatchers("/api/auth/login").permitAll()
+                h.requestMatchers("/api/authenticate").permitAll()
                     .requestMatchers("/api/librarian/**").hasRole("ADMIN")
                     .anyRequest().authenticated();
             })

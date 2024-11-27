@@ -1,4 +1,4 @@
-package com.app.library.infrastructure.entities.librarian;
+package com.app.library.infrastructure.entity.librarian;
 
 import com.app.library.domain.entity.librarian.UserRole;
 import jakarta.persistence.*;

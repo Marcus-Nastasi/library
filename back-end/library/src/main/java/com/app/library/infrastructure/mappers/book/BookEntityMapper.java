@@ -1,7 +1,7 @@
 package com.app.library.infrastructure.mappers.book;
 
 import com.app.library.domain.entity.book.Book;
-import com.app.library.infrastructure.entities.book.BookEntity;
+import com.app.library.infrastructure.entity.book.BookEntity;
 
 public class BookEntityMapper {
     public BookEntity mapToBookEntity(Book book) {

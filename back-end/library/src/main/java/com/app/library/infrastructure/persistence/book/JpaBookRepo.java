@@ -1,6 +1,6 @@
 package com.app.library.infrastructure.persistence.book;
 
-import com.app.library.infrastructure.entities.book.BookEntity;
+import com.app.library.infrastructure.entity.book.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

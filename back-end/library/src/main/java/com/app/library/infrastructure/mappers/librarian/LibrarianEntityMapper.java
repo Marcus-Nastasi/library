@@ -1,7 +1,7 @@
 package com.app.library.infrastructure.mappers.librarian;
 
 import com.app.library.domain.entity.librarian.Librarian;
-import com.app.library.infrastructure.entities.librarian.LibrarianEntity;
+import com.app.library.infrastructure.entity.librarian.LibrarianEntity;
 
 public class LibrarianEntityMapper {
     public LibrarianEntity mapToLibrarianEntity(Librarian librarian) {

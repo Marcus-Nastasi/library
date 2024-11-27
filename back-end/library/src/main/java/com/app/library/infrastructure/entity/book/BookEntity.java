@@ -1,4 +1,4 @@
-package com.app.library.infrastructure.entities.book;
+package com.app.library.infrastructure.entity.book;
 
 import com.app.library.domain.entity.book.BookType;
 import jakarta.persistence.*;

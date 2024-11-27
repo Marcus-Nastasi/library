@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/auth")
+@RequestMapping(value = "/api/authenticate")
 public class SecurityController {
     private final AuthUseCase authUseCase;
 
@@ -16,7 +16,7 @@ public class SecurityController {
         this.authUseCase = authUseCase;
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping()
     public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         return ResponseEntity.ok(
             new LoginResponseDto(authUseCase.login(loginRequestDto.cpf(), loginRequestDto.password()))

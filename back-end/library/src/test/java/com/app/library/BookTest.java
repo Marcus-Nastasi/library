@@ -4,7 +4,6 @@ import com.app.library.infrastructure.persistence.book.JpaBookRepo;
 import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookType;
 import com.app.library.application.usecases.book.BookUseCase;
-import com.app.library.infrastructure.entities.book.BookEntity;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
