@@ -2,14 +2,14 @@ package com.app.library.application.usecases.security;
 
 import com.app.library.application.exception.ForbiddenException;
 import com.app.library.application.gateways.security.AuthGateway;
+import com.app.library.application.gateways.util.PasswordEncoderGateway;
 import com.app.library.domain.entity.librarian.Librarian;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class AuthUseCase {
     private final AuthGateway authGateway;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoderGateway passwordEncoder;
 
-    public AuthUseCase(AuthGateway authGateway, PasswordEncoder passwordEncoder) {
+    public AuthUseCase(AuthGateway authGateway, PasswordEncoderGateway passwordEncoder) {
         this.authGateway = authGateway;
         this.passwordEncoder = passwordEncoder;
     }

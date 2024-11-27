@@ -3,11 +3,11 @@ package com.app.library.adapters.resource.librarian;
 import com.app.library.adapters.input.librarian.LibrarianRequestDto;
 import com.app.library.adapters.mapper.librarian.LibrarianDtoMapper;
 import com.app.library.adapters.output.librarian.LibrarianResponseDto;
+import com.app.library.application.gateways.util.PasswordEncoderGateway;
 import com.app.library.application.usecases.librarian.LibrarianUseCase;
 import com.app.library.domain.entity.librarian.Librarian;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -19,13 +19,9 @@ import java.util.UUID;
 public class LibrarianController {
     private final LibrarianUseCase librarianUseCase;
     private final LibrarianDtoMapper librarianDtoMapper;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoderGateway passwordEncoder;
 
-    public LibrarianController(
-            LibrarianUseCase librarianUseCase,
-            LibrarianDtoMapper librarianDtoMapper,
-            PasswordEncoder passwordEncoder
-    ) {
+    public LibrarianController(LibrarianUseCase librarianUseCase, LibrarianDtoMapper librarianDtoMapper, PasswordEncoderGateway passwordEncoder) {
         this.librarianUseCase = librarianUseCase;
         this.librarianDtoMapper = librarianDtoMapper;
         this.passwordEncoder = passwordEncoder;
@@ -58,8 +54,7 @@ public class LibrarianController {
             @RequestBody @Valid LibrarianRequestDto librarianRequestDto
     ) {
         return ResponseEntity.ok(librarianDtoMapper
-            .mapToResponse(librarianUseCase
-                .update(id, librarianDtoMapper.mapFromRequest(librarianRequestDto)))
+            .mapToResponse(librarianUseCase.update(id, librarianDtoMapper.mapFromRequest(librarianRequestDto)))
         );
     }
 

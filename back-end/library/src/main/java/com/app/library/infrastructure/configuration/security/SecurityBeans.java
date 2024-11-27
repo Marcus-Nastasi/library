@@ -1,6 +1,7 @@
 package com.app.library.infrastructure.configuration.security;
 
 import com.app.library.application.gateways.security.AuthGateway;
+import com.app.library.application.gateways.util.PasswordEncoderGateway;
 import com.app.library.application.usecases.security.AuthUseCase;
 import com.app.library.infrastructure.gateway.security.AuthRepoGateway;
 import com.app.library.infrastructure.gateway.security.TokenProvider;
@@ -36,7 +37,7 @@ public class SecurityBeans {
     }
 
     @Bean
-    public AuthUseCase authUseCase(AuthGateway authGateway) {
-        return new AuthUseCase(authGateway, passwordEncoder());
+    public AuthUseCase authUseCase(AuthGateway authGateway, PasswordEncoderGateway passwordEncoderGateway) {
+        return new AuthUseCase(authGateway, passwordEncoderGateway);
     }
 }
