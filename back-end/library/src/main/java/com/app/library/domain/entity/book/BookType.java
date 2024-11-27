@@ -6,13 +6,13 @@ public enum BookType {
     JOURNAL("jornal"),
     MAGAZINE("magazine");
 
-    private final String bookStatus;
+    private final String bookType;
 
-    BookType(String bookStatus) {
-        this.bookStatus = bookStatus;
+    BookType(String bookType) {
+        this.bookType = bookType;
     }
 
-    public String getBookStatus() {
-        return bookStatus;
+    public String getBookType() {
+        return bookType;
     }
 }

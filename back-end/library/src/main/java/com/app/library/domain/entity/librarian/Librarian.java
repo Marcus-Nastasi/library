@@ -19,7 +19,7 @@ public class Librarian {
     private UserRole role;
 
     public Librarian updateDetails(Librarian updatedLibrarian) {
-        if (updatedLibrarian.name == null) throw new IllegalArgumentException("Name cannot be null");
+        if (updatedLibrarian.cpf == null) throw new IllegalArgumentException("Cpf cannot be null");
         if (updatedLibrarian.password == null) throw new IllegalArgumentException("Password cannot be null");
         this.setId(updatedLibrarian.getId());
         this.setName(updatedLibrarian.getName());

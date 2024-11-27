@@ -2,6 +2,7 @@ package com.app.library.application.usecases.librarian;
 
 import com.app.library.application.gateways.librarian.LibrarianGateway;
 import com.app.library.domain.entity.librarian.Librarian;
+import com.app.library.domain.entity.librarian.UserRole;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class LibrarianUseCase {
     }
 
     public Librarian create(Librarian librarian) {
+        librarian.setRole(UserRole.USER);
         return librarianGateway.create(librarian);
     }
 
