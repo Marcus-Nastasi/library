@@ -39,7 +39,7 @@ public class RentController {
     public ResponseEntity<RentResponseDto> register(@RequestBody @Valid RentRequestDto rentRequestDto) {
         Rent created = rentUseCase.create(rentDtoMapper.mapFromRequest(rentRequestDto));
         return ResponseEntity
-            .created(URI.create("/api/book/" + created.getId()))
+            .created(URI.create("/api/rent/" + created.getId()))
             .body(rentDtoMapper.mapToResponse(created));
     }
 

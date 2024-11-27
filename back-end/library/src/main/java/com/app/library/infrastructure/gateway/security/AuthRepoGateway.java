@@ -1,7 +1,9 @@
 package com.app.library.infrastructure.gateway.security;
 
+import com.app.library.application.exception.ForbiddenException;
 import com.app.library.application.gateways.security.AuthGateway;
 import com.app.library.domain.entity.librarian.Librarian;
+import com.app.library.infrastructure.entity.librarian.LibrarianEntity;
 import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
 
@@ -18,7 +20,9 @@ public class AuthRepoGateway implements AuthGateway {
 
     @Override
     public Librarian getByCpf(String cpf) {
-        return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findByCpf(cpf));
+        LibrarianEntity librarian = jpaLibrarianRepo.findByCpf(cpf);
+        if (librarian == null) throw new ForbiddenException("Librarian not found");
+        return librarianEntityMapper.mapFromLibrarianEntity(librarian);
     }
 
     @Override

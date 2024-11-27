@@ -26,10 +26,14 @@ public class BookUseCase {
     }
 
     public Book create(Book book, MultipartFile file) {
-        String file_url = null;
-        if (file != null) file_url = fileManager.uploadImage(file);
-        book.setImage_url(file_url);
-        return bookGateway.create(book);
+        book.setImage_url(null);
+        Book created = bookGateway.create(book);
+        if (file != null) {
+            String file_url = fileManager.uploadImage(file);
+            created.setImage_url(file_url);
+            return bookGateway.create(created);
+        }
+        return created;
     }
 
     public Book update(UUID id, Book book) {

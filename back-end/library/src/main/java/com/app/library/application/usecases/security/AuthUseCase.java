@@ -1,5 +1,6 @@
 package com.app.library.application.usecases.security;
 
+import com.app.library.application.exception.ForbiddenException;
 import com.app.library.application.gateways.security.AuthGateway;
 import com.app.library.domain.entity.librarian.Librarian;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,12 +20,10 @@ public class AuthUseCase {
 
     public String login(String cpf, String password) {
         Librarian librarian = getByCpf(cpf);
-        if (librarian == null) {
-            return null;
-        }
-        if (!passwordEncoder.matches(password, librarian.getPassword())) {
-            throw new RuntimeException("Password wrong");
-        }
+        if (librarian == null)
+            throw new ForbiddenException("Librarian not found");
+        if (!passwordEncoder.matches(password, librarian.getPassword()))
+            throw new ForbiddenException("Wrong password");
         return authGateway.login(cpf);
     }
 }

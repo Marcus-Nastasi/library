@@ -1,6 +1,7 @@
 package com.app.library.infrastructure.gateway.member;
 
 import com.app.library.application.gateways.member.MemberGateway;
+import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.member.Member;
 import com.app.library.infrastructure.mapper.member.MemberEntityMapper;
 import com.app.library.infrastructure.persistence.member.JpaMemberRepo;
@@ -25,7 +26,8 @@ public class MemberRepoGateway implements MemberGateway {
 
     @Override
     public Member get(UUID id) {
-        return memberEntityMapper.mapFromLibrarianEntity(jpaMemberRepo.findById(id).orElseThrow());
+        return memberEntityMapper
+            .mapFromLibrarianEntity(jpaMemberRepo.findById(id).orElseThrow(() -> new DomainException("Member not found")));
     }
 
     @Override
@@ -40,7 +42,8 @@ public class MemberRepoGateway implements MemberGateway {
 
     @Override
     public Member delete(UUID id) {
-        Member member = memberEntityMapper.mapFromLibrarianEntity(jpaMemberRepo.findById(id).orElseThrow());
+        Member member = memberEntityMapper
+            .mapFromLibrarianEntity(jpaMemberRepo.findById(id).orElseThrow(() -> new DomainException("Member not found")));
         jpaMemberRepo.deleteById(id);
         return member;
     }

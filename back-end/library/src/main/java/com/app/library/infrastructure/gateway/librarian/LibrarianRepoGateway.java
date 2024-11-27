@@ -1,6 +1,7 @@
 package com.app.library.infrastructure.gateway.librarian;
 
 import com.app.library.application.gateways.librarian.LibrarianGateway;
+import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
@@ -24,7 +25,8 @@ public class LibrarianRepoGateway implements LibrarianGateway {
 
     @Override
     public Librarian get(UUID id) {
-        return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(RuntimeException::new));
+        return librarianEntityMapper
+            .mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
     }
 
     @Override
@@ -39,7 +41,8 @@ public class LibrarianRepoGateway implements LibrarianGateway {
 
     @Override
     public Librarian delete(UUID id) {
-        Librarian librarian = librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow());
+        Librarian librarian = librarianEntityMapper
+            .mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
         jpaLibrarianRepo.deleteById(id);
         return librarian;
     }

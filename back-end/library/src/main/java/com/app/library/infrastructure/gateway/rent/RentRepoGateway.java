@@ -1,6 +1,7 @@
 package com.app.library.infrastructure.gateway.rent;
 
 import com.app.library.application.gateways.rent.RentGateway;
+import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.rent.Rent;
 import com.app.library.infrastructure.mapper.rent.RentEntityMapper;
 import com.app.library.infrastructure.persistence.rent.JpaRentRepo;
@@ -24,7 +25,8 @@ public class RentRepoGateway implements RentGateway {
 
     @Override
     public Rent get(UUID id) {
-        return rentEntityMapper.mapFromRentEntity(jpaRentRepo.findById(id).orElseThrow());
+        return rentEntityMapper
+            .mapFromRentEntity(jpaRentRepo.findById(id).orElseThrow(() -> new DomainException("Rent not found")));
     }
 
     @Override
@@ -39,7 +41,8 @@ public class RentRepoGateway implements RentGateway {
 
     @Override
     public Rent delete(UUID id) {
-        Rent rent = rentEntityMapper.mapFromRentEntity(jpaRentRepo.findById(id).orElseThrow());
+        Rent rent = rentEntityMapper
+            .mapFromRentEntity(jpaRentRepo.findById(id).orElseThrow(() -> new DomainException("Rent not found")));
         jpaRentRepo.deleteById(id);
         return rent;
     }

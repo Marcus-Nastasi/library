@@ -1,5 +1,6 @@
 package com.app.library.infrastructure.configuration.security;
 
+import com.app.library.application.exception.ForbiddenException;
 import com.app.library.infrastructure.entity.librarian.LibrarianEntity;
 import com.app.library.infrastructure.gateway.security.TokenProvider;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
@@ -39,7 +40,7 @@ public class TokenFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-            return;
+            throw new ForbiddenException("Forbidden");
         }
     }
 

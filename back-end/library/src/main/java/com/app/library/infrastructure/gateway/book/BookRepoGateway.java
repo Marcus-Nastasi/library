@@ -2,6 +2,7 @@ package com.app.library.infrastructure.gateway.book;
 
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.domain.entity.book.Book;
+import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.infrastructure.mapper.book.BookEntityMapper;
 import com.app.library.infrastructure.persistence.book.JpaBookRepo;
 
@@ -24,7 +25,7 @@ public class BookRepoGateway implements BookGateway {
 
     @Override
     public Book get(UUID id) {
-        return bookEntityMapper.mapFromBookEntity(jpaBookRepo.findById(id).orElseThrow(RuntimeException::new));
+        return bookEntityMapper.mapFromBookEntity(jpaBookRepo.findById(id).orElseThrow(() -> new DomainException("Book not found")));
     }
 
     @Override
@@ -39,7 +40,8 @@ public class BookRepoGateway implements BookGateway {
 
     @Override
     public Book delete(UUID id) {
-        Book book = bookEntityMapper.mapFromBookEntity(jpaBookRepo.findById(id).orElseThrow());
+        Book book = bookEntityMapper
+            .mapFromBookEntity(jpaBookRepo.findById(id).orElseThrow(() -> new DomainException("Book not found")));
         jpaBookRepo.deleteById(id);
         return book;
     }

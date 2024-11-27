@@ -2,6 +2,7 @@ package com.app.library.infrastructure.gateway.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.app.library.application.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,9 +28,9 @@ public class FileManager {
             file.delete();
             return s3Client.getUrl(bucketName, imgName).toString();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new ApplicationException("Not able to store image on S3: " + e.getMessage());
         }
-        return "";
+        //return "";
     }
 
     public void deleteImage(String image_url) {

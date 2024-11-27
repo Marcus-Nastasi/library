@@ -39,7 +39,7 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> register(@RequestBody @Valid MemberRequestDto memberRequestDto) {
         Member created = memberUseCase.create(memberDtoMapper.mapFromRequest(memberRequestDto));
         return ResponseEntity
-            .created(URI.create("/api/book/" + created.getId()))
+            .created(URI.create("/api/member/" + created.getId()))
             .body(memberDtoMapper.mapToResponse(created));
     }
 

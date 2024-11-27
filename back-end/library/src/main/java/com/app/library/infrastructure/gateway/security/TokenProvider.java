@@ -1,5 +1,6 @@
 package com.app.library.infrastructure.gateway.security;
 
+import com.app.library.application.exception.ApplicationException;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.*;
@@ -25,7 +26,7 @@ public class TokenProvider {
                 .withExpiresAt(exp())
                 .sign(algorithm);
         } catch (JWTCreationException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new ApplicationException(e.getMessage());
         }
     }
 

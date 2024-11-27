@@ -48,7 +48,7 @@ public class LibrarianController {
         toCreate.setPassword(passwordEncoder.encode(librarianRequestDto.password()));
         Librarian created = librarianUseCase.create(toCreate);
         return ResponseEntity
-            .created(URI.create("/api/book/" + created.getId()))
+            .created(URI.create("/api/librarian/" + created.getId()))
             .body(librarianDtoMapper.mapToResponse(created));
     }
 
