@@ -1,6 +1,5 @@
 package com.app.library.infrastructure.entity.rent;
 
-import com.app.library.domain.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

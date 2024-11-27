@@ -2,7 +2,7 @@ package com.app.library.infrastructure.gateway.security;
 
 import com.app.library.application.gateways.security.AuthGateway;
 import com.app.library.domain.entity.librarian.Librarian;
-import com.app.library.infrastructure.mappers.librarian.LibrarianEntityMapper;
+import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
 
 public class AuthRepoGateway implements AuthGateway {

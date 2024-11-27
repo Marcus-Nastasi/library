@@ -2,7 +2,7 @@ package com.app.library.infrastructure.gateway.book;
 
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.domain.entity.book.Book;
-import com.app.library.infrastructure.mappers.book.BookEntityMapper;
+import com.app.library.infrastructure.mapper.book.BookEntityMapper;
 import com.app.library.infrastructure.persistence.book.JpaBookRepo;
 
 import java.util.List;

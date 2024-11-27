@@ -4,7 +4,7 @@ import com.app.library.adapters.mapper.librarian.LibrarianDtoMapper;
 import com.app.library.application.gateways.librarian.LibrarianGateway;
 import com.app.library.application.usecases.librarian.LibrarianUseCase;
 import com.app.library.infrastructure.gateway.librarian.LibrarianRepoGateway;
-import com.app.library.infrastructure.mappers.librarian.LibrarianEntityMapper;
+import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

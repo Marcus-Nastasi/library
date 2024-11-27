@@ -3,6 +3,7 @@ package com.app.library.application.usecases.rent;
 import com.app.library.application.gateways.rent.RentGateway;
 import com.app.library.domain.entity.rent.Rent;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,8 @@ public class RentUseCase {
     }
 
     public Rent create(Rent rent) {
+        rent.setEmit_date(LocalDate.now());
+        rent.setReturn_date(LocalDate.now().plusDays(7));
         return rentGateway.create(rent);
     }
 

@@ -1,4 +1,4 @@
-package com.app.library.infrastructure.mappers.member;
+package com.app.library.infrastructure.mapper.member;
 
 import com.app.library.domain.entity.member.Member;
 import com.app.library.infrastructure.entity.member.MemberEntity;

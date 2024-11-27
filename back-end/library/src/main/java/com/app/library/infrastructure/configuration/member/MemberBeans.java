@@ -4,7 +4,7 @@ import com.app.library.adapters.mapper.member.MemberDtoMapper;
 import com.app.library.application.gateways.member.MemberGateway;
 import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.infrastructure.gateway.member.MemberRepoGateway;
-import com.app.library.infrastructure.mappers.member.MemberEntityMapper;
+import com.app.library.infrastructure.mapper.member.MemberEntityMapper;
 import com.app.library.infrastructure.persistence.member.JpaMemberRepo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

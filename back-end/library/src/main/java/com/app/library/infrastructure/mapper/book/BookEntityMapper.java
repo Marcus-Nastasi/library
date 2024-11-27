@@ -1,4 +1,4 @@
-package com.app.library.infrastructure.mappers.book;
+package com.app.library.infrastructure.mapper.book;
 
 import com.app.library.domain.entity.book.Book;
 import com.app.library.infrastructure.entity.book.BookEntity;

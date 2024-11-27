@@ -2,7 +2,7 @@ package com.app.library.infrastructure.gateway.librarian;
 
 import com.app.library.application.gateways.librarian.LibrarianGateway;
 import com.app.library.domain.entity.librarian.Librarian;
-import com.app.library.infrastructure.mappers.librarian.LibrarianEntityMapper;
+import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
 
 import java.util.List;

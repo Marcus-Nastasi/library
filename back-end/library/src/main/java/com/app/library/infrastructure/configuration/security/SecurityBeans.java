@@ -4,7 +4,7 @@ import com.app.library.application.gateways.security.AuthGateway;
 import com.app.library.application.usecases.security.AuthUseCase;
 import com.app.library.infrastructure.gateway.security.AuthRepoGateway;
 import com.app.library.infrastructure.gateway.security.TokenProvider;
-import com.app.library.infrastructure.mappers.librarian.LibrarianEntityMapper;
+import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

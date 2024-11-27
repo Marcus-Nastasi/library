@@ -2,7 +2,7 @@ package com.app.library.infrastructure.gateway.rent;
 
 import com.app.library.application.gateways.rent.RentGateway;
 import com.app.library.domain.entity.rent.Rent;
-import com.app.library.infrastructure.mappers.rent.RentEntityMapper;
+import com.app.library.infrastructure.mapper.rent.RentEntityMapper;
 import com.app.library.infrastructure.persistence.rent.JpaRentRepo;
 
 import java.util.List;

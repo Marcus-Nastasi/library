@@ -1,4 +1,4 @@
-package com.app.library.infrastructure.mappers.librarian;
+package com.app.library.infrastructure.mapper.librarian;
 
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.infrastructure.entity.librarian.LibrarianEntity;

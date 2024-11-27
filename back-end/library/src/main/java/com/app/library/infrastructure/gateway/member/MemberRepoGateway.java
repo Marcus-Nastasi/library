@@ -2,7 +2,7 @@ package com.app.library.infrastructure.gateway.member;
 
 import com.app.library.application.gateways.member.MemberGateway;
 import com.app.library.domain.entity.member.Member;
-import com.app.library.infrastructure.mappers.member.MemberEntityMapper;
+import com.app.library.infrastructure.mapper.member.MemberEntityMapper;
 import com.app.library.infrastructure.persistence.member.JpaMemberRepo;
 
 import java.util.List;

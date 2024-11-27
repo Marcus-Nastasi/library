@@ -1,4 +1,4 @@
-package com.app.library.infrastructure.mappers.rent;
+package com.app.library.infrastructure.mapper.rent;
 
 import com.app.library.domain.entity.rent.Rent;
 import com.app.library.infrastructure.entity.rent.RentEntity;
