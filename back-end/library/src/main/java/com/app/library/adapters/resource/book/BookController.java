@@ -5,6 +5,7 @@ import com.app.library.adapters.mapper.book.BookDtoMapper;
 import com.app.library.adapters.output.book.BookResponseDto;
 import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.domain.entity.book.Book;
+import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,8 +29,10 @@ public class BookController {
     }
 
     @GetMapping()
-    public List<Book> getAll() {
-        return bookUseCase.getAll();
+    public BookPaginated getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        if (page < 0) page = 0;
+        if (size < 10) size = 10;
+        return bookUseCase.getAll(page, size);
     }
 
     @GetMapping("/{id}")

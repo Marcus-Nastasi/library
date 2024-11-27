@@ -2,11 +2,14 @@ package com.app.library.infrastructure.gateway.book;
 
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.domain.entity.book.Book;
+import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.exception.DomainException;
+import com.app.library.infrastructure.entity.book.BookEntity;
 import com.app.library.infrastructure.mapper.book.BookEntityMapper;
 import com.app.library.infrastructure.persistence.book.JpaBookRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
 import java.util.UUID;
 
 public class BookRepoGateway implements BookGateway {
@@ -19,8 +22,14 @@ public class BookRepoGateway implements BookGateway {
     }
 
     @Override
-    public List<Book> getAll() {
-        return jpaBookRepo.findAll().stream().map(bookEntityMapper::mapFromBookEntity).toList();
+    public BookPaginated getAll(int page, int size) {
+        Page<BookEntity> bookEntityPage = jpaBookRepo.findAll(PageRequest.of(page, size));
+        return new BookPaginated(
+            bookEntityPage.getNumber(),
+            bookEntityPage.getSize(),
+            bookEntityPage.getTotalPages(),
+            bookEntityPage.map(bookEntityMapper::mapFromBookEntity).toList()
+        );
     }
 
     @Override

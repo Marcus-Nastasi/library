@@ -2,10 +2,10 @@ package com.app.library.application.usecases.book;
 
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.domain.entity.book.Book;
+import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.infrastructure.gateway.aws.FileManager;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.UUID;
 
 public class BookUseCase {
@@ -17,8 +17,8 @@ public class BookUseCase {
         this.fileManager = fileManager;
     }
 
-    public List<Book> getAll() {
-        return bookGateway.getAll();
+    public BookPaginated getAll(int page, int size) {
+        return bookGateway.getAll(page, size);
     }
 
     public Book get(UUID id) {
