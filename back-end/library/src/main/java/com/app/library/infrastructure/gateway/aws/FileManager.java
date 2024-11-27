@@ -2,7 +2,6 @@ package com.app.library.infrastructure.gateway.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,8 +13,11 @@ import java.util.UUID;
 public class FileManager {
     @Value("${aws.bucket.name}")
     private String bucketName;
-    @Autowired
-    private AmazonS3 s3Client;
+    private final AmazonS3 s3Client;
+
+    public FileManager(AmazonS3 s3Client) {
+        this.s3Client = s3Client;
+    }
 
     public String uploadImage(MultipartFile multipartFile) {
         String imgName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();

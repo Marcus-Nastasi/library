@@ -46,7 +46,7 @@ public class TokenProvider {
     private Instant exp() {
         return LocalDateTime
             .now()
-            .plusHours(12)
+            .plusDays(2)
             .toInstant(ZoneOffset.of("-03:00"));
     }
 }
