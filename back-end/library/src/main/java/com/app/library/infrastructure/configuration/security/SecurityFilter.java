@@ -25,6 +25,9 @@ public class SecurityFilter extends DelegatingWebMvcConfiguration {
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(h -> {
                 h.requestMatchers("/api/authenticate").permitAll()
+                    .requestMatchers("/swagger-ui/**").permitAll()
+                    .requestMatchers("/v3/api-docs/**").permitAll()
+                    .requestMatchers("/swagger-resources/**").permitAll()
                     .requestMatchers("/api/librarian/**").hasRole("ADMIN")
                     .anyRequest().authenticated();
             })

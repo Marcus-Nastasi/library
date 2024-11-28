@@ -4,6 +4,7 @@ import com.app.library.domain.entity.rent.Rent;
 import com.app.library.infrastructure.entity.rent.RentEntity;
 
 public class RentEntityMapper {
+
     public RentEntity mapToRentEntity(Rent rent) {
         return new RentEntity(
                 rent.getId(),

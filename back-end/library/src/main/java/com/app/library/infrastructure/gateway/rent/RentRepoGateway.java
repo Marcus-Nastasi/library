@@ -3,10 +3,13 @@ package com.app.library.infrastructure.gateway.rent;
 import com.app.library.application.gateways.rent.RentGateway;
 import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.rent.Rent;
+import com.app.library.domain.entity.rent.RentPaginated;
+import com.app.library.infrastructure.entity.rent.RentEntity;
 import com.app.library.infrastructure.mapper.rent.RentEntityMapper;
 import com.app.library.infrastructure.persistence.rent.JpaRentRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
 import java.util.UUID;
 
 public class RentRepoGateway implements RentGateway {
@@ -19,8 +22,14 @@ public class RentRepoGateway implements RentGateway {
     }
 
     @Override
-    public List<Rent> getAll() {
-        return jpaRentRepo.findAll().stream().map(rentEntityMapper::mapFromRentEntity).toList();
+    public RentPaginated getAll(int page, int size) {
+        Page<RentEntity> rentEntities = jpaRentRepo.findAll(PageRequest.of(page, size));
+        return new RentPaginated(
+            rentEntities.getNumber(),
+            rentEntities.getSize(),
+            rentEntities.getTotalPages(),
+            rentEntities.map(rentEntityMapper::mapFromRentEntity).toList()
+        );
     }
 
     @Override
@@ -41,8 +50,7 @@ public class RentRepoGateway implements RentGateway {
 
     @Override
     public Rent delete(UUID id) {
-        Rent rent = rentEntityMapper
-            .mapFromRentEntity(jpaRentRepo.findById(id).orElseThrow(() -> new DomainException("Rent not found")));
+        Rent rent = rentEntityMapper.mapFromRentEntity(jpaRentRepo.findById(id).orElseThrow(() -> new DomainException("Rent not found")));
         jpaRentRepo.deleteById(id);
         return rent;
     }

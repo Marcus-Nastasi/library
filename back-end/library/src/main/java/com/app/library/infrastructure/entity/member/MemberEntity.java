@@ -1,7 +1,6 @@
 package com.app.library.infrastructure.entity.member;
 
 import com.app.library.domain.entity.member.MemberType;
-import com.app.library.domain.entity.rent.Rent;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 @Table(name = "members")

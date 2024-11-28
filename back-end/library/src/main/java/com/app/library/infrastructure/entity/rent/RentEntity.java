@@ -24,8 +24,4 @@ public class RentEntity {
     private LocalDate return_date;
     private UUID librarian_id;
     private UUID member_id;
-    /*
-    @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;*/
 }

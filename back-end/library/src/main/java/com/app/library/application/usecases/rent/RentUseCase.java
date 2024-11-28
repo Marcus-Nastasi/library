@@ -2,9 +2,9 @@ package com.app.library.application.usecases.rent;
 
 import com.app.library.application.gateways.rent.RentGateway;
 import com.app.library.domain.entity.rent.Rent;
+import com.app.library.domain.entity.rent.RentPaginated;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public class RentUseCase {
@@ -14,8 +14,8 @@ public class RentUseCase {
         this.rentGateway = rentGateway;
     }
 
-    public List<Rent> getAll() {
-        return rentGateway.getAll();
+    public RentPaginated getAll(int page, int size) {
+        return rentGateway.getAll(page, size);
     }
 
     public Rent get(UUID id) {

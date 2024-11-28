@@ -4,6 +4,7 @@ import com.app.library.domain.entity.member.Member;
 import com.app.library.infrastructure.entity.member.MemberEntity;
 
 public class MemberEntityMapper {
+
     public MemberEntity mapToMemberEntity(Member member) {
         return new MemberEntity(
             member.getId(),

@@ -5,12 +5,12 @@ import com.app.library.adapters.mapper.rent.RentDtoMapper;
 import com.app.library.adapters.output.rent.RentResponseDto;
 import com.app.library.application.usecases.rent.RentUseCase;
 import com.app.library.domain.entity.rent.Rent;
+import com.app.library.domain.entity.rent.RentPaginated;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,9 +25,8 @@ public class RentController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<RentResponseDto>> getAll() {
-        return ResponseEntity
-                .ok(rentUseCase.getAll().stream().map(rentDtoMapper::mapToResponse).toList());
+    public ResponseEntity<RentPaginated> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return ResponseEntity.ok(rentUseCase.getAll(page, size));
     }
 
     @GetMapping("/{id}")

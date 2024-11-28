@@ -12,7 +12,6 @@ public class Member {
     private int booksIssued;
     private int booksLimit;
     private String phone;
-    //private List<Rent> rents;
 
     public Member() {}
 
@@ -38,7 +37,6 @@ public class Member {
         this.setBooksIssued(updatedMember.getBooksIssued());
         this.setBooksLimit(updatedMember.getBooksLimit());
         this.setPhone(updatedMember.getPhone());
-        //this.setRents(updatedMember.getRents());
         return updatedMember;
     }
 
