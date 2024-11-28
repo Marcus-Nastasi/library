@@ -4,7 +4,7 @@
 
 Library Management System.
 
-This is an application developed to facilitate the library management.
+This is an application developed to facilitate the library management, designed on clean architecture.
 
 The application allows for all crud operations to books (with S3 integration for images), members, librarians and rents.
 
