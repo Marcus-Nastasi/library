@@ -14,15 +14,14 @@ Additionally, the API is documented with Swagger API to make the available route
 
 ## Entity model
 
-
 ## Techs
 
 ### Architecture
-- **Clean Architecture**: Isolated domain, onion architecture
+- **Architecture**: Clean Architecture, Isolated domain
 
 ### Back-end
 - **Framework**: Spring Framework
-- **Language**: Java
+- **Language**: Java 21
 - **Tests**: JUnit and Mockito
 
 ### Database
@@ -46,36 +45,39 @@ Follow the steps below to set up and run the project on your local machine.
 
 ## Steps
 
-**Make sure you have opened the ports 8080, 3000 and 5432 on your machine locally**
+**Make sure you have opened the ports 8080 and 5432 on your machine locally**
 
 1. **Clone this repo:**
    ```bash
    git clone https://github.com/Marcus-Nastasi/library.git
 
-- **Configure the 'application.properties' file on '/src/main/resources':**
+2. **Configure the 'application.properties' file on '/src/main/resources':**
    ```bash
-   spring.application.name=todos
+    spring.application.name=library
 
-   # Hibernate properties 
-   spring.jpa.hibernate.show-sql=true
-   spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
-   spring.datasource.username=postgres
-   spring.datasource.password=123
-   spring.datasource.driver-class-name=org.postgresql.Driver
-   spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
-   spring.jpa.hibernate.ddl-auto=update
-   
-   # Security config
-   spring.security.token.secret = [your_token_secret].
+    spring.datasource.url=jdbc:postgresql://localhost:5432/library
+    spring.datasource.username= [your_pg_username]
+    spring.datasource.password= [your_pg_password]
+    spring.datasource.driver-class-name=org.postgresql.Driver
 
-4. **Run the application with Docker: Ensure you're in the project's root directory and execute Docker Compose to start all services automatically:**
+    spring.jpa.hibernate.ddl-auto=update
+    spring.jpa.show-sql=true
+    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+    spring.main.allow-circular-references=true
+
+    # AWS S3 Image Bucket
+    aws.region = [your_aws_region]
+    aws.accessKeyId = [your_aws_access_key]
+    aws.secretKey = [your_aws_secret_key]
+    aws.bucket.name = [your_aws_bucketname]
+
+    # spring security + jwt
+    spring.security.token.secret = [your_token_secret]
+
+3. **Run the application with Docker: Ensure you're in the project's root directory and execute Docker Compose to start all services automatically:**
     ```bash
     [sudo] docker-compose up --d
 
-5. **Wait for the build to complete and access the application: Once the build is finished, the application will be available in your browser:**
+4. **Wait for the build to complete and access the application: Once the build is finished, the application will be available in your browser:**
    ```bash
     http://localhost:8080/
-
-6. **You can access the API documentation created with Swagger at the route:**
-   ```bash
-    http://localhost:8080/swagger-ui/index.html
