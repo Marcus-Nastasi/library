@@ -2,9 +2,9 @@ package com.app.library.application.usecases.member;
 
 import com.app.library.application.gateways.member.MemberGateway;
 import com.app.library.domain.entity.member.Member;
+import com.app.library.domain.entity.member.MemberPaginated;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public class MemberUseCase {
@@ -14,8 +14,8 @@ public class MemberUseCase {
         this.memberGateway = memberGateway;
     }
 
-    public List<Member> getAll() {
-        return memberGateway.getAll();
+    public MemberPaginated getAll(int page, int size) {
+        return memberGateway.getAll(page, size);
     }
 
     public Member get(UUID id) {

@@ -5,12 +5,12 @@ import com.app.library.adapters.mapper.member.MemberDtoMapper;
 import com.app.library.adapters.output.member.MemberResponseDto;
 import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.member.Member;
+import com.app.library.domain.entity.member.MemberPaginated;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,9 +25,8 @@ public class MemberController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<MemberResponseDto>> getAll() {
-        return ResponseEntity
-            .ok(memberUseCase.getAll().stream().map(memberDtoMapper::mapToResponse).toList());
+    public ResponseEntity<MemberPaginated> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return ResponseEntity.ok(memberUseCase.getAll(page, size));
     }
 
     @GetMapping("/{id}")
@@ -49,8 +48,7 @@ public class MemberController {
             @RequestBody @Valid MemberRequestDto memberRequestDto
     ) {
         return ResponseEntity
-            .ok(memberDtoMapper.mapToResponse(memberUseCase.update(id, memberDtoMapper.mapFromRequest(memberRequestDto)))
-        );
+            .ok(memberDtoMapper.mapToResponse(memberUseCase.update(id, memberDtoMapper.mapFromRequest(memberRequestDto))));
     }
 
     @DeleteMapping(value = "/delete/{id}")

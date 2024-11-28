@@ -4,7 +4,7 @@ import com.app.library.domain.entity.member.Member;
 import com.app.library.infrastructure.entity.member.MemberEntity;
 
 public class MemberEntityMapper {
-    public MemberEntity mapToLibrarianEntity(Member member) {
+    public MemberEntity mapToMemberEntity(Member member) {
         return new MemberEntity(
             member.getId(),
             member.getName(),
@@ -17,7 +17,7 @@ public class MemberEntityMapper {
         );
     }
 
-    public Member mapFromLibrarianEntity(MemberEntity member) {
+    public Member mapFromMemberEntity(MemberEntity member) {
         return new Member(
             member.getId(),
             member.getName(),

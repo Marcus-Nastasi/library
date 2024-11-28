@@ -18,8 +18,7 @@ public class SecurityController {
 
     @PostMapping()
     public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
-        return ResponseEntity.ok(
-            new LoginResponseDto(authUseCase.login(loginRequestDto.cpf(), loginRequestDto.password()))
-        );
+        return ResponseEntity
+            .ok(new LoginResponseDto(authUseCase.login(loginRequestDto.cpf(), loginRequestDto.password())));
     }
 }
