@@ -13,7 +13,7 @@ The application enables the registration, editing, and deletion of books, member
 Additionally, the API is documented with Swagger API to make the available routes, payloads, and responses easy to understand.
 
 ## Entity model
-![library drawio](https://github.com/user-attachments/assets/1bd27afc-0758-42ef-b12b-ebd9f9b1dc3c)
+![library drawio](https://github.com/user-attachments/assets/8aee0522-798b-49d9-bb71-9594cd3db7c1)
 
 ## Techs
 
