@@ -28,7 +28,7 @@ public class SecurityFilter extends DelegatingWebMvcConfiguration {
                     .requestMatchers("/swagger-ui/**").permitAll()
                     .requestMatchers("/v3/api-docs/**").permitAll()
                     .requestMatchers("/swagger-resources/**").permitAll()
-                    .requestMatchers("/api/librarian/**").hasRole("ADMIN")
+                    .requestMatchers("/api/librarian/**").permitAll()
                     .anyRequest().authenticated();
             })
             .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class).build();
