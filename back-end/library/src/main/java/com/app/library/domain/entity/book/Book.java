@@ -1,15 +1,9 @@
 package com.app.library.domain.entity.book;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Book implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+public class Book {
     private UUID id;
     private String author;
     private String name;

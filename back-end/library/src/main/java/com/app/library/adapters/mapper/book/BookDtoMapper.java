@@ -1,7 +1,6 @@
 package com.app.library.adapters.mapper.book;
 
 import com.app.library.adapters.input.book.BookRequestDto;
-import com.app.library.adapters.output.book.BookPaginatedDto;
 import com.app.library.adapters.output.book.BookResponseDto;
 import com.app.library.domain.entity.book.Book;
 

@@ -1,7 +1,5 @@
 package com.app.library.adapters.output.rent;
 
-import com.app.library.domain.entity.member.Member;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
