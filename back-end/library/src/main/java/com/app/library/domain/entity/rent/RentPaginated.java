@@ -1,8 +1,13 @@
 package com.app.library.domain.entity.rent;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
-public class RentPaginated {
+public class RentPaginated implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private int page;
     private int size;
     private int total;

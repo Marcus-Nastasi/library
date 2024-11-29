@@ -7,6 +7,8 @@ import com.app.library.application.usecases.rent.RentUseCase;
 import com.app.library.domain.entity.rent.Rent;
 import com.app.library.domain.entity.rent.RentPaginated;
 import jakarta.validation.Valid;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,16 +27,19 @@ public class RentController {
     }
 
     @GetMapping()
-    public ResponseEntity<RentPaginated> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
-        return ResponseEntity.ok(rentUseCase.getAll(page, size));
+    @Cacheable("rents")
+    public RentPaginated getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return rentUseCase.getAll(page, size);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RentResponseDto> get(@PathVariable UUID id) {
-        return ResponseEntity.ok(rentDtoMapper.mapToResponse(rentUseCase.get(id)));
+    @Cacheable("rents")
+    public RentResponseDto get(@PathVariable UUID id) {
+        return rentDtoMapper.mapToResponse(rentUseCase.get(id));
     }
 
     @PostMapping(value = "/register")
+    @CacheEvict(value = "rents", allEntries = true)
     public ResponseEntity<RentResponseDto> register(@RequestBody @Valid RentRequestDto rentRequestDto) {
         Rent created = rentUseCase.create(rentDtoMapper.mapFromRequest(rentRequestDto));
         return ResponseEntity
@@ -43,15 +48,14 @@ public class RentController {
     }
 
     @PatchMapping(value = "/update/{id}")
-    public ResponseEntity<RentResponseDto> update(
-            @PathVariable UUID id,
-            @RequestBody @Valid RentRequestDto rentRequestDto
-    ) {
+    @CacheEvict(value = "rents", allEntries = true)
+    public ResponseEntity<RentResponseDto> update(@PathVariable UUID id, @RequestBody @Valid RentRequestDto rentRequestDto) {
         return ResponseEntity
             .ok(rentDtoMapper.mapToResponse(rentUseCase.update(id, rentDtoMapper.mapFromRequest(rentRequestDto))));
     }
 
     @DeleteMapping(value = "/delete/{id}")
+    @CacheEvict(value = "rents", allEntries = true)
     public ResponseEntity<RentResponseDto> delete(@PathVariable UUID id) {
         return ResponseEntity.ok(rentDtoMapper.mapToResponse(rentUseCase.delete(id)));
     }

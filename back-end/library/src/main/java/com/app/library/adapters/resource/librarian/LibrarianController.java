@@ -30,20 +30,17 @@ public class LibrarianController {
     }
 
     @GetMapping()
-    @Cacheable("librarians")
     public ResponseEntity<List<LibrarianResponseDto>> getAll() {
         return ResponseEntity
             .ok(librarianUseCase.getAll().stream().map(librarianDtoMapper::mapToResponse).toList());
     }
 
     @GetMapping("/{id}")
-    @Cacheable("librarians")
     public ResponseEntity<LibrarianResponseDto> get(@PathVariable UUID id) {
         return ResponseEntity.ok(librarianDtoMapper.mapToResponse(librarianUseCase.get(id)));
     }
 
     @PostMapping(value = "/register")
-    @CacheEvict(value = "librarians", allEntries = true)
     public ResponseEntity<LibrarianResponseDto> register(@RequestBody @Valid LibrarianRequestDto librarianRequestDto) {
         Librarian toCreate = librarianDtoMapper.mapFromRequest(librarianRequestDto);
         toCreate.setPassword(passwordEncoder.encode(librarianRequestDto.password()));
@@ -54,7 +51,6 @@ public class LibrarianController {
     }
 
     @PatchMapping(value = "/update/{id}")
-    @CacheEvict(value = "librarians", allEntries = true)
     public ResponseEntity<LibrarianResponseDto> update(@PathVariable UUID id, @RequestBody @Valid LibrarianRequestDto librarianRequestDto) {
         Librarian toUpdate = librarianDtoMapper.mapFromRequest(librarianRequestDto);
         toUpdate.setPassword(passwordEncoder.encode(librarianRequestDto.password()));
@@ -63,7 +59,6 @@ public class LibrarianController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    @CacheEvict(value = "librarians", allEntries = true)
     public ResponseEntity<LibrarianResponseDto> delete(@PathVariable UUID id) {
         return ResponseEntity.ok(librarianDtoMapper.mapToResponse(librarianUseCase.delete(id)));
     }
