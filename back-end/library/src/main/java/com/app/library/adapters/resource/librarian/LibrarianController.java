@@ -53,9 +53,10 @@ public class LibrarianController {
             @PathVariable UUID id,
             @RequestBody @Valid LibrarianRequestDto librarianRequestDto
     ) {
-        return ResponseEntity.ok(librarianDtoMapper
-            .mapToResponse(librarianUseCase.update(id, librarianDtoMapper.mapFromRequest(librarianRequestDto)))
-        );
+        Librarian toUpdate = librarianDtoMapper.mapFromRequest(librarianRequestDto);
+        toUpdate.setPassword(passwordEncoder.encode(librarianRequestDto.password()));
+        Librarian updated = librarianUseCase.update(id, librarianDtoMapper.mapFromRequest(librarianRequestDto));
+        return ResponseEntity.ok(librarianDtoMapper.mapToResponse(updated));
     }
 
     @DeleteMapping(value = "/delete/{id}")

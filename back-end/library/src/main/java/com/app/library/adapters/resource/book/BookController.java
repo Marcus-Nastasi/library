@@ -8,6 +8,8 @@ import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
 import jakarta.validation.Valid;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,7 @@ public class BookController {
     }
 
     @GetMapping()
+    @Cacheable("books")
     public BookPaginated getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
         if (page < 0) page = 0;
         if (size < 10) size = 10;
@@ -36,11 +39,13 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
+    @Cacheable("books")
     public Book get(@PathVariable UUID id) {
         return bookUseCase.get(id);
     }
 
     @PostMapping(value = "/register")
+    @CacheEvict(value = "books", allEntries = true)
     public ResponseEntity<BookResponseDto> register(
             @RequestParam("author") String author,
             @RequestParam("name") String name,
@@ -71,12 +76,14 @@ public class BookController {
     }
 
     @PatchMapping(value = "/update/{id}")
+    @CacheEvict(value = "books", allEntries = true)
     public ResponseEntity<BookResponseDto> update(@PathVariable UUID id, @RequestBody @Valid BookRequestDto bookRequestDto) {
         return ResponseEntity
             .ok(bookDtoMapper.mapToResponse(bookUseCase.update(id, bookDtoMapper.mapFromRequest(bookRequestDto))));
     }
 
     @DeleteMapping(value = "/delete/{id}")
+    @CacheEvict(value = "books", allEntries = true)
     public ResponseEntity<BookResponseDto> delete(@PathVariable UUID id) {
         return ResponseEntity.ok(bookDtoMapper.mapToResponse(bookUseCase.delete(id)));
     }

@@ -1,3 +1,47 @@
+# version: '3.8'
+
+# services:
+#   app:
+#     build:
+#       context: ../back-end/library
+#       dockerfile: Dockerfile
+#     container_name: library-back
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+#       SPRING_DATASOURCE_USERNAME: postgres
+#       SPRING_DATASOURCE_PASSWORD: 123
+#     depends_on:
+#       - db
+#     networks:
+#       - app-network
+
+#   db:
+#     image: postgres:15
+#     container_name: postgres-library
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       POSTGRES_DB: postgres
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: 123
+#     volumes:
+#       - postgres-data:/var/lib/postgresql/data
+#     networks:
+#       - app-network
+
+#   spring:
+#   redis:
+#     host: localhost
+#     port: 6379
+
+# networks:
+#   app-network: 
+#     driver: bridge
+
+# volumes:
+#   postgres-data: 
 version: '3.8'
 
 services:
@@ -12,8 +56,12 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123
+      SPRING_CACHE_TYPE: redis
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
     depends_on:
       - db
+      - redis
     networks:
       - app-network
 
@@ -28,6 +76,14 @@ services:
       POSTGRES_PASSWORD: 123
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  redis:
+    image: redis:latest
+    container_name: redis-library
+    ports:
+      - "6379:6379"
     networks:
       - app-network
 
