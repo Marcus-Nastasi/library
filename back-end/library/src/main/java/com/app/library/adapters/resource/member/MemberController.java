@@ -7,6 +7,8 @@ import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.member.MemberPaginated;
 import jakarta.validation.Valid;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,24 +27,27 @@ public class MemberController {
     }
 
     @GetMapping()
-    public ResponseEntity<MemberPaginated> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
-        return ResponseEntity.ok(memberUseCase.getAll(page, size));
+    @Cacheable("members")
+    public MemberPaginated getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return memberUseCase.getAll(page, size);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MemberResponseDto> get(@PathVariable UUID id) {
-        return ResponseEntity.ok(memberDtoMapper.mapToResponse(memberUseCase.get(id)));
+    @Cacheable("members")
+    public MemberResponseDto get(@PathVariable UUID id) {
+        return memberDtoMapper.mapToResponse(memberUseCase.get(id));
     }
 
     @PostMapping(value = "/register")
+    @CacheEvict(value = "members", allEntries = true)
     public ResponseEntity<MemberResponseDto> register(@RequestBody @Valid MemberRequestDto memberRequestDto) {
         Member created = memberUseCase.create(memberDtoMapper.mapFromRequest(memberRequestDto));
         return ResponseEntity
-            .created(URI.create("/api/member/" + created.getId()))
-            .body(memberDtoMapper.mapToResponse(created));
+            .created(URI.create("/api/member/" + created.getId())).body(memberDtoMapper.mapToResponse(created));
     }
 
     @PatchMapping(value = "/update/{id}")
+    @CacheEvict(value = "members", allEntries = true)
     public ResponseEntity<MemberResponseDto> update(
             @PathVariable UUID id,
             @RequestBody @Valid MemberRequestDto memberRequestDto
@@ -52,6 +57,7 @@ public class MemberController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
+    @CacheEvict(value = "members", allEntries = true)
     public ResponseEntity<MemberResponseDto> delete(@PathVariable UUID id) {
         return ResponseEntity.ok(memberDtoMapper.mapToResponse(memberUseCase.delete(id)));
     }

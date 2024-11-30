@@ -2,6 +2,7 @@ package com.app.library.adapters.output.member;
 
 import com.app.library.domain.entity.member.MemberType;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -14,4 +15,4 @@ public record MemberResponseDto(
         int booksIssued,
         int booksLimit,
         String phone
-) {}
+) implements Serializable {}
