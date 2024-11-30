@@ -28,6 +28,9 @@ Additionally, the API is documented with Swagger API to make the available route
 ### Database
 - **Database**: PostgreSQL
 
+### Cache
+- **Cache tool**: Redis
+
 ### API Documentation
 - **Tool**: Swagger API
 
@@ -46,7 +49,7 @@ Follow the steps below to set up and run the project on your local machine.
 
 ## Steps
 
-**Make sure you have opened the ports 8080 and 5432 on your machine locally**
+**Make sure you have opened the ports 8080 (application), 5432 (postgres) and 6379 (redis) on your machine locally**
 
 1. **Clone this repo:**
    ```bash
@@ -75,10 +78,17 @@ Follow the steps below to set up and run the project on your local machine.
     # spring security + jwt
     spring.security.token.secret = [your_token_secret]
 
-3. **Run the application with Docker: Ensure you're in the project's root directory and execute Docker Compose to start all services automatically:**
-    ```bash
-    [sudo] docker-compose up --d
+    # Cache
+    spring.cache.type = redis
+    spring.redis.host = redis
+    spring.redis.port = 6379
+    spring.data.redis.repositories.enabled=false
+    logging.level.org.springframework.data.redis=DEBUG
 
-4. **Wait for the build to complete and access the application: Once the build is finished, the application will be available in your browser:**
+3. **Run the application with Docker: Ensure you're in the project's root directory, access Docker folder, and execute Docker Compose to start all services automatically:**
+    ```bash
+    [sudo] docker-compose up -d
+
+4. **Wait for the build to complete and access the application: Once the build is finished, the application will be available to requests by http clients on:**
    ```bash
     http://localhost:8080/
