@@ -33,12 +33,9 @@ public class LibraryApplication {
 			.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(h -> {
 				h.requestMatchers("/api/authenticate").permitAll()
-					.requestMatchers("/swagger-ui/**").permitAll()
-					.requestMatchers("/v3/api-docs/**").permitAll()
-					.requestMatchers("/swagger-resources/**").permitAll()
+					.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
 					.requestMatchers("/api/librarian/**").permitAll()
 					.anyRequest().authenticated();
-			})
-			.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class).build();
+			}).addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
 }

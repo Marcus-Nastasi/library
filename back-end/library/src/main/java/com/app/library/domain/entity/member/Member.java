@@ -1,9 +1,14 @@
 package com.app.library.domain.entity.member;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Member {
+public class Member implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private UUID id;
     private String name;
     private String cpf;
