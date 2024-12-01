@@ -10,4 +10,6 @@ public interface JpaLibrarianRepo extends JpaRepository<LibrarianEntity, UUID> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM librarians WHERE(cpf=?1)")
     LibrarianEntity findByCpf(String cpf);
+
+    LibrarianEntity findByName(String name);
 }

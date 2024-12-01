@@ -9,5 +9,5 @@ public record LibrarianRequestDto(
         String name,
         String cpf,
         String password,
-        UserRole userRole
+        UserRole role
 ) {}

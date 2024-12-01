@@ -31,8 +31,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ForbiddenException.class)
     public ResponseEntity<Object> handleForbiddenException(ForbiddenException exception, WebRequest request) {
         return ResponseEntity
-            .status(HttpStatus.FORBIDDEN)
-            .body(Map.of("error", exception.getMessage()));
+            .status(HttpStatus.FORBIDDEN).build();
     }
 
     @ExceptionHandler(RuntimeException.class)

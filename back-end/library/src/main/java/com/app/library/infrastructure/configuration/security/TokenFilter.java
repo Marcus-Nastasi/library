@@ -29,7 +29,7 @@ public class TokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             HttpServletRequest request,
             HttpServletResponse response, FilterChain filterChain
-    ) throws ServletException, IOException {
+    ) {
         String token = recover(request);
         try {
             if (token != null) {
@@ -40,7 +40,7 @@ public class TokenFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-            throw new ForbiddenException("Forbidden");
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 

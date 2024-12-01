@@ -10,5 +10,5 @@ public record LibrarianResponseDto(
         String name,
         String cpf,
         String password,
-        UserRole userRole
+        UserRole role
 ) implements Serializable {}

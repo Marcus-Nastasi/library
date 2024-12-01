@@ -56,7 +56,7 @@ public class LibrarianController {
     public ResponseEntity<LibrarianResponseDto> update(@PathVariable UUID id, @RequestBody @Valid LibrarianRequestDto librarianRequestDto) {
         Librarian toUpdate = librarianDtoMapper.mapFromRequest(librarianRequestDto);
         toUpdate.setPassword(passwordEncoder.encode(librarianRequestDto.password()));
-        Librarian updated = librarianUseCase.update(id, librarianDtoMapper.mapFromRequest(librarianRequestDto));
+        Librarian updated = librarianUseCase.update(id, toUpdate);
         return ResponseEntity.ok(librarianDtoMapper.mapToResponse(updated));
     }
 

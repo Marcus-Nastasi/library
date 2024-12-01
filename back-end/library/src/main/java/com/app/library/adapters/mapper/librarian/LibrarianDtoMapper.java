@@ -21,7 +21,7 @@ public class LibrarianDtoMapper {
             librarianRequestDto.name(),
             librarianRequestDto.cpf(),
             librarianRequestDto.password(),
-            librarianRequestDto.userRole()
+            librarianRequestDto.role()
         );
     }
 }
