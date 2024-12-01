@@ -1,10 +1,15 @@
 package com.app.library.infrastructure.gateway.librarian;
 
 import com.app.library.application.gateways.librarian.LibrarianGateway;
+import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.librarian.Librarian;
+import com.app.library.domain.entity.librarian.LibrarianPaginated;
+import com.app.library.infrastructure.entity.librarian.LibrarianEntity;
 import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,8 +24,14 @@ public class LibrarianRepoGateway implements LibrarianGateway {
     }
 
     @Override
-    public List<Librarian> getAll() {
-        return jpaLibrarianRepo.findAll().stream().map(librarianEntityMapper::mapFromLibrarianEntity).toList();
+    public LibrarianPaginated getAll(int page, int size) {
+        Page<LibrarianEntity> librarianEntities = jpaLibrarianRepo.findAll(PageRequest.of(page, size));
+        return new LibrarianPaginated(
+            librarianEntities.getNumber(),
+            librarianEntities.getSize(),
+            librarianEntities.getTotalPages(),
+            librarianEntities.map(librarianEntityMapper::mapFromLibrarianEntity).toList()
+        );
     }
 
     @Override

@@ -1,8 +1,13 @@
 package com.app.library.domain.entity.librarian;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Librarian {
+public class Librarian implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private UUID id;
     private String name;
     private String cpf;

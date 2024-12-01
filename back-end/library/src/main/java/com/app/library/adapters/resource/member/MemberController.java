@@ -29,6 +29,8 @@ public class MemberController {
     @GetMapping()
     @Cacheable("members")
     public MemberPaginated getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        if (page < 0) page = 0;
+        if (size < 10) size = 10;
         return memberUseCase.getAll(page, size);
     }
 
@@ -48,10 +50,7 @@ public class MemberController {
 
     @PatchMapping(value = "/update/{id}")
     @CacheEvict(value = "members", allEntries = true)
-    public ResponseEntity<MemberResponseDto> update(
-            @PathVariable UUID id,
-            @RequestBody @Valid MemberRequestDto memberRequestDto
-    ) {
+    public ResponseEntity<MemberResponseDto> update(@PathVariable UUID id, @RequestBody @Valid MemberRequestDto memberRequestDto) {
         return ResponseEntity
             .ok(memberDtoMapper.mapToResponse(memberUseCase.update(id, memberDtoMapper.mapFromRequest(memberRequestDto))));
     }

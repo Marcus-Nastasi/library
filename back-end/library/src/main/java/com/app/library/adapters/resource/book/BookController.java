@@ -71,8 +71,7 @@ public class BookController {
         );
         Book created = bookUseCase.create(bookDtoMapper.mapFromRequest(bookRequestDto), image);
         return ResponseEntity
-            .created(URI.create("/api/book/" + created.getId()))
-            .body(bookDtoMapper.mapToResponse(created));
+            .created(URI.create("/api/book/" + created.getId())).body(bookDtoMapper.mapToResponse(created));
     }
 
     @PatchMapping(value = "/update/{id}")

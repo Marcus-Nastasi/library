@@ -29,6 +29,8 @@ public class RentController {
     @GetMapping()
     @Cacheable("rents")
     public RentPaginated getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        if (page < 0) page = 0;
+        if (size < 10) size = 10;
         return rentUseCase.getAll(page, size);
     }
 

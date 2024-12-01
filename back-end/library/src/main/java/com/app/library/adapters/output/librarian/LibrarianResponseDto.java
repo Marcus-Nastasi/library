@@ -2,6 +2,7 @@ package com.app.library.adapters.output.librarian;
 
 import com.app.library.domain.entity.librarian.UserRole;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 public record LibrarianResponseDto(
@@ -10,4 +11,4 @@ public record LibrarianResponseDto(
         String cpf,
         String password,
         UserRole userRole
-) {}
+) implements Serializable {}

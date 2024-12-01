@@ -2,9 +2,9 @@ package com.app.library.application.usecases.librarian;
 
 import com.app.library.application.gateways.librarian.LibrarianGateway;
 import com.app.library.domain.entity.librarian.Librarian;
+import com.app.library.domain.entity.librarian.LibrarianPaginated;
 import com.app.library.domain.entity.librarian.UserRole;
 
-import java.util.List;
 import java.util.UUID;
 
 public class LibrarianUseCase {
@@ -14,8 +14,8 @@ public class LibrarianUseCase {
         this.librarianGateway = librarianGateway;
     }
 
-    public List<Librarian> getAll() {
-        return librarianGateway.getAll();
+    public LibrarianPaginated getAll(int page, int size) {
+        return librarianGateway.getAll(page, size);
     }
 
     public Librarian get(UUID id) {
