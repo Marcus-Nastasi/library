@@ -1,4 +1,4 @@
-package com.app.library.infrastructure.configuration.swagger;
+package com.app.library.adapters.resource.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

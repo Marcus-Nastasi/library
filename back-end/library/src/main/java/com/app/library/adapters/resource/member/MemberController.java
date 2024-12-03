@@ -6,6 +6,7 @@ import com.app.library.adapters.output.member.MemberResponseDto;
 import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.member.MemberPaginated;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/member")
+@SecurityRequirement(name = "Bearer Authentication")
 public class MemberController {
     private final MemberUseCase memberUseCase;
     private final MemberDtoMapper memberDtoMapper;

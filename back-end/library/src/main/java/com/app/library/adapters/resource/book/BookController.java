@@ -7,6 +7,7 @@ import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,6 +22,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/book")
+@SecurityRequirement(name = "Bearer Authentication")
 public class BookController {
     private final BookUseCase bookUseCase;
     private final BookDtoMapper bookDtoMapper;

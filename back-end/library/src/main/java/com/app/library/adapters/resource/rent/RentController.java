@@ -6,6 +6,7 @@ import com.app.library.adapters.output.rent.RentResponseDto;
 import com.app.library.application.usecases.rent.RentUseCase;
 import com.app.library.domain.entity.rent.Rent;
 import com.app.library.domain.entity.rent.RentPaginated;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/rent")
+@SecurityRequirement(name = "Bearer Authentication")
 public class RentController {
     private final RentUseCase rentUseCase;
     private final RentDtoMapper rentDtoMapper;

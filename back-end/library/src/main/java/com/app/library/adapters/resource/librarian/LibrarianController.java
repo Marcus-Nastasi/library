@@ -7,6 +7,7 @@ import com.app.library.application.usecases.librarian.LibrarianUseCase;
 import com.app.library.application.usecases.util.PasswordUseCase;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.domain.entity.librarian.LibrarianPaginated;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/librarian")
+@SecurityRequirement(name = "Bearer Authentication")
 public class LibrarianController {
     private final LibrarianUseCase librarianUseCase;
     private final LibrarianDtoMapper librarianDtoMapper;
