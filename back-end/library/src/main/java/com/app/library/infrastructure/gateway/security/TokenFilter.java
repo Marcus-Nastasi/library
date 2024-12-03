@@ -1,7 +1,6 @@
-package com.app.library.infrastructure.configuration.security;
+package com.app.library.infrastructure.gateway.security;
 
 import com.app.library.infrastructure.entity.librarian.LibrarianEntity;
-import com.app.library.infrastructure.gateway.security.TokenProvider;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,10 +21,7 @@ public class TokenFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response, FilterChain filterChain
-    ) {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         String token = recover(request);
         try {
             if (token != null) {

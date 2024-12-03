@@ -1,6 +1,6 @@
 package com.app.library;
 
-import com.app.library.infrastructure.configuration.security.TokenFilter;
+import com.app.library.infrastructure.gateway.security.TokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableCaching
 @EnableJpaRepositories(basePackages = "com.app.library.infrastructure.persistence")
 public class LibraryApplication {
-
 	@Autowired
 	private TokenFilter tokenFilter;
 
@@ -34,7 +33,7 @@ public class LibraryApplication {
 			.authorizeHttpRequests(h -> {
 				h.requestMatchers("/api/authenticate").permitAll()
 					.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
-					.requestMatchers("/api/librarian/**").permitAll()
+					.requestMatchers("/api/librarian/**").hasRole("ADMIN")
 					.anyRequest().authenticated();
 			}).addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}

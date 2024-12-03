@@ -47,8 +47,7 @@ public class LibrarianController {
         Librarian toCreate = librarianDtoMapper.mapFromRequest(librarianRequestDto);
         toCreate.setPassword(passwordEncoder.encode(librarianRequestDto.password()));
         Librarian created = librarianUseCase.create(toCreate);
-        return ResponseEntity
-            .created(URI.create("/api/librarian/" + created.getId())).body(librarianDtoMapper.mapToResponse(created));
+        return ResponseEntity.created(URI.create("/api/librarian/" + created.getId())).body(librarianDtoMapper.mapToResponse(created));
     }
 
     @PatchMapping(value = "/update/{id}")

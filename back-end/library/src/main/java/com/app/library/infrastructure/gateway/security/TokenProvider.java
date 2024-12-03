@@ -19,7 +19,7 @@ public class TokenProvider {
     public String generate(String cpf) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            return  JWT
+            return JWT
                 .create()
                 .withIssuer("library-api")
                 .withSubject(cpf)
