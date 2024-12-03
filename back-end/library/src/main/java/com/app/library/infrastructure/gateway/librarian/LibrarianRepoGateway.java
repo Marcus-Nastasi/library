@@ -34,12 +34,13 @@ public class LibrarianRepoGateway implements LibrarianGateway {
 
     @Override
     public Librarian get(UUID id) {
-        return librarianEntityMapper
-            .mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
+        return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
     }
 
     @Override
     public Librarian create(Librarian librarian) {
+        LibrarianEntity found = jpaLibrarianRepo.findByCpf(librarian.getCpf());
+        if (found != null) throw new DomainException("this CPF is already on our records, you cannot register the same CPF again");
         return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.save(librarianEntityMapper.mapToLibrarianEntity(librarian)));
     }
 
@@ -50,8 +51,7 @@ public class LibrarianRepoGateway implements LibrarianGateway {
 
     @Override
     public Librarian delete(UUID id) {
-        Librarian librarian = librarianEntityMapper
-            .mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
+        Librarian librarian = librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
         jpaLibrarianRepo.deleteById(id);
         return librarian;
     }
