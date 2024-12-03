@@ -3,8 +3,8 @@ package com.app.library.adapters.resource.librarian;
 import com.app.library.adapters.input.librarian.LibrarianRequestDto;
 import com.app.library.adapters.mapper.librarian.LibrarianDtoMapper;
 import com.app.library.adapters.output.librarian.LibrarianResponseDto;
-import com.app.library.application.gateways.util.PasswordEncoderGateway;
 import com.app.library.application.usecases.librarian.LibrarianUseCase;
+import com.app.library.application.usecases.util.PasswordUseCase;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.domain.entity.librarian.LibrarianPaginated;
 import jakarta.validation.Valid;
@@ -21,9 +21,9 @@ import java.util.UUID;
 public class LibrarianController {
     private final LibrarianUseCase librarianUseCase;
     private final LibrarianDtoMapper librarianDtoMapper;
-    private final PasswordEncoderGateway passwordEncoder;
+    private final PasswordUseCase passwordEncoder;
 
-    public LibrarianController(LibrarianUseCase librarianUseCase, LibrarianDtoMapper librarianDtoMapper, PasswordEncoderGateway passwordEncoder) {
+    public LibrarianController(LibrarianUseCase librarianUseCase, LibrarianDtoMapper librarianDtoMapper, PasswordUseCase passwordEncoder) {
         this.librarianUseCase = librarianUseCase;
         this.librarianDtoMapper = librarianDtoMapper;
         this.passwordEncoder = passwordEncoder;
