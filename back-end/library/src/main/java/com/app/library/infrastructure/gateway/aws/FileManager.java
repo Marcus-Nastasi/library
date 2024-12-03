@@ -30,7 +30,6 @@ public class FileManager {
         } catch (Exception e) {
             throw new ApplicationException("Not able to store image on S3: " + e.getMessage());
         }
-        //return "";
     }
 
     public void deleteImage(String image_url) {

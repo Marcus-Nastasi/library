@@ -57,21 +57,9 @@ public class BookController {
             @RequestParam("dateOfPublish") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfPublish,
             @RequestParam("image") MultipartFile image
     ) {
-        BookRequestDto bookRequestDto = new BookRequestDto(
-            null,
-            author,
-            name,
-            price,
-            quantity,
-            null,
-            isAvailable,
-            type,
-            edition,
-            dateOfPublish
-        );
+        BookRequestDto bookRequestDto = new BookRequestDto(null, author, name, price, quantity, null, isAvailable, type, edition, dateOfPublish);
         Book created = bookUseCase.create(bookDtoMapper.mapFromRequest(bookRequestDto), image);
-        return ResponseEntity
-            .created(URI.create("/api/book/" + created.getId())).body(bookDtoMapper.mapToResponse(created));
+        return ResponseEntity.created(URI.create("/api/book/" + created.getId())).body(bookDtoMapper.mapToResponse(created));
     }
 
     @PatchMapping(value = "/update/{id}")
