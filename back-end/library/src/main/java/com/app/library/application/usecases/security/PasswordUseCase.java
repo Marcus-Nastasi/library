@@ -1,6 +1,6 @@
-package com.app.library.application.usecases.util;
+package com.app.library.application.usecases.security;
 
-import com.app.library.application.gateways.util.PasswordEncoderGateway;
+import com.app.library.application.gateways.security.PasswordEncoderGateway;
 
 public class PasswordUseCase {
     private final PasswordEncoderGateway passwordEncoder;

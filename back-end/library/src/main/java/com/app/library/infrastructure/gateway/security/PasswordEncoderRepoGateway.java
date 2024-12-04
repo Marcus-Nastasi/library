@@ -1,6 +1,6 @@
-package com.app.library.infrastructure.gateway.util;
+package com.app.library.infrastructure.gateway.security;
 
-import com.app.library.application.gateways.util.PasswordEncoderGateway;
+import com.app.library.application.gateways.security.PasswordEncoderGateway;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class PasswordEncoderRepoGateway implements PasswordEncoderGateway {

@@ -4,7 +4,7 @@ import com.app.library.adapters.input.librarian.LibrarianRequestDto;
 import com.app.library.adapters.mapper.librarian.LibrarianDtoMapper;
 import com.app.library.adapters.output.librarian.LibrarianResponseDto;
 import com.app.library.application.usecases.librarian.LibrarianUseCase;
-import com.app.library.application.usecases.util.PasswordUseCase;
+import com.app.library.application.usecases.security.PasswordUseCase;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.domain.entity.librarian.LibrarianPaginated;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
