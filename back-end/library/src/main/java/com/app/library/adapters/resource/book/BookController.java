@@ -67,8 +67,7 @@ public class BookController {
     @PatchMapping(value = "/update/{id}")
     @CacheEvict(value = "books", allEntries = true)
     public ResponseEntity<BookResponseDto> update(@PathVariable UUID id, @RequestBody @Valid BookRequestDto bookRequestDto) {
-        return ResponseEntity
-            .ok(bookDtoMapper.mapToResponse(bookUseCase.update(id, bookDtoMapper.mapFromRequest(bookRequestDto))));
+        return ResponseEntity.ok(bookDtoMapper.mapToResponse(bookUseCase.update(id, bookDtoMapper.mapFromRequest(bookRequestDto))));
     }
 
     @DeleteMapping(value = "/delete/{id}")

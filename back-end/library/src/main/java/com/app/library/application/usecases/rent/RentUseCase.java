@@ -34,8 +34,6 @@ public class RentUseCase {
     }
 
     public Rent delete(UUID id) {
-        Rent rent = get(id);
-        rentGateway.delete(id);
-        return rent;
+        return rentGateway.delete(id);
     }
 }

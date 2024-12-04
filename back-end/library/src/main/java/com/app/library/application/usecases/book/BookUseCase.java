@@ -47,6 +47,7 @@ public class BookUseCase {
             fileManager.deleteImage(book.getImage_url());
             return bookGateway.delete(id);
         } catch (Exception e) {
+            e.printStackTrace();
             return bookGateway.delete(id);
         }
     }

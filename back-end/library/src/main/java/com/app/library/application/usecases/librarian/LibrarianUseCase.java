@@ -33,8 +33,6 @@ public class LibrarianUseCase {
     }
 
     public Librarian delete(UUID id) {
-        Librarian librarian = get(id);
-        librarianGateway.delete(id);
-        return librarian;
+        return librarianGateway.delete(id);
     }
 }

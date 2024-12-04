@@ -1,6 +1,6 @@
 package com.app.library.infrastructure.gateway.security;
 
-import com.app.library.application.exception.ForbiddenException;
+import com.app.library.infrastructure.exception.ForbiddenException;
 import com.app.library.application.gateways.security.AuthGateway;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.infrastructure.entity.librarian.LibrarianEntity;

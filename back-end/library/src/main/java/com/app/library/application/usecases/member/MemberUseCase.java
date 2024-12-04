@@ -33,8 +33,6 @@ public class MemberUseCase {
     }
 
     public Member delete(UUID id) {
-        Member member = get(id);
-        memberGateway.delete(id);
-        return member;
+        return memberGateway.delete(id);
     }
 }

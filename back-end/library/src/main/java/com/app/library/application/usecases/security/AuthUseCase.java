@@ -1,15 +1,14 @@
 package com.app.library.application.usecases.security;
 
-import com.app.library.application.exception.ForbiddenException;
+import com.app.library.infrastructure.exception.ForbiddenException;
 import com.app.library.application.gateways.security.AuthGateway;
-import com.app.library.application.gateways.security.PasswordEncoderGateway;
 import com.app.library.domain.entity.librarian.Librarian;
 
 public class AuthUseCase {
     private final AuthGateway authGateway;
-    private final PasswordEncoderGateway encoder;
+    private final PasswordUseCase encoder;
 
-    public AuthUseCase(AuthGateway authGateway, PasswordEncoderGateway encoder) {
+    public AuthUseCase(AuthGateway authGateway, PasswordUseCase encoder) {
         this.authGateway = authGateway;
         this.encoder = encoder;
     }

@@ -1,7 +1,7 @@
 package com.app.library.adapters.exception;
 
 import com.app.library.application.exception.ApplicationException;
-import com.app.library.application.exception.ForbiddenException;
+import com.app.library.infrastructure.exception.ForbiddenException;
 import com.app.library.domain.entity.exception.DomainException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

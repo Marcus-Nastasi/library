@@ -62,8 +62,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthUseCase authUseCase(AuthGateway authGateway, PasswordEncoderGateway passwordEncoderGateway) {
-        return new AuthUseCase(authGateway, passwordEncoderGateway);
+    public AuthUseCase authUseCase(AuthGateway authGateway, PasswordUseCase passwordUseCase) {
+        return new AuthUseCase(authGateway, passwordUseCase);
     }
 
     @Bean
