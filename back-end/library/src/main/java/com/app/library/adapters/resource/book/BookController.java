@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -58,9 +59,11 @@ public class BookController {
             @RequestParam("edition") String edition,
             @RequestParam("dateOfPublish") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfPublish,
             @RequestParam("image") MultipartFile image
-    ) {
+    ) throws IOException {
         BookRequestDto bookRequestDto = new BookRequestDto(null, author, name, price, quantity, null, isAvailable, type, edition, dateOfPublish);
-        Book created = bookUseCase.create(bookDtoMapper.mapFromRequest(bookRequestDto), image);
+        byte[] fileData = image != null ? image.getBytes() : null;
+        String fileName = image != null ? image.getOriginalFilename() : null;
+        Book created = bookUseCase.create(bookDtoMapper.mapFromRequest(bookRequestDto), fileData, fileName);
         return ResponseEntity.created(URI.create("/api/book/" + created.getId())).body(bookDtoMapper.mapToResponse(created));
     }
 

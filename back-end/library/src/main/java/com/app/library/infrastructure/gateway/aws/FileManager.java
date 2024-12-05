@@ -3,15 +3,13 @@ package com.app.library.infrastructure.gateway.aws;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.app.library.application.exception.ApplicationException;
+import com.app.library.application.gateways.aws.FileManagerGateway;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Objects;
+import java.io.ByteArrayInputStream;
 import java.util.UUID;
 
-public class FileManager {
+public class FileManager implements FileManagerGateway {
     @Value("${aws.bucket.name}")
     private String bucketName;
     private final AmazonS3 s3Client;
@@ -20,29 +18,24 @@ public class FileManager {
         this.s3Client = s3Client;
     }
 
-    public String uploadImage(MultipartFile multipartFile) {
-        String imgName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
+    @Override
+    public String upload(byte[] fileData, String fileName) {
         try {
-            java.io.File file = this.convertMultipartToFile(multipartFile);
-            s3Client.putObject(bucketName, imgName, file);
-            file.delete();
-            return s3Client.getUrl(bucketName, imgName).toString();
+            String uniqueFileName = UUID.randomUUID() + "-" + fileName;
+            s3Client.putObject(bucketName, uniqueFileName, new ByteArrayInputStream(fileData), null);
+            return s3Client.getUrl(bucketName, uniqueFileName).toString();
         } catch (Exception e) {
-            throw new ApplicationException("Not able to store image on S3: " + e.getMessage());
+            throw new ApplicationException("Failed to upload file to S3 > " + e.getMessage());
         }
     }
 
-    public void deleteImage(String image_url) {
+    @Override
+    public void delete(String fileUrl) {
         try {
-            s3Client.deleteObject(new DeleteObjectRequest(bucketName, image_url.substring(image_url.lastIndexOf("/") + 1)));
-        } catch (Exception e) {}
-    }
-
-    private java.io.File convertMultipartToFile(MultipartFile multipartFile) throws IOException {
-        java.io.File convert = new java.io.File(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        FileOutputStream fos = new FileOutputStream(convert);
-        fos.write(multipartFile.getBytes());
-        fos.close();
-        return convert;
+            String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+            s3Client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
+        } catch (Exception e) {
+            throw new ApplicationException("Failed to delete file from S3 > " + e.getMessage());
+        }
     }
 }
