@@ -1,5 +1,6 @@
 package com.app.library.domain.entity.rent;
 
+import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.member.Member;
 
 import java.io.Serial;
@@ -18,7 +19,6 @@ public class Rent implements Serializable {
     private boolean returned;
     private UUID librarian_id;
     private UUID member_id;
-    private Member member;
 
     public Rent updateDetails(Rent updatedRent) {
         if (updatedRent.book_id == null) throw new IllegalArgumentException("Book cannot be null");
@@ -31,7 +31,6 @@ public class Rent implements Serializable {
         this.setReturned(updatedRent.isReturned());
         this.setLibrarian_id(updatedRent.getLibrarian_id());
         this.setMember_id(updatedRent.getMember_id());
-        this.setMember(updatedRent.getMember());
         return updatedRent;
     }
 
@@ -53,14 +52,6 @@ public class Rent implements Serializable {
 
     public void setReturned(boolean returned) {
         this.returned = returned;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
     }
 
     public UUID getId() {
