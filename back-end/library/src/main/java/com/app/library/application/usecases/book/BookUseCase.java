@@ -10,11 +10,11 @@ import java.util.UUID;
 
 public class BookUseCase {
     private final BookGateway bookGateway;
-    private final FileManagerGateway fileManager;
+    private final FileManagerGateway fileManagerGateway;
 
-    public BookUseCase(BookGateway bookGateway, FileManagerGateway fileManager) {
+    public BookUseCase(BookGateway bookGateway, FileManagerGateway fileManagerGateway) {
         this.bookGateway = bookGateway;
-        this.fileManager = fileManager;
+        this.fileManagerGateway = fileManagerGateway;
     }
 
     public BookPaginated getAll(int page, int size) {
@@ -29,7 +29,7 @@ public class BookUseCase {
         book.setImage_url(null);
         Book created = bookGateway.create(book);
         if (fileData != null && fileName != null) {
-            String fileUrl = fileManager.upload(fileData, fileName);
+            String fileUrl = fileManagerGateway.upload(fileData, fileName);
             created.setImage_url(fileUrl);
             return bookGateway.update(created);
         }
@@ -44,7 +44,7 @@ public class BookUseCase {
 
     public Book delete(UUID id) {
         Book book = get(id);
-        if (book.getImage_url() != null) fileManager.delete(book.getImage_url());
+        if (book.getImage_url() != null) fileManagerGateway.delete(book.getImage_url());
         return bookGateway.delete(id);
     }
 

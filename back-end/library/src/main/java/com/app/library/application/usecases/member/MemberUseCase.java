@@ -2,7 +2,6 @@ package com.app.library.application.usecases.member;
 
 import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.member.MemberGateway;
-import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.member.MemberPaginated;
 
@@ -31,6 +30,7 @@ public class MemberUseCase {
 
     public Member update(UUID id, Member member) {
         Member toUpdate = get(id);
+        if (toUpdate == null) throw new ApplicationException("member not found");
         return memberGateway.update(toUpdate.updateDetails(member));
     }
 
