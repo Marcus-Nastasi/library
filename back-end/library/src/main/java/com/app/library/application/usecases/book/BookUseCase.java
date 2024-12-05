@@ -38,6 +38,7 @@ public class BookUseCase {
 
     public Book update(UUID id, Book book) {
         Book toUpdate = get(id);
+        if (toUpdate == null) throw new ApplicationException("book not found");
         return bookGateway.update(toUpdate.updateDetails(book));
     }
 

@@ -57,19 +57,17 @@ Follow the steps below to set up and run the project on your local machine.
 
 2. **Configure the 'application.properties' file on '/src/main/resources':**
    ```bash
-    spring.application.name=library
+    spring.application.name = library
 
-    spring.datasource.url=jdbc:postgresql://localhost:5432/library
-    spring.datasource.username= [your_pg_username]
-    spring.datasource.password= [your_pg_password]
-    spring.datasource.driver-class-name=org.postgresql.Driver
+    spring.datasource.url = jdbc:postgresql://localhost:5432/library
+    spring.datasource.username = [your_pg_username]
+    spring.datasource.password = [your_pg_password]
+    spring.datasource.driver-class-name = org.postgresql.Driver
 
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.show-sql=true
-    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-    spring.main.allow-circular-references=true
+    spring.jpa.hibernate.ddl-auto = update
+    spring.jpa.show-sql = true
 
-    # AWS S3 Image Bucket
+     # AWS S3 Image Bucket
     aws.region = [your_aws_region]
     aws.accessKeyId = [your_aws_access_key]
     aws.secretKey = [your_aws_secret_key]
@@ -82,13 +80,15 @@ Follow the steps below to set up and run the project on your local machine.
     spring.cache.type = redis
     spring.redis.host = redis
     spring.redis.port = 6379
-    spring.data.redis.repositories.enabled=false
-    logging.level.org.springframework.data.redis=DEBUG
+    spring.data.redis.repositories.enabled = false
+    logging.level.org.springframework.data.redis = DEBUG
+
 
 3. **Run the application with Docker: Ensure you're in the project's root directory, access Docker folder, and execute Docker Compose to start all services automatically:**
     ```bash
     [sudo] docker-compose up -d
 
-4. **Wait for the build to complete and access the application: Once the build is finished, the application will be available to requests by http clients on:**
+4. **Wait for the build to complete and access the application: Once the build is finished, the application will be available to requests by http clients, or swagger url:**
    ```bash
     http://localhost:8080/
+    http://localhost:8080/swagger-ui/index.html

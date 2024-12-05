@@ -36,6 +36,7 @@ public class RentUseCase {
 
     public Rent update(UUID id, Rent rent) {
         Rent toUpdate = get(id);
+        if (toUpdate == null) throw new ApplicationException("rent not found");
         return rentGateway.update(toUpdate.updateDetails(rent));
     }
 
@@ -44,7 +45,7 @@ public class RentUseCase {
     }
 
     public void returningRent(UUID id) {
-        Rent rent = this.get(id);
+        Rent rent = get(id);
         if (rent == null) throw new ApplicationException("rent not found");
         if (rent.isReturned()) throw new ApplicationException("rent already returned");
         rent.setReturned(true);
