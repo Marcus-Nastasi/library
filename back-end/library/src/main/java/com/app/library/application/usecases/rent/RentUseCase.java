@@ -4,6 +4,8 @@ import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.rent.RentGateway;
 import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.application.usecases.member.MemberUseCase;
+import com.app.library.domain.entity.book.Book;
+import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.rent.Rent;
 import com.app.library.domain.entity.rent.RentPaginated;
 
@@ -30,11 +32,15 @@ public class RentUseCase {
     }
 
     public Rent create(Rent rent) {
+        Book book = bookUseCase.get(rent.getBook_id());
+        Member member = memberUseCase.get(rent.getMember_id());
+        if (!book.isAvailable() || book.getQuantity() < 1) throw new ApplicationException("no books available");
+        if (member.getBooksIssued() == member.getBooksLimit()) throw new ApplicationException("already on book's limit");
         rent.setEmit_date(LocalDate.now());
         rent.setReturn_date(LocalDate.now().plusDays(7));
         rent.setReturned(false);
-        bookUseCase.decreaseQuantity(rent.getBook_id());
-        memberUseCase.increaseIssueBook(rent.getMember_id());
+        bookUseCase.decreaseQuantity(book.getId());
+        memberUseCase.increaseIssueBook(member.getId());
         return rentGateway.create(rent);
     }
 
