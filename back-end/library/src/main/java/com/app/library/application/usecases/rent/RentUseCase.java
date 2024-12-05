@@ -3,6 +3,7 @@ package com.app.library.application.usecases.rent;
 import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.rent.RentGateway;
 import com.app.library.application.usecases.book.BookUseCase;
+import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.rent.Rent;
 import com.app.library.domain.entity.rent.RentPaginated;
 
@@ -12,10 +13,12 @@ import java.util.UUID;
 public class RentUseCase {
     private final RentGateway rentGateway;
     private final BookUseCase bookUseCase;
+    private final MemberUseCase memberUseCase;
 
-    public RentUseCase(RentGateway rentGateway, BookUseCase bookUseCase) {
+    public RentUseCase(RentGateway rentGateway, BookUseCase bookUseCase, MemberUseCase memberUseCase) {
         this.rentGateway = rentGateway;
         this.bookUseCase = bookUseCase;
+        this.memberUseCase = memberUseCase;
     }
 
     public RentPaginated getAll(int page, int size) {
@@ -31,6 +34,7 @@ public class RentUseCase {
         rent.setReturn_date(LocalDate.now().plusDays(7));
         rent.setReturned(false);
         bookUseCase.decreaseQuantity(rent.getBook_id());
+        memberUseCase.increaseIssueBook(rent.getMember_id());
         return rentGateway.create(rent);
     }
 
@@ -50,6 +54,7 @@ public class RentUseCase {
         if (rent.isReturned()) throw new ApplicationException("rent already returned");
         rent.setReturned(true);
         bookUseCase.increaseQuantity(rent.getBook_id());
+        memberUseCase.decreaseIssueBook(rent.getMember_id());
         update(id, rent);
     }
 }

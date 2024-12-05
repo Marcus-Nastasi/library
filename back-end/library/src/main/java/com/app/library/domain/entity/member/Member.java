@@ -1,5 +1,7 @@
 package com.app.library.domain.entity.member;
 
+import com.app.library.domain.entity.exception.DomainException;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -43,6 +45,15 @@ public class Member implements Serializable {
         this.setBooksLimit(updatedMember.getBooksLimit());
         this.setPhone(updatedMember.getPhone());
         return updatedMember;
+    }
+
+    public void increaseIssueBook() {
+        if (this.booksIssued == this.booksLimit) throw new DomainException("already on issue limit");
+        this.booksIssued += 1;
+    }
+
+    public void decreaseIssueBook() {
+        this.booksIssued -= 1;
     }
 
     public UUID getId() {

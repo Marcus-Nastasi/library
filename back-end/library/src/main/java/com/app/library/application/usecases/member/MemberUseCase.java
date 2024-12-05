@@ -1,6 +1,8 @@
 package com.app.library.application.usecases.member;
 
+import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.member.MemberGateway;
+import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.member.MemberPaginated;
 
@@ -34,5 +36,19 @@ public class MemberUseCase {
 
     public Member delete(UUID id) {
         return memberGateway.delete(id);
+    }
+
+    public void increaseIssueBook(UUID id) {
+        Member member = get(id);
+        if (member == null) throw new ApplicationException("member not found");
+        member.increaseIssueBook();
+        update(id, member);
+    }
+
+    public void decreaseIssueBook(UUID id) {
+        Member member = get(id);
+        if (member == null) throw new ApplicationException("member not found");
+        member.decreaseIssueBook();
+        update(id, member);
     }
 }

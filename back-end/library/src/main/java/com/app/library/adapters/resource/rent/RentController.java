@@ -43,26 +43,26 @@ public class RentController {
     }
 
     @PostMapping(value = "/register")
-    @CacheEvict(value = {"rents", "books"}, allEntries = true)
+    @CacheEvict(value = {"rents", "books", "members"}, allEntries = true)
     public ResponseEntity<RentResponseDto> register(@RequestBody @Valid RentRequestDto rentRequestDto) {
         Rent created = rentUseCase.create(rentDtoMapper.mapFromRequest(rentRequestDto));
         return ResponseEntity.created(URI.create("/api/rent/" + created.getId())).body(rentDtoMapper.mapToResponse(created));
     }
 
     @PatchMapping(value = "/update/{id}")
-    @CacheEvict(value = {"rents", "books"}, allEntries = true)
+    @CacheEvict(value = {"rents", "books", "members"}, allEntries = true)
     public ResponseEntity<RentResponseDto> update(@PathVariable UUID id, @RequestBody @Valid RentRequestDto rentRequestDto) {
         return ResponseEntity.ok(rentDtoMapper.mapToResponse(rentUseCase.update(id, rentDtoMapper.mapFromRequest(rentRequestDto))));
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    @CacheEvict(value = {"rents", "books"}, allEntries = true)
+    @CacheEvict(value = {"rents", "books", "members"}, allEntries = true)
     public ResponseEntity<RentResponseDto> delete(@PathVariable UUID id) {
         return ResponseEntity.ok(rentDtoMapper.mapToResponse(rentUseCase.delete(id)));
     }
 
     @PatchMapping(value = "/return/{id}")
-    @CacheEvict(value = {"rents", "books"}, allEntries = true)
+    @CacheEvict(value = {"rents", "books", "members"}, allEntries = true)
     public ResponseEntity<String> returnRent(@PathVariable UUID id) {
         rentUseCase.returningRent(id);
         return ResponseEntity.ok().build();
