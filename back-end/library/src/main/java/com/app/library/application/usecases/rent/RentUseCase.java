@@ -1,6 +1,8 @@
 package com.app.library.application.usecases.rent;
 
+import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.rent.RentGateway;
+import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.domain.entity.rent.Rent;
 import com.app.library.domain.entity.rent.RentPaginated;
 
@@ -9,9 +11,11 @@ import java.util.UUID;
 
 public class RentUseCase {
     private final RentGateway rentGateway;
+    private final BookUseCase bookUseCase;
 
-    public RentUseCase(RentGateway rentGateway) {
+    public RentUseCase(RentGateway rentGateway, BookUseCase bookUseCase) {
         this.rentGateway = rentGateway;
+        this.bookUseCase = bookUseCase;
     }
 
     public RentPaginated getAll(int page, int size) {
@@ -25,6 +29,8 @@ public class RentUseCase {
     public Rent create(Rent rent) {
         rent.setEmit_date(LocalDate.now());
         rent.setReturn_date(LocalDate.now().plusDays(7));
+        rent.setReturned(false);
+        bookUseCase.decreaseQuantity(rent.getBook_id());
         return rentGateway.create(rent);
     }
 
@@ -35,5 +41,14 @@ public class RentUseCase {
 
     public Rent delete(UUID id) {
         return rentGateway.delete(id);
+    }
+
+    public void returningRent(UUID id) {
+        Rent rent = this.get(id);
+        if (rent == null) throw new ApplicationException("rent not found");
+        if (rent.isReturned()) throw new ApplicationException("rent already returned");
+        rent.setReturned(true);
+        bookUseCase.increaseQuantity(rent.getBook_id());
+        update(id, rent);
     }
 }

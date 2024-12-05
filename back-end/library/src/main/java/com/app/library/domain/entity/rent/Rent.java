@@ -2,14 +2,20 @@ package com.app.library.domain.entity.rent;
 
 import com.app.library.domain.entity.member.Member;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Rent {
+public class Rent implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private UUID id;
     private UUID book_id;
     private LocalDate emit_date;
     private LocalDate return_date;
+    private boolean returned;
     private UUID librarian_id;
     private UUID member_id;
     private Member member;
@@ -22,6 +28,7 @@ public class Rent {
         this.setBook_id(updatedRent.getBook_id());
         this.setEmit_date(updatedRent.getEmit_date());
         this.setReturn_date(updatedRent.getReturn_date());
+        this.setReturned(updatedRent.isReturned());
         this.setLibrarian_id(updatedRent.getLibrarian_id());
         this.setMember_id(updatedRent.getMember_id());
         this.setMember(updatedRent.getMember());
@@ -30,13 +37,22 @@ public class Rent {
 
     public Rent() {}
 
-    public Rent(UUID id, UUID book_id, LocalDate emit_date, LocalDate return_date, UUID librarian_id, UUID member_id) {
+    public Rent(UUID id, UUID book_id, LocalDate emit_date, LocalDate return_date, UUID librarian_id, UUID member_id, boolean returned) {
         this.id = id;
         this.book_id = book_id;
         this.emit_date = emit_date;
         this.return_date = return_date;
         this.librarian_id = librarian_id;
         this.member_id = member_id;
+        this.returned = returned;
+    }
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
     }
 
     public Member getMember() {

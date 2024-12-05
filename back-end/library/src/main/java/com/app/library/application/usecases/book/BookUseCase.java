@@ -1,5 +1,6 @@
 package com.app.library.application.usecases.book;
 
+import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.aws.FileManagerGateway;
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.domain.entity.book.Book;
@@ -44,5 +45,19 @@ public class BookUseCase {
         Book book = get(id);
         if (book.getImage_url() != null) fileManager.delete(book.getImage_url());
         return bookGateway.delete(id);
+    }
+
+    public void decreaseQuantity(UUID id) {
+        Book book = get(id);
+        if (book == null) throw new ApplicationException("book not found");
+        book.decreaseQuantity();
+        update(id, book);
+    }
+
+    public void increaseQuantity(UUID id) {
+        Book book = get(id);
+        if (book == null) throw new ApplicationException("book not found");
+        book.increaseQuantity();
+        update(id, book);
     }
 }

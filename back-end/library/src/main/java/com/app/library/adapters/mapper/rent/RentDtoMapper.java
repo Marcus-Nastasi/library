@@ -11,6 +11,7 @@ public class RentDtoMapper {
                 rent.getBook_id(),
                 rent.getEmit_date(),
                 rent.getReturn_date(),
+                rent.isReturned(),
                 rent.getLibrarian_id(),
                 rent.getMember_id()
         );
@@ -23,7 +24,8 @@ public class RentDtoMapper {
                 rent.emit_date(),
                 rent.return_date(),
                 rent.librarian_id(),
-                rent.member_id()
+                rent.member_id(),
+                rent.returned()
         );
     }
 }

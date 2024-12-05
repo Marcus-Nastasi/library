@@ -1,5 +1,7 @@
 package com.app.library.domain.entity.book;
 
+import com.app.library.domain.entity.exception.DomainException;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -34,6 +36,15 @@ public class Book implements Serializable {
         this.setEdition(updatedBook.getEdition());
         this.setDateOfPublish(updatedBook.getDateOfPublish());
         return updatedBook;
+    }
+
+    public void decreaseQuantity() {
+        if (this.quantity < 1) throw new DomainException("no books available for rent");
+        this.quantity -= 1;
+    }
+
+    public void increaseQuantity() {
+        this.quantity += 1;
     }
 
     public Book(UUID id) {}

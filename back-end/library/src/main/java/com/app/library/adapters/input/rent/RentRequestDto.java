@@ -10,6 +10,7 @@ public record RentRequestDto(
         UUID book_id,
         LocalDate emit_date,
         LocalDate return_date,
+        boolean returned,
         UUID librarian_id,
         UUID member_id,
         Member member

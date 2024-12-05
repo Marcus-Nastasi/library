@@ -22,6 +22,7 @@ public class RentEntity {
     private UUID book_id;
     private LocalDate emit_date;
     private LocalDate return_date;
+    private boolean returned;
     private UUID librarian_id;
     private UUID member_id;
 }

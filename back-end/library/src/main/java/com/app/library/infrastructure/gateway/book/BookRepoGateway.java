@@ -49,8 +49,7 @@ public class BookRepoGateway implements BookGateway {
 
     @Override
     public Book delete(UUID id) {
-        Book book = bookEntityMapper
-            .mapFromBookEntity(jpaBookRepo.findById(id).orElseThrow(() -> new DomainException("Book not found")));
+        Book book = bookEntityMapper.mapFromBookEntity(jpaBookRepo.findById(id).orElseThrow(() -> new DomainException("Book not found")));
         jpaBookRepo.deleteById(id);
         return book;
     }
