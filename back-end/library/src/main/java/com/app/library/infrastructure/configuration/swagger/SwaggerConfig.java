@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan
-@OpenAPIDefinition(info = @Info(title = "Library", description = "A library application back-end", version = "1.0.0"))
+@OpenAPIDefinition(info = @Info(title = "Library", description = "A library application back-end", version = "1.0.1"))
 @SecurityScheme(
         name = "Bearer Authentication",
         type = SecuritySchemeType.HTTP,

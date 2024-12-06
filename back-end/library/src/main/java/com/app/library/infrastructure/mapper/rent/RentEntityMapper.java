@@ -20,11 +20,11 @@ public class RentEntityMapper {
     public Rent mapFromRentEntity(RentEntity rent) {
         return new Rent(
             rent.getId(),
-            rent.getBook_id(),
+            rent.getBookId(),
             rent.getEmit_date(),
             rent.getReturn_date(),
-            rent.getLibrarian_id(),
-            rent.getMember_id(),
+            rent.getLibrarianId(),
+            rent.getMemberId(),
             rent.isReturned()
         );
     }

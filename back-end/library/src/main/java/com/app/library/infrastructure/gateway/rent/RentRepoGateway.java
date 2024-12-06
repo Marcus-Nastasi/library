@@ -10,6 +10,7 @@ import com.app.library.infrastructure.persistence.rent.JpaRentRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 public class RentRepoGateway implements RentGateway {
@@ -53,5 +54,15 @@ public class RentRepoGateway implements RentGateway {
         Rent rent = rentEntityMapper.mapFromRentEntity(jpaRentRepo.findById(id).orElseThrow(() -> new DomainException("Rent not found")));
         jpaRentRepo.deleteById(id);
         return rent;
+    }
+
+    @Override
+    public List<Rent> getByMember(UUID member_id) {
+        return jpaRentRepo.findByMemberId(member_id).stream().map(rentEntityMapper::mapFromRentEntity).toList();
+    }
+
+    @Override
+    public List<Rent> getByBookId(UUID book_id) {
+        return jpaRentRepo.findByBookId(book_id).stream().map(rentEntityMapper::mapFromRentEntity).toList();
     }
 }

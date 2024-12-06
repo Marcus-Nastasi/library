@@ -10,6 +10,7 @@ import com.app.library.domain.entity.rent.Rent;
 import com.app.library.domain.entity.rent.RentPaginated;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class RentUseCase {
@@ -29,6 +30,14 @@ public class RentUseCase {
 
     public Rent get(UUID id) {
         return rentGateway.get(id);
+    }
+
+    public List<Rent> getByMember(UUID member_id) {
+        return rentGateway.getByMember(member_id);
+    }
+
+    public List<Rent> getByBook(UUID book_id) {
+        return rentGateway.getByBookId(book_id);
     }
 
     public Rent create(Rent rent) {

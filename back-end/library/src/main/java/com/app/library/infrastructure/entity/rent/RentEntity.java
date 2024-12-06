@@ -19,10 +19,13 @@ public class RentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private UUID book_id;
+    @Column(name = "book_id", nullable = false)
+    private UUID bookId;
     private LocalDate emit_date;
     private LocalDate return_date;
     private boolean returned;
-    private UUID librarian_id;
-    private UUID member_id;
+    @Column(name = "librarian_id", nullable = false)
+    private UUID librarianId;
+    @Column(name = "member_id", nullable = false)
+    private UUID memberId;
 }

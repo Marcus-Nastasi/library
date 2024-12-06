@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -40,6 +41,18 @@ public class RentController {
     @Cacheable("rents")
     public RentResponseDto get(@PathVariable UUID id) {
         return rentDtoMapper.mapToResponse(rentUseCase.get(id));
+    }
+
+    @GetMapping("/member/{member_id}")
+    @Cacheable("rents")
+    public List<Rent> getByMember(@PathVariable UUID member_id) {
+        return rentUseCase.getByMember(member_id);
+    }
+
+    @GetMapping("/book/{book_id}")
+    @Cacheable("rents")
+    public List<Rent> getByBook(@PathVariable UUID book_id) {
+        return rentUseCase.getByBook(book_id);
     }
 
     @PostMapping(value = "/register")
