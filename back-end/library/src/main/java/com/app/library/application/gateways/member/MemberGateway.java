@@ -11,4 +11,5 @@ public interface MemberGateway {
     Member create(Member member);
     Member update(Member member);
     Member delete(UUID id);
+    Member getByCpf(String cpf);
 }

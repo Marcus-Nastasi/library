@@ -23,6 +23,10 @@ public class MemberUseCase {
         return memberGateway.get(id);
     }
 
+    public Member getByCpf(String cpf) {
+        return memberGateway.getByCpf(cpf);
+    }
+
     public Member create(Member member) {
         member.setDateOfMembership(LocalDate.now());
         return memberGateway.create(member);

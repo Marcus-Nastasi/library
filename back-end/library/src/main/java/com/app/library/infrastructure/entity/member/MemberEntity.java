@@ -21,6 +21,7 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+    @Column(name = "cpf", unique = true)
     private String cpf;
     @Enumerated(value = EnumType.ORDINAL)
     private MemberType type;

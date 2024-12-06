@@ -42,6 +42,12 @@ public class MemberController {
         return memberDtoMapper.mapToResponse(memberUseCase.get(id));
     }
 
+    @GetMapping("/cpf/{cpf}")
+    @Cacheable("members")
+    public MemberResponseDto getByCpf(@PathVariable String cpf) {
+        return memberDtoMapper.mapToResponse(memberUseCase.getByCpf(cpf));
+    }
+
     @PostMapping(value = "/register")
     @CacheEvict(value = "members", allEntries = true)
     public ResponseEntity<MemberResponseDto> register(@RequestBody @Valid MemberRequestDto memberRequestDto) {

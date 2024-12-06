@@ -35,8 +35,7 @@ public class MemberRepoGateway implements MemberGateway {
 
     @Override
     public Member get(UUID id) {
-        return memberEntityMapper
-            .mapFromMemberEntity(jpaMemberRepo.findById(id).orElseThrow(() -> new DomainException("Member not found")));
+        return memberEntityMapper.mapFromMemberEntity(jpaMemberRepo.findById(id).orElseThrow(() -> new DomainException("Member not found")));
     }
 
     @Override
@@ -55,5 +54,10 @@ public class MemberRepoGateway implements MemberGateway {
             .mapFromMemberEntity(jpaMemberRepo.findById(id).orElseThrow(() -> new DomainException("Member not found")));
         jpaMemberRepo.deleteById(id);
         return member;
+    }
+
+    @Override
+    public Member getByCpf(String cpf) {
+        return memberEntityMapper.mapFromMemberEntity(jpaMemberRepo.findByCpf(cpf));
     }
 }
