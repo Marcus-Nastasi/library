@@ -46,15 +46,13 @@ public class MemberController {
     @CacheEvict(value = "members", allEntries = true)
     public ResponseEntity<MemberResponseDto> register(@RequestBody @Valid MemberRequestDto memberRequestDto) {
         Member created = memberUseCase.create(memberDtoMapper.mapFromRequest(memberRequestDto));
-        return ResponseEntity
-            .created(URI.create("/api/member/" + created.getId())).body(memberDtoMapper.mapToResponse(created));
+        return ResponseEntity.created(URI.create("/api/member/" + created.getId())).body(memberDtoMapper.mapToResponse(created));
     }
 
     @PatchMapping(value = "/update/{id}")
     @CacheEvict(value = "members", allEntries = true)
     public ResponseEntity<MemberResponseDto> update(@PathVariable UUID id, @RequestBody @Valid MemberRequestDto memberRequestDto) {
-        return ResponseEntity
-            .ok(memberDtoMapper.mapToResponse(memberUseCase.update(id, memberDtoMapper.mapFromRequest(memberRequestDto))));
+        return ResponseEntity.ok(memberDtoMapper.mapToResponse(memberUseCase.update(id, memberDtoMapper.mapFromRequest(memberRequestDto))));
     }
 
     @DeleteMapping(value = "/delete/{id}")

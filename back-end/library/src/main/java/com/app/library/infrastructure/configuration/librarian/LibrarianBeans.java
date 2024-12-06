@@ -2,6 +2,7 @@ package com.app.library.infrastructure.configuration.librarian;
 
 import com.app.library.adapters.mapper.librarian.LibrarianDtoMapper;
 import com.app.library.application.gateways.librarian.LibrarianGateway;
+import com.app.library.application.gateways.security.PasswordEncoderGateway;
 import com.app.library.application.usecases.librarian.LibrarianUseCase;
 import com.app.library.infrastructure.gateway.librarian.LibrarianRepoGateway;
 import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
@@ -12,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LibrarianBeans {
     @Bean
-    public LibrarianUseCase librarianUseCase(LibrarianGateway librarianGateway) {
-        return new LibrarianUseCase(librarianGateway);
+    public LibrarianUseCase librarianUseCase(LibrarianGateway librarianGateway, PasswordEncoderGateway passwordEncoderGateway) {
+        return new LibrarianUseCase(librarianGateway, passwordEncoderGateway);
     }
 
     @Bean

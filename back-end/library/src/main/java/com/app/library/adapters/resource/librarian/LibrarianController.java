@@ -4,7 +4,6 @@ import com.app.library.adapters.input.librarian.LibrarianRequestDto;
 import com.app.library.adapters.mapper.librarian.LibrarianDtoMapper;
 import com.app.library.adapters.output.librarian.LibrarianResponseDto;
 import com.app.library.application.usecases.librarian.LibrarianUseCase;
-import com.app.library.application.usecases.security.PasswordUseCase;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.domain.entity.librarian.LibrarianPaginated;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -23,12 +22,10 @@ import java.util.UUID;
 public class LibrarianController {
     private final LibrarianUseCase librarianUseCase;
     private final LibrarianDtoMapper librarianDtoMapper;
-    private final PasswordUseCase passwordEncoder;
 
-    public LibrarianController(LibrarianUseCase librarianUseCase, LibrarianDtoMapper librarianDtoMapper, PasswordUseCase passwordEncoder) {
+    public LibrarianController(LibrarianUseCase librarianUseCase, LibrarianDtoMapper librarianDtoMapper) {
         this.librarianUseCase = librarianUseCase;
         this.librarianDtoMapper = librarianDtoMapper;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping()
@@ -46,18 +43,14 @@ public class LibrarianController {
     @PostMapping(value = "/register")
     @CacheEvict(value = "librarians", allEntries = true)
     public ResponseEntity<LibrarianResponseDto> register(@RequestBody @Valid LibrarianRequestDto librarianRequestDto) {
-        Librarian toCreate = librarianDtoMapper.mapFromRequest(librarianRequestDto);
-        toCreate.setPassword(passwordEncoder.encode(librarianRequestDto.password()));
-        Librarian created = librarianUseCase.create(toCreate);
+        Librarian created = librarianUseCase.create(librarianDtoMapper.mapFromRequest(librarianRequestDto));
         return ResponseEntity.created(URI.create("/api/librarian/" + created.getId())).body(librarianDtoMapper.mapToResponse(created));
     }
 
     @PatchMapping(value = "/update/{id}")
     @CacheEvict(value = "librarians", allEntries = true)
     public ResponseEntity<LibrarianResponseDto> update(@PathVariable UUID id, @RequestBody @Valid LibrarianRequestDto librarianRequestDto) {
-        Librarian toUpdate = librarianDtoMapper.mapFromRequest(librarianRequestDto);
-        toUpdate.setPassword(passwordEncoder.encode(librarianRequestDto.password()));
-        Librarian updated = librarianUseCase.update(id, toUpdate);
+        Librarian updated = librarianUseCase.update(id, librarianDtoMapper.mapFromRequest(librarianRequestDto));
         return ResponseEntity.ok(librarianDtoMapper.mapToResponse(updated));
     }
 
