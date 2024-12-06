@@ -86,7 +86,7 @@ Follow the steps below to set up and run the project on your local machine.
 
 3. **Run the application with Docker: Ensure you're in the project's root directory, access Docker folder, and execute Docker Compose to start all services automatically:**
     ```bash
-    [sudo] docker-compose up -d
+    [sudo] docker-compose up --build -d
 
 4. **Wait for the build to complete and access the application: Once the build is finished, the application will be available to requests by http clients, or swagger url:**
    ```bash

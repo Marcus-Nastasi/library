@@ -52,6 +52,7 @@ public class BookUseCase {
         Book book = get(id);
         if (book == null) throw new ApplicationException("book not found");
         book.decreaseQuantity();
+        if (book.getQuantity() == 0) book.setAvailable(false);
         update(id, book);
     }
 
@@ -59,6 +60,7 @@ public class BookUseCase {
         Book book = get(id);
         if (book == null) throw new ApplicationException("book not found");
         book.increaseQuantity();
+        if (!book.isAvailable()) book.setAvailable(true);
         update(id, book);
     }
 }
