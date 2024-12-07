@@ -53,6 +53,7 @@ public class Member implements Serializable {
     }
 
     public void decreaseIssueBook() {
+        if (this.booksIssued == 0) throw new DomainException("you do not have a book issued");
         this.booksIssued -= 1;
     }
 
