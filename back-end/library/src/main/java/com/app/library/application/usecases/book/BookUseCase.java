@@ -51,6 +51,7 @@ public class BookUseCase {
     public void decreaseQuantity(UUID id) {
         Book book = get(id);
         if (book == null) throw new ApplicationException("book not found");
+        if (!book.isAvailable()) throw new ApplicationException("book unavailable");
         book.decreaseQuantity();
         if (book.getQuantity() == 0) book.setAvailable(false);
         update(id, book);

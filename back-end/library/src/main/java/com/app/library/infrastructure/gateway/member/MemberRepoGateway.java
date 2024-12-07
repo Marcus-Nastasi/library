@@ -50,8 +50,7 @@ public class MemberRepoGateway implements MemberGateway {
 
     @Override
     public Member delete(UUID id) {
-        Member member = memberEntityMapper
-            .mapFromMemberEntity(jpaMemberRepo.findById(id).orElseThrow(() -> new DomainException("Member not found")));
+        Member member = memberEntityMapper.mapFromMemberEntity(jpaMemberRepo.findById(id).orElseThrow(() -> new DomainException("Member not found")));
         jpaMemberRepo.deleteById(id);
         return member;
     }
