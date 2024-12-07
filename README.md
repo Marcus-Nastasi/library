@@ -67,7 +67,7 @@ Follow the steps below to set up and run the project on your local machine.
     spring.jpa.hibernate.ddl-auto = update
     spring.jpa.show-sql = true
 
-     # AWS S3 Image Bucket
+    # AWS S3 Image Bucket
     aws.region = [your_aws_region]
     aws.accessKeyId = [your_aws_access_key]
     aws.secretKey = [your_aws_secret_key]
@@ -81,8 +81,8 @@ Follow the steps below to set up and run the project on your local machine.
     spring.redis.host = redis
     spring.redis.port = 6379
     spring.data.redis.repositories.enabled = false
-    logging.level.org.springframework.data.redis = DEBUG
-
+    #logging.level.org.springframework.data.redis = DEBUG
+    #logging.level.io.lettuce.core = DEBUG
 
 3. **Run the application with Docker: Ensure you're in the project's root directory, access Docker folder, and execute Docker Compose to start all services automatically:**
     ```bash
