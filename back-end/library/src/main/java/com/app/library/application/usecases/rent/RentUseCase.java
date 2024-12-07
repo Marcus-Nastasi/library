@@ -43,6 +43,7 @@ public class RentUseCase {
     public Rent create(Rent rent) {
         Book book = bookUseCase.get(rent.getBook_id());
         Member member = memberUseCase.get(rent.getMember_id());
+        if (book == null || member == null) throw new ApplicationException("member or book not found");
         if (!book.isAvailable() || book.getQuantity() < 1) throw new ApplicationException("no books available");
         if (member.getBooksIssued() == member.getBooksLimit()) throw new ApplicationException("already on book's limit");
         rent.setEmit_date(LocalDate.now());
