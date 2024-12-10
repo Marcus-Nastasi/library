@@ -29,7 +29,7 @@ Additionally, the API is documented with Swagger API to make the available route
 - **Database**: PostgreSQL
 
 ### Cache
-- **Cache tool**: Redis
+- **Cache**: Redis
 
 ### API Documentation
 - **Tool**: Swagger API
@@ -81,8 +81,7 @@ Follow the steps below to set up and run the project on your local machine.
     spring.redis.host = redis
     spring.redis.port = 6379
     spring.data.redis.repositories.enabled = false
-    #logging.level.org.springframework.data.redis = DEBUG
-    #logging.level.io.lettuce.core = DEBUG
+    spring.cache.redis.time-to-live = 2d
 
 3. **Run the application with Docker: Ensure you're in the project's root directory, access Docker folder, and execute Docker Compose to start all services automatically:**
     ```bash
@@ -92,3 +91,37 @@ Follow the steps below to set up and run the project on your local machine.
    ```bash
     http://localhost:8080/
     http://localhost:8080/swagger-ui/index.html
+
+5. **Once you've built the images for the first time, you can create in the root folder of your computer's user, this bash script to run or stop the app easily (make sure you replace the [ ] marked fields with your own information):**
+   ```bash
+  #!/bin/bash
+
+  usage() {
+      echo "Uso: $0 -q"
+      exit 1
+  }
+
+  if [ "$1" == "-q" ]; then
+      action="stop"
+  else
+      action="start"
+      access='Access http://localhost:8080/swagger-ui/index.html'
+  fi
+
+  cd [/your/path/to/the/app/docker/folder/]
+
+  echo ''
+  echo 'Insert your password to run...'
+  echo ''
+
+  [sudo] docker-compose $action
+
+  echo ''
+  echo "Application ${action}ed!"
+
+  if [ "$action" != "stop" ]; then
+      echo ''
+      echo "${access}"
+  fi
+
+  cd [/your/path/to/user/root/]
