@@ -94,34 +94,34 @@ Follow the steps below to set up and run the project on your local machine.
 
 5. **Once you've built the images for the first time, you can create in the root folder of your computer's user, this bash script to run or stop the app easily (make sure you replace the [ ] marked fields with your own information):**
    ```bash
-  #!/bin/bash
+    #!/bin/bash
 
-  usage() {
-      echo "Uso: $0 -q"
-      exit 1
-  }
+    usage() {
+        echo "Uso: $0 -q"
+        exit 1
+    }
 
-  if [ "$1" == "-q" ]; then
-      action="stop"
-  else
-      action="start"
-      access='Access http://localhost:8080/swagger-ui/index.html'
-  fi
+    if [ "$1" == "-q" ]; then
+        action="stop"
+    else
+        action="start"
+        access='Access http://localhost:8080/swagger-ui/index.html'
+    fi
 
-  cd [/your/path/to/the/app/docker/folder/]
+    cd [/your/path/to/the/app/docker/folder/]
 
-  echo ''
-  echo 'Insert your password to run...'
-  echo ''
+    echo ''
+    echo 'Insert your password to run...'
+    echo ''
 
-  [sudo] docker-compose $action
+    [sudo] docker-compose $action
 
-  echo ''
-  echo "Application ${action}ed!"
+    echo ''
+    echo "Application ${action}ed!"
 
-  if [ "$action" != "stop" ]; then
-      echo ''
-      echo "${access}"
-  fi
+    if [ "$action" != "stop" ]; then
+        echo ''
+        echo "${access}"
+    fi
 
-  cd [/your/path/to/user/root/]
+    cd [/your/path/to/user/root/]
