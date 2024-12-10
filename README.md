@@ -110,6 +110,7 @@ Follow the steps below to set up and run the project on your local machine.
 
   cd [/your/path/to/the/app/docker/folder/]
 
+  # if you need admin permissions
   echo ''
   echo 'Insert your password to run...'
   echo ''
