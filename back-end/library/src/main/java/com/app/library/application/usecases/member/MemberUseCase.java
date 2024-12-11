@@ -39,6 +39,8 @@ public class MemberUseCase {
     }
 
     public Member delete(UUID id) {
+        Member toDelete = get(id);
+        if (toDelete == null) throw new ApplicationException("member not found");
         return memberGateway.delete(id);
     }
 

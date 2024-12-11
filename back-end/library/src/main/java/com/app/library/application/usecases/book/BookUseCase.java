@@ -53,7 +53,7 @@ public class BookUseCase {
     public Book delete(UUID id) {
         Book book = get(id);
         List<Rent> rent = rentGateway.getByBookId(id);
-        if (rent != null) {
+        if (rent != null && !rent.isEmpty()) {
             rent.forEach(r -> {
                 rentGateway.delete(r.getId());
                 memberUseCase.decreaseIssueBook(r.getMember_id());

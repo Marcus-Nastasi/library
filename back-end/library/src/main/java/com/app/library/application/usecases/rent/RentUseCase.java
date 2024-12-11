@@ -61,6 +61,8 @@ public class RentUseCase {
     }
 
     public Rent delete(UUID id) {
+        Rent toDelete = get(id);
+        if (toDelete == null) throw new ApplicationException("rent not found");
         return rentGateway.delete(id);
     }
 

@@ -2,8 +2,8 @@ package com.app.library.infrastructure.configuration.librarian;
 
 import com.app.library.adapters.mapper.librarian.LibrarianDtoMapper;
 import com.app.library.application.gateways.librarian.LibrarianGateway;
-import com.app.library.application.gateways.security.PasswordEncoderGateway;
 import com.app.library.application.usecases.librarian.LibrarianUseCase;
+import com.app.library.application.usecases.security.PasswordUseCase;
 import com.app.library.infrastructure.gateway.librarian.LibrarianRepoGateway;
 import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LibrarianBeans {
     @Bean
-    public LibrarianUseCase librarianUseCase(LibrarianGateway librarianGateway, PasswordEncoderGateway passwordEncoderGateway) {
-        return new LibrarianUseCase(librarianGateway, passwordEncoderGateway);
+    public LibrarianUseCase librarianUseCase(LibrarianGateway librarianGateway, PasswordUseCase passwordUseCase) {
+        return new LibrarianUseCase(librarianGateway, passwordUseCase);
     }
 
     @Bean

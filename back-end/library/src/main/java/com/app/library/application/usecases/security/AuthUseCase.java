@@ -20,8 +20,7 @@ public class AuthUseCase {
     public String login(String cpf, String password) {
         Librarian librarian = getByCpf(cpf);
         if (librarian == null) throw new ForbiddenException("Librarian not found");
-        if (!encoder.matches(password, librarian.getPassword()))
-            throw new ForbiddenException("Wrong password");
+        if (!encoder.matches(password, librarian.getPassword())) throw new ForbiddenException("Wrong password");
         return authGateway.login(cpf);
     }
 }
