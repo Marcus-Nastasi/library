@@ -74,7 +74,7 @@ public class BookController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    @CacheEvict(value = "books", allEntries = true)
+    @CacheEvict(value = {"books", "rents"}, allEntries = true)
     public ResponseEntity<BookResponseDto> delete(@PathVariable UUID id) {
         return ResponseEntity.ok(bookDtoMapper.mapToResponse(bookUseCase.delete(id)));
     }

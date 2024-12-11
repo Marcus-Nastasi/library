@@ -3,18 +3,26 @@ package com.app.library.application.usecases.book;
 import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.aws.FileManagerGateway;
 import com.app.library.application.gateways.book.BookGateway;
+import com.app.library.application.gateways.rent.RentGateway;
+import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
+import com.app.library.domain.entity.rent.Rent;
 
+import java.util.List;
 import java.util.UUID;
 
 public class BookUseCase {
     private final BookGateway bookGateway;
     private final FileManagerGateway fileManagerGateway;
+    private final RentGateway rentGateway;
+    private final MemberUseCase memberUseCase;
 
-    public BookUseCase(BookGateway bookGateway, FileManagerGateway fileManagerGateway) {
+    public BookUseCase(BookGateway bookGateway, FileManagerGateway fileManagerGateway, RentGateway rentGateway, MemberUseCase memberUseCase) {
         this.bookGateway = bookGateway;
         this.fileManagerGateway = fileManagerGateway;
+        this.rentGateway = rentGateway;
+        this.memberUseCase = memberUseCase;
     }
 
     public BookPaginated getAll(int page, int size) {
@@ -44,6 +52,13 @@ public class BookUseCase {
 
     public Book delete(UUID id) {
         Book book = get(id);
+        List<Rent> rent = rentGateway.getByBookId(id);
+        if (rent != null) {
+            rent.forEach(r -> {
+                rentGateway.delete(r.getId());
+                memberUseCase.decreaseIssueBook(r.getMember_id());
+            });
+        }
         if (book.getImage_url() != null) fileManagerGateway.delete(book.getImage_url());
         return bookGateway.delete(id);
     }
