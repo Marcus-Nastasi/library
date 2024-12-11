@@ -4,6 +4,8 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.app.library.application.gateways.aws.FileManagerGateway;
+import com.app.library.infrastructure.gateway.aws.FileManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,5 +27,10 @@ public class AwsConfiguration {
             .withRegion(awsRegion)
             .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
             .build();
+    }
+
+    @Bean
+    public FileManagerGateway fileManager(AmazonS3 amazonS3) {
+        return new FileManager(amazonS3);
     }
 }
