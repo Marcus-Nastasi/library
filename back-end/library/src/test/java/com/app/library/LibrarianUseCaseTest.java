@@ -1,8 +1,8 @@
 package com.app.library;
 
 import com.app.library.application.gateways.librarian.LibrarianGateway;
-import com.app.library.application.gateways.security.PasswordEncoderGateway;
 import com.app.library.application.usecases.librarian.LibrarianUseCase;
+import com.app.library.application.usecases.security.PasswordUseCase;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.domain.entity.librarian.LibrarianPaginated;
 import com.app.library.domain.entity.librarian.UserRole;
@@ -23,7 +23,7 @@ public class LibrarianUseCaseTest {
     @Mock
     private LibrarianGateway librarianGateway;
     @Mock
-    private PasswordEncoderGateway passwordEncoderGateway;
+    private PasswordUseCase passwordUseCase;
     @InjectMocks
     private LibrarianUseCase librarianUseCase;
 
@@ -58,7 +58,7 @@ public class LibrarianUseCaseTest {
 
     @Test
     void createLibrarian() {
-        when(passwordEncoderGateway.encode(any(String.class))).thenReturn("1234");
+        when(passwordUseCase.encode(any(String.class))).thenReturn("1234");
         when(librarianGateway.create(any(Librarian.class))).thenReturn(librarian1);
 
         librarian1.setPassword("1234");
@@ -72,7 +72,7 @@ public class LibrarianUseCaseTest {
 
     @Test
     void updateLibrarian() {
-        when(passwordEncoderGateway.encode(any(String.class))).thenReturn("1234");
+        when(passwordUseCase.encode(any(String.class))).thenReturn("1234");
         when(librarianGateway.get(any(UUID.class))).thenReturn(librarian1);
         when(librarianGateway.update(any(Librarian.class))).thenReturn(librarian2);
 
@@ -90,6 +90,7 @@ public class LibrarianUseCaseTest {
 
     @Test
     void deleteLibrarian() {
+        when(librarianGateway.get(any(UUID.class))).thenReturn(librarian1);
         when(librarianGateway.delete(any(UUID.class))).thenReturn(librarian1);
         librarian1.setId(UUID.randomUUID());
 

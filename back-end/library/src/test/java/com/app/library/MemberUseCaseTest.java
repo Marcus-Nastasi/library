@@ -93,6 +93,7 @@ public class MemberUseCaseTest {
 
     @Test
     void deleteMember() {
+        when(memberGateway.get(any(UUID.class))).thenReturn(member1);
         when(memberGateway.delete(any(UUID.class))).thenReturn(member1);
 
         assertEquals(member1, memberUseCase.delete(UUID.randomUUID()));

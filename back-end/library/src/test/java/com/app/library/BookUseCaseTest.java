@@ -3,10 +3,13 @@ package com.app.library;
 import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.aws.FileManagerGateway;
 import com.app.library.application.gateways.book.BookGateway;
+import com.app.library.application.gateways.rent.RentGateway;
+import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
 import com.app.library.application.usecases.book.BookUseCase;
+import com.app.library.domain.entity.rent.Rent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,6 +30,10 @@ public class BookUseCaseTest {
     private BookGateway bookGateway;
     @Mock
     private FileManagerGateway fileManagerGateway;
+    @Mock
+    private RentGateway rentGateway;
+    @Mock
+    private MemberUseCase memberUseCase;
     @InjectMocks
     private BookUseCase bookUseCase;
 
@@ -55,6 +62,25 @@ public class BookUseCaseTest {
         LocalDate.of(2002, 5, 12)
     );
     List<Book> books = List.of(book1, book2);
+    Rent rent1 = new Rent(
+        UUID.randomUUID(),
+        book1.getId(),
+        LocalDate.now(),
+        LocalDate.now().plusDays(7),
+        UUID.randomUUID(),
+        UUID.randomUUID(),
+        false
+    );
+    Rent rent2 = new Rent(
+        UUID.randomUUID(),
+        book2.getId(),
+        LocalDate.now(),
+        LocalDate.now().plusDays(7),
+        UUID.randomUUID(),
+        UUID.randomUUID(),
+        false
+    );
+    List<Rent> rents = List.of(rent1, rent2);
 
     @Test
     void getAllBooks() {
@@ -107,6 +133,9 @@ public class BookUseCaseTest {
 
     @Test
     void deleteBook() {
+        when(rentGateway.getByBookId(any(UUID.class))).thenReturn(rents);
+        when(rentGateway.delete(any(UUID.class))).thenReturn(rent1);
+        doNothing().when(memberUseCase).decreaseIssueBook(any(UUID.class));
         when(bookGateway.get(any(UUID.class))).thenReturn(book1);
         when(bookGateway.delete(any(UUID.class))).thenReturn(book1);
 

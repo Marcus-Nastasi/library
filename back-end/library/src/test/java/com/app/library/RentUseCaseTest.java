@@ -130,6 +130,7 @@ public class RentUseCaseTest {
 
     @Test
     void delete() {
+        when(rentGateway.get(any(UUID.class))).thenReturn(rent1);
         when(rentGateway.delete(rent1.getId())).thenReturn(rent1);
 
         assertEquals(rent1, rentUseCase.delete(rent1.getId()));
