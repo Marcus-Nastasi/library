@@ -10,6 +10,7 @@ import com.app.library.infrastructure.persistence.book.JpaBookRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 public class BookRepoGateway implements BookGateway {
@@ -38,17 +39,17 @@ public class BookRepoGateway implements BookGateway {
     }
 
     @Override
-    public Book getByName(String name) {
-        return bookEntityMapper.mapFromBookEntity(jpaBookRepo.findByName(name));
+    public List<Book> getByName(String name) {
+        return jpaBookRepo.findByNameContaining(name).stream().map(bookEntityMapper::mapFromBookEntity).toList();
     }
 
     @Override
-    public Book create(Book book) {
-        return bookEntityMapper.mapFromBookEntity(jpaBookRepo.save(bookEntityMapper.mapToBookEntity(book)));
+    public List<Book> getByAuthor(String author) {
+        return jpaBookRepo.findByAuthorContaining(author).stream().map(bookEntityMapper::mapFromBookEntity).toList();
     }
 
     @Override
-    public Book update(Book book) {
+    public Book save(Book book) {
         return bookEntityMapper.mapFromBookEntity(jpaBookRepo.save(bookEntityMapper.mapToBookEntity(book)));
     }
 

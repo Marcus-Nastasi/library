@@ -108,27 +108,27 @@ public class BookUseCaseTest {
     @Test
     void createBook() {
         when(fileManagerGateway.upload(any(byte[].class), any(String.class))).thenReturn("image_url");
-        when(bookGateway.create(any(Book.class))).thenReturn(book1);
-        when(bookGateway.update(any(Book.class))).thenReturn(book2);
+        when(bookGateway.save(any(Book.class))).thenReturn(book1);
+        when(bookGateway.save(any(Book.class))).thenReturn(book2);
 
         assertEquals(book2, bookUseCase.create(book1, new byte[0], ""));
         assertEquals(book2.getName(), bookUseCase.create(book1, new byte[0], "").getName());
         assertDoesNotThrow(() -> bookUseCase.create(book1, new byte[0], ""));
 
         verify(fileManagerGateway, times(3)).upload(any(byte[].class), any(String.class));
-        verify(bookGateway, times(3)).create(any(Book.class));
+        verify(bookGateway, times(3)).save(any(Book.class));
     }
 
     @Test
     void updateBook() {
         when(bookGateway.get(any(UUID.class))).thenReturn(book1);
-        when(bookGateway.update(any(Book.class))).thenReturn(book2);
+        when(bookGateway.save(any(Book.class))).thenReturn(book2);
 
         assertEquals(book2, bookUseCase.update(UUID.randomUUID(), book2));
         assertEquals(book2.getName(), bookUseCase.update(UUID.randomUUID(), book1).getName());
         assertDoesNotThrow(() -> bookUseCase.update(UUID.randomUUID(), book1));
 
-        verify(bookGateway, times(3)).update(any(Book.class));
+        verify(bookGateway, times(3)).save(any(Book.class));
     }
 
     @Test
@@ -153,14 +153,14 @@ public class BookUseCaseTest {
 
         when(bookGateway.get(any(UUID.class))).thenReturn(book1);
         when(bookGateway.get(book2.getId())).thenReturn(book2);
-        when(bookGateway.update(any(Book.class))).thenReturn(book1);
+        when(bookGateway.save(any(Book.class))).thenReturn(book1);
 
         assertEquals(bookInitialQuantity - 1, book1.getQuantity());
         assertDoesNotThrow(() -> bookUseCase.decreaseQuantity(UUID.randomUUID()));
         assertThrows(ApplicationException.class, () -> bookUseCase.decreaseQuantity(book2.getId()));
 
         verify(bookGateway, times(3)).get(any(UUID.class));
-        verify(bookGateway, times(1)).update(any(Book.class));
+        verify(bookGateway, times(1)).save(any(Book.class));
     }
 
     @Test
@@ -169,12 +169,12 @@ public class BookUseCaseTest {
         book1.increaseQuantity();
 
         when(bookGateway.get(any(UUID.class))).thenReturn(book1);
-        when(bookGateway.update(any(Book.class))).thenReturn(book1);
+        when(bookGateway.save(any(Book.class))).thenReturn(book1);
 
         assertEquals(bookInitialQuantity + 1, book1.getQuantity());
         assertDoesNotThrow(() -> bookUseCase.increaseQuantity(UUID.randomUUID()));
 
         verify(bookGateway, times(2)).get(any(UUID.class));
-        verify(bookGateway, times(1)).update(any(Book.class));
+        verify(bookGateway, times(1)).save(any(Book.class));
     }
 }

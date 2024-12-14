@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -49,8 +50,14 @@ public class BookController {
 
     @GetMapping("name/{name}")
     @Cacheable("books")
-    public Book getByName(@PathVariable String name) {
+    public List<Book> getByName(@PathVariable String name) {
         return bookUseCase.getByName(name);
+    }
+
+    @GetMapping("author/{author}")
+    @Cacheable("books")
+    public List<Book> getByAuthor(@PathVariable String author) {
+        return bookUseCase.getByAuthor(author);
     }
 
     @PostMapping(value = "/register")

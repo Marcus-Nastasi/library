@@ -35,19 +35,25 @@ public class BookUseCase {
         return book;
     }
 
-    public Book getByName(String name) {
-        Book book = bookGateway.getByName(name);
+    public List<Book> getByName(String name) {
+        List<Book> book = bookGateway.getByName(name);
+        if (book == null) throw new ApplicationException("book not found");
+        return book;
+    }
+
+    public List<Book> getByAuthor(String author) {
+        List<Book> book = bookGateway.getByAuthor(author);
         if (book == null) throw new ApplicationException("book not found");
         return book;
     }
 
     public Book create(Book book, byte[] fileData, String fileName) {
         book.setImage_url(null);
-        Book created = bookGateway.create(book);
+        Book created = bookGateway.save(book);
         if (fileData != null && fileName != null) {
             String fileUrl = fileManagerGateway.upload(fileData, fileName);
             created.setImage_url(fileUrl);
-            return bookGateway.update(created);
+            return bookGateway.save(created);
         }
         return created;
     }
@@ -55,7 +61,7 @@ public class BookUseCase {
     public Book update(UUID id, Book book) {
         Book toUpdate = get(id);
         if (toUpdate == null) throw new ApplicationException("book not found");
-        return bookGateway.update(toUpdate.updateDetails(book));
+        return bookGateway.save(toUpdate.updateDetails(book));
     }
 
     public Book delete(UUID id) {
