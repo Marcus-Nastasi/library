@@ -38,6 +38,11 @@ public class BookRepoGateway implements BookGateway {
     }
 
     @Override
+    public Book getByName(String name) {
+        return bookEntityMapper.mapFromBookEntity(jpaBookRepo.findByName(name));
+    }
+
+    @Override
     public Book create(Book book) {
         return bookEntityMapper.mapFromBookEntity(jpaBookRepo.save(bookEntityMapper.mapToBookEntity(book)));
     }

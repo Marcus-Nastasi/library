@@ -30,7 +30,15 @@ public class BookUseCase {
     }
 
     public Book get(UUID id) {
-        return bookGateway.get(id);
+        Book book = bookGateway.get(id);
+        if (book == null) throw new ApplicationException("book not found");
+        return book;
+    }
+
+    public Book getByName(String name) {
+        Book book = bookGateway.getByName(name);
+        if (book == null) throw new ApplicationException("book not found");
+        return book;
     }
 
     public Book create(Book book, byte[] fileData, String fileName) {

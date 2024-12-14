@@ -47,6 +47,12 @@ public class BookController {
         return bookUseCase.get(id);
     }
 
+    @GetMapping("name/{name}")
+    @Cacheable("books")
+    public Book getByName(@PathVariable String name) {
+        return bookUseCase.getByName(name);
+    }
+
     @PostMapping(value = "/register")
     @CacheEvict(value = "books", allEntries = true)
     public ResponseEntity<BookResponseDto> register(
