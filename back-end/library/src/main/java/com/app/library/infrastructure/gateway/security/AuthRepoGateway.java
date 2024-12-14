@@ -7,6 +7,8 @@ import com.app.library.infrastructure.entity.librarian.LibrarianEntity;
 import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
 
+import java.util.List;
+
 public class AuthRepoGateway implements AuthGateway {
     private final LibrarianEntityMapper librarianEntityMapper;
     private final JpaLibrarianRepo jpaLibrarianRepo;

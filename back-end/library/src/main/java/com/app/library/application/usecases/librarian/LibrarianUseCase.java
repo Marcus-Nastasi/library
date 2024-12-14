@@ -7,6 +7,7 @@ import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.domain.entity.librarian.LibrarianPaginated;
 import com.app.library.domain.entity.librarian.UserRole;
 
+import java.util.List;
 import java.util.UUID;
 
 public class LibrarianUseCase {
@@ -24,6 +25,14 @@ public class LibrarianUseCase {
 
     public Librarian get(UUID id) {
         return librarianGateway.get(id);
+    }
+
+    public Librarian getByCpf(String cpf) {
+        return librarianGateway.getByCpf(cpf);
+    }
+
+    public List<Librarian> getByName(String name) {
+        return librarianGateway.getByName(name);
     }
 
     public Librarian create(Librarian librarian) {

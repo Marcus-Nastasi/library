@@ -10,6 +10,7 @@ import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 public class LibrarianRepoGateway implements LibrarianGateway {
@@ -35,6 +36,16 @@ public class LibrarianRepoGateway implements LibrarianGateway {
     @Override
     public Librarian get(UUID id) {
         return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
+    }
+
+    @Override
+    public Librarian getByCpf(String cpf) {
+        return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findByCpf(cpf));
+    }
+
+    @Override
+    public List<Librarian> getByName(String name) {
+        return jpaLibrarianRepo.findByNameContaining(name).stream().map(librarianEntityMapper::mapFromLibrarianEntity).toList();
     }
 
     @Override

@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface JpaMemberRepo extends JpaRepository<MemberEntity, UUID> {
+
     MemberEntity findByCpf(String cpf);
 }

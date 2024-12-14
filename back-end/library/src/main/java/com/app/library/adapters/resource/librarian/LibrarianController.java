@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -38,6 +39,18 @@ public class LibrarianController {
     @Cacheable("librarians")
     public LibrarianResponseDto get(@PathVariable UUID id) {
         return librarianDtoMapper.mapToResponse(librarianUseCase.get(id));
+    }
+
+    @GetMapping("cpf/{cpf}")
+    @Cacheable("librarians")
+    public Librarian getByCpf(@PathVariable String cpf) {
+        return librarianUseCase.getByCpf(cpf);
+    }
+
+    @GetMapping("name/{name}")
+    @Cacheable("librarians")
+    public List<LibrarianResponseDto> getByName(@PathVariable String name) {
+        return librarianUseCase.getByName(name).stream().map(librarianDtoMapper::mapToResponse).toList();
     }
 
     @PostMapping(value = "/register")
