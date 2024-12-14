@@ -10,6 +10,7 @@ import com.app.library.infrastructure.persistence.member.JpaMemberRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
 import java.util.UUID;
 
 public class MemberRepoGateway implements MemberGateway {
@@ -39,6 +40,16 @@ public class MemberRepoGateway implements MemberGateway {
     }
 
     @Override
+    public Member getByCpf(String cpf) {
+        return memberEntityMapper.mapFromMemberEntity(jpaMemberRepo.findByCpf(cpf));
+    }
+
+    @Override
+    public List<Member> getByName(String name) {
+        return jpaMemberRepo.findByNameContaining(name).stream().map(memberEntityMapper::mapFromMemberEntity).toList();
+    }
+
+    @Override
     public Member create(Member member) {
         return memberEntityMapper.mapFromMemberEntity(jpaMemberRepo.save(memberEntityMapper.mapToMemberEntity(member)));
     }
@@ -53,10 +64,5 @@ public class MemberRepoGateway implements MemberGateway {
         Member member = memberEntityMapper.mapFromMemberEntity(jpaMemberRepo.findById(id).orElseThrow(() -> new DomainException("Member not found")));
         jpaMemberRepo.deleteById(id);
         return member;
-    }
-
-    @Override
-    public Member getByCpf(String cpf) {
-        return memberEntityMapper.mapFromMemberEntity(jpaMemberRepo.findByCpf(cpf));
     }
 }

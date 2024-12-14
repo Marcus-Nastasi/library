@@ -6,6 +6,7 @@ import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.member.MemberPaginated;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class MemberUseCase {
@@ -25,6 +26,10 @@ public class MemberUseCase {
 
     public Member getByCpf(String cpf) {
         return memberGateway.getByCpf(cpf);
+    }
+
+    public List<Member> getByName(String name) {
+        return memberGateway.getByName(name);
     }
 
     public Member create(Member member) {

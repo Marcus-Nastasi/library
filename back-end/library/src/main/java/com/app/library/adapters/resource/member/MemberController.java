@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -46,6 +47,12 @@ public class MemberController {
     @Cacheable("members")
     public MemberResponseDto getByCpf(@PathVariable String cpf) {
         return memberDtoMapper.mapToResponse(memberUseCase.getByCpf(cpf));
+    }
+
+    @GetMapping("/name/{name}")
+    @Cacheable("members")
+    public List<MemberResponseDto> getByName(@PathVariable String name) {
+        return memberUseCase.getByName(name).stream().map(memberDtoMapper::mapToResponse).toList();
     }
 
     @PostMapping(value = "/register")
