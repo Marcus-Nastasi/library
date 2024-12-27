@@ -43,8 +43,8 @@ public class LibrarianController {
 
     @GetMapping("cpf/{cpf}")
     @Cacheable("librarians")
-    public LibrarianResponseDto getByCpf(@PathVariable String cpf) {
-        return librarianDtoMapper.mapToResponse(librarianUseCase.getByCpf(cpf));
+    public Librarian getByCpf(@PathVariable String cpf) {
+        return librarianUseCase.getByCpf(cpf);
     }
 
     @GetMapping("name/{name}")
