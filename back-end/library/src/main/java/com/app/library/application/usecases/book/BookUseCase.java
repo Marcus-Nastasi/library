@@ -7,6 +7,7 @@ import com.app.library.application.gateways.rent.RentGateway;
 import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
+import com.app.library.domain.entity.book.BookType;
 import com.app.library.domain.entity.rent.Rent;
 
 import java.util.List;
@@ -45,6 +46,12 @@ public class BookUseCase {
     public List<Book> getByAuthor(String author) {
         List<Book> book = bookGateway.getByAuthor(author);
         if (book == null) throw new ApplicationException("book not found");
+        return book;
+    }
+
+    public List<Book> getByType(BookType bookType) {
+        List<Book> book = bookGateway.getByType(bookType);
+        if (book == null) throw new ApplicationException("books not found");
         return book;
     }
 

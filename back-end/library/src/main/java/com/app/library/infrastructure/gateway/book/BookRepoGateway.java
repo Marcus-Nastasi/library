@@ -3,6 +3,7 @@ package com.app.library.infrastructure.gateway.book;
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
+import com.app.library.domain.entity.book.BookType;
 import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.infrastructure.entity.book.BookEntity;
 import com.app.library.infrastructure.mapper.book.BookEntityMapper;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class BookRepoGateway implements BookGateway {
+
     private final JpaBookRepo jpaBookRepo;
     private final BookEntityMapper bookEntityMapper;
 
@@ -46,6 +48,11 @@ public class BookRepoGateway implements BookGateway {
     @Override
     public List<Book> getByAuthor(String author) {
         return jpaBookRepo.findByAuthorContaining(author).stream().map(bookEntityMapper::mapFromBookEntity).toList();
+    }
+
+    @Override
+    public List<Book> getByType(BookType bookType) {
+        return jpaBookRepo.findByType(bookType).stream().map(bookEntityMapper::mapFromBookEntity).toList();
     }
 
     @Override

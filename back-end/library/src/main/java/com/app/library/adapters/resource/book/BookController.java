@@ -26,6 +26,7 @@ import java.util.UUID;
 @RequestMapping(value = "/api/book")
 @SecurityRequirement(name = "Bearer Authentication")
 public class BookController {
+
     private final BookUseCase bookUseCase;
     private final BookDtoMapper bookDtoMapper;
 
@@ -58,6 +59,11 @@ public class BookController {
     @Cacheable("books")
     public List<Book> getByAuthor(@PathVariable String author) {
         return bookUseCase.getByAuthor(author);
+    }
+
+    @GetMapping("type/{type}")
+    public List<Book> findByType(@PathVariable String type) {
+        return bookUseCase.getByType(BookType.valueOf(type.toUpperCase()));
     }
 
     @PostMapping(value = "/register")
