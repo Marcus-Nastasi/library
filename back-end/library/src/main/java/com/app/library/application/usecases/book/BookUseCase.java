@@ -10,6 +10,7 @@ import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
 import com.app.library.domain.entity.rent.Rent;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +52,12 @@ public class BookUseCase {
 
     public List<Book> getByType(BookType bookType) {
         List<Book> book = bookGateway.getByType(bookType);
+        if (book == null) throw new ApplicationException("books not found");
+        return book;
+    }
+
+    public List<Book> getByDateOfPublish(LocalDate localDate) {
+        List<Book> book = bookGateway.getByDateOfPublish(localDate);
         if (book == null) throw new ApplicationException("books not found");
         return book;
     }

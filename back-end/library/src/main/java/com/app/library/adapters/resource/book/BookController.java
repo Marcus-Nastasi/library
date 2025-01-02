@@ -45,25 +45,32 @@ public class BookController {
 
     @GetMapping("/{id}")
     @Cacheable("books")
-    public Book get(@PathVariable UUID id) {
-        return bookUseCase.get(id);
+    public BookResponseDto get(@PathVariable UUID id) {
+        return bookDtoMapper.mapToResponse(bookUseCase.get(id));
     }
 
     @GetMapping("name/{name}")
     @Cacheable("books")
-    public List<Book> getByName(@PathVariable String name) {
-        return bookUseCase.getByName(name);
+    public List<BookResponseDto> getByName(@PathVariable String name) {
+        return bookUseCase.getByName(name).stream().map(bookDtoMapper::mapToResponse).toList();
     }
 
     @GetMapping("author/{author}")
     @Cacheable("books")
-    public List<Book> getByAuthor(@PathVariable String author) {
-        return bookUseCase.getByAuthor(author);
+    public List<BookResponseDto> getByAuthor(@PathVariable String author) {
+        return bookUseCase.getByAuthor(author).stream().map(bookDtoMapper::mapToResponse).toList();
     }
 
     @GetMapping("type/{type}")
-    public List<Book> findByType(@PathVariable String type) {
-        return bookUseCase.getByType(BookType.valueOf(type.toUpperCase()));
+    @Cacheable("books")
+    public List<BookResponseDto> findByType(@PathVariable String type) {
+        return bookUseCase.getByType(BookType.valueOf(type.toUpperCase())).stream().map(bookDtoMapper::mapToResponse).toList();
+    }
+
+    @GetMapping("date/{localDate}")
+    @Cacheable("books")
+    public List<BookResponseDto> findByDateOfPublish(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate localDate) {
+        return bookUseCase.getByDateOfPublish(localDate).stream().map(bookDtoMapper::mapToResponse).toList();
     }
 
     @PostMapping(value = "/register")

@@ -11,6 +11,7 @@ import com.app.library.infrastructure.persistence.book.JpaBookRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,6 +54,11 @@ public class BookRepoGateway implements BookGateway {
     @Override
     public List<Book> getByType(BookType bookType) {
         return jpaBookRepo.findByType(bookType).stream().map(bookEntityMapper::mapFromBookEntity).toList();
+    }
+
+    @Override
+    public List<Book> getByDateOfPublish(LocalDate localDate) {
+        return jpaBookRepo.findByDateOfPublish(localDate).stream().map(bookEntityMapper::mapFromBookEntity).toList();
     }
 
     @Override
