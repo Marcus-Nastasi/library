@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class BookUseCase {
+
     private final BookGateway bookGateway;
     private final FileManagerGateway fileManagerGateway;
     private final RentGateway rentGateway;

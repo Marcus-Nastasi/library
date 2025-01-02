@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AwsConfiguration {
+
     @Value("${aws.region}")
     private String awsRegion;
     @Value("${aws.accessKeyId}")

@@ -10,6 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.util.UUID;
 
 public class FileManager implements FileManagerGateway {
+
     @Value("${aws.bucket.name}")
     private String bucketName;
     private final AmazonS3 s3Client;

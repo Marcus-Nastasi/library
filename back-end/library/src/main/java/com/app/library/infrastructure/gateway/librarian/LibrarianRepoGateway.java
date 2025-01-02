@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class LibrarianRepoGateway implements LibrarianGateway {
+
     private final JpaLibrarianRepo jpaLibrarianRepo;
     private final LibrarianEntityMapper librarianEntityMapper;
 

@@ -5,6 +5,7 @@ import com.app.library.application.gateways.security.AuthGateway;
 import com.app.library.domain.entity.librarian.Librarian;
 
 public class AuthUseCase {
+
     private final AuthGateway authGateway;
     private final PasswordUseCase encoder;
 

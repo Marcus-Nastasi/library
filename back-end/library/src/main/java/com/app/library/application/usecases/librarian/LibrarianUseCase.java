@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class LibrarianUseCase {
+
     private final LibrarianGateway librarianGateway;
     private final PasswordUseCase passwordUseCase;
 

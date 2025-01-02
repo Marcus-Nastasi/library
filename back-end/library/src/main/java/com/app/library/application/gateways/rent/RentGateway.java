@@ -7,11 +7,18 @@ import java.util.List;
 import java.util.UUID;
 
 public interface RentGateway {
+
     RentPaginated getAll(int page, int size);
+
     Rent get(UUID id);
+
     Rent create(Rent rent);
+
     Rent update(Rent rent);
+
     Rent delete(UUID id);
+
     List<Rent> getByMember(UUID member_id);
+
     List<Rent> getByBookId(UUID book_id);
 }
