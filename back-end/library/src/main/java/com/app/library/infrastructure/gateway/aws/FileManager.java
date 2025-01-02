@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.aws.FileManagerGateway;
+import com.app.library.infrastructure.exception.InfraException;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.ByteArrayInputStream;
@@ -26,7 +27,7 @@ public class FileManager implements FileManagerGateway {
             s3Client.putObject(bucketName, uniqueFileName, new ByteArrayInputStream(fileData), null);
             return s3Client.getUrl(bucketName, uniqueFileName).toString();
         } catch (Exception e) {
-            throw new ApplicationException("Failed to upload file to S3 > " + e.getMessage());
+            throw new InfraException("Failed to upload file to S3 > " + e.getMessage());
         }
     }
 
@@ -36,7 +37,7 @@ public class FileManager implements FileManagerGateway {
             String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
             s3Client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
         } catch (Exception e) {
-            throw new ApplicationException("Failed to delete file from S3 > " + e.getMessage());
+            throw new InfraException("Failed to delete file from S3 > " + e.getMessage());
         }
     }
 }
