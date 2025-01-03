@@ -12,5 +12,7 @@ public interface JpaRentRepo extends JpaRepository<RentEntity, UUID> {
 
     Page<RentEntity> findByMemberId(UUID member_id, Pageable pageable);
 
-    List<RentEntity> findByBookId(UUID book_id);
+    Page<RentEntity> findByBookId(UUID book_id, Pageable pageable);
+
+    List<RentEntity> findAllByBookId(UUID book_id);
 }

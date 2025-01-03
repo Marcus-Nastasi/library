@@ -20,5 +20,7 @@ public interface RentGateway {
 
     RentPaginated getByMember(UUID member_id, int page, int size);
 
-    List<Rent> getByBookId(UUID book_id);
+    RentPaginated getByBookId(UUID book_id, int page, int size);
+
+    List<Rent> getAllByBookId(UUID book_id);
 }

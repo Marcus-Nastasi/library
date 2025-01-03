@@ -37,8 +37,12 @@ public class RentUseCase {
         return rentGateway.getByMember(member_id, page, size);
     }
 
-    public List<Rent> getByBook(UUID book_id) {
-        return rentGateway.getByBookId(book_id);
+    public RentPaginated getByBook(UUID book_id, int page, int size) {
+        return rentGateway.getByBookId(book_id, page, size);
+    }
+
+    public List<Rent> getAllByBook(UUID book_id) {
+        return rentGateway.getAllByBookId(book_id);
     }
 
     public Rent create(Rent rent) {

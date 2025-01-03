@@ -10,6 +10,7 @@ import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
 import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.domain.entity.rent.Rent;
+import com.app.library.domain.entity.rent.RentPaginated;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -81,6 +82,7 @@ public class BookUseCaseTest {
         false
     );
     List<Rent> rents = List.of(rent1, rent2);
+    RentPaginated rentPaginated = new RentPaginated(0, 10, 1, rents);
 
     @Test
     void getAllBooks() {
@@ -133,7 +135,7 @@ public class BookUseCaseTest {
 
     @Test
     void deleteBook() {
-        when(rentGateway.getByBookId(any(UUID.class))).thenReturn(rents);
+        when(rentGateway.getByBookId(any(UUID.class), 0, 10)).thenReturn(rentPaginated);
         when(rentGateway.delete(any(UUID.class))).thenReturn(rent1);
         doNothing().when(memberUseCase).decreaseIssueBook(any(UUID.class));
         when(bookGateway.get(any(UUID.class))).thenReturn(book1);

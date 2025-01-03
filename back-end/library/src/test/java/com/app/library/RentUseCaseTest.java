@@ -87,14 +87,25 @@ public class RentUseCaseTest {
     }
 
     @Test
+    void getAllByBook() {
+        when(rentGateway.getAllByBookId(rent1.getBook_id())).thenReturn(rents);
+
+        assertEquals(rents, rentUseCase.getAllByBook(rent1.getBook_id()));
+        assertEquals(rents.size(), rentUseCase.getAllByBook(rent1.getBook_id()).size());
+        assertDoesNotThrow(() -> rentUseCase.getAllByBook(rent1.getBook_id()));
+
+        verify(rentGateway, times(3)).getAllByBookId(any(UUID.class));
+    }
+
+    @Test
     void getByBook() {
-        when(rentGateway.getByBookId(rent1.getBook_id())).thenReturn(rents);
+        when(rentGateway.getByBookId(rent1.getBook_id(), 0, 10)).thenReturn(rentPaginated);
 
-        assertEquals(rents, rentUseCase.getByBook(rent1.getBook_id()));
-        assertEquals(rents.size(), rentUseCase.getByBook(rent1.getBook_id()).size());
-        assertDoesNotThrow(() -> rentUseCase.getByBook(rent1.getBook_id()));
+        assertEquals(rentPaginated, rentUseCase.getByBook(rent1.getBook_id(), 0, 10));
+        assertEquals(rents.size(), rentUseCase.getByBook(rent1.getBook_id(), 0, 10).getData().size());
+        assertDoesNotThrow(() -> rentUseCase.getByBook(rent1.getBook_id(), 0, 10));
 
-        verify(rentGateway, times(3)).getByBookId(any(UUID.class));
+        verify(rentGateway, times(3)).getByBookId(any(UUID.class), anyInt(), anyInt());
     }
 
     @Test

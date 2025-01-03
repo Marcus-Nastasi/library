@@ -55,7 +55,12 @@ public class RentRepoGateway implements RentGateway {
     }
 
     @Override
-    public List<Rent> getByBookId(UUID book_id) {
-        return jpaRentRepo.findByBookId(book_id).stream().map(rentEntityMapper::mapFromRentEntity).toList();
+    public RentPaginated getByBookId(UUID book_id, int page, int size) {
+        return rentEntityMapper.mapToRentPaginated(jpaRentRepo.findByBookId(book_id, PageRequest.of(page, size)));
+    }
+
+    @Override
+    public List<Rent> getAllByBookId(UUID book_id) {
+        return jpaRentRepo.findAllByBookId(book_id).stream().map(rentEntityMapper::mapFromRentEntity).toList();
     }
 }

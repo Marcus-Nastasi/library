@@ -52,8 +52,14 @@ public class RentController {
 
     @GetMapping("/book/{book_id}")
     @Cacheable("rents")
-    public List<Rent> getByBook(@PathVariable UUID book_id) {
-        return rentUseCase.getByBook(book_id);
+    public RentPaginated getByBook(@PathVariable UUID book_id, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return rentUseCase.getByBook(book_id, page, size);
+    }
+
+    @GetMapping("/book/all/{book_id}")
+    @Cacheable("rents")
+    public List<RentResponseDto> getAllByBook(@PathVariable UUID book_id) {
+        return rentUseCase.getAllByBook(book_id).stream().map(rentDtoMapper::mapToResponse).toList();
     }
 
     @PostMapping(value = "/register")
