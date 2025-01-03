@@ -1,9 +1,9 @@
 package com.app.library;
 
 import com.app.library.application.exception.ApplicationException;
-import com.app.library.application.gateways.aws.FileManagerGateway;
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.application.gateways.rent.RentGateway;
+import com.app.library.application.usecases.aws.FileManagerUseCase;
 import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
@@ -30,7 +30,7 @@ public class BookUseCaseTest {
     @Mock
     private BookGateway bookGateway;
     @Mock
-    private FileManagerGateway fileManagerGateway;
+    private FileManagerUseCase fileManagerUseCase;
     @Mock
     private RentGateway rentGateway;
     @Mock
@@ -109,16 +109,15 @@ public class BookUseCaseTest {
 
     @Test
     void createBook() {
-        when(fileManagerGateway.upload(any(byte[].class), any(String.class))).thenReturn("image_url");
+        when(fileManagerUseCase.upload(any(byte[].class), any(String.class))).thenReturn("image_url");
         when(bookGateway.save(any(Book.class))).thenReturn(book1);
-        when(bookGateway.save(any(Book.class))).thenReturn(book2);
 
-        assertEquals(book2, bookUseCase.create(book1, new byte[0], ""));
-        assertEquals(book2.getName(), bookUseCase.create(book1, new byte[0], "").getName());
+        assertEquals(book1, bookUseCase.create(book1, new byte[0], ""));
+        assertEquals(book1.getName(), bookUseCase.create(book1, new byte[0], "").getName());
         assertDoesNotThrow(() -> bookUseCase.create(book1, new byte[0], ""));
 
-        verify(fileManagerGateway, times(3)).upload(any(byte[].class), any(String.class));
-        verify(bookGateway, times(3)).save(any(Book.class));
+        verify(fileManagerUseCase, times(3)).upload(any(byte[].class), any(String.class));
+        verify(bookGateway, times(6)).save(any(Book.class));
     }
 
     @Test
@@ -135,11 +134,16 @@ public class BookUseCaseTest {
 
     @Test
     void deleteBook() {
-        when(rentGateway.getByBookId(any(UUID.class), 0, 10)).thenReturn(rentPaginated);
-        when(rentGateway.delete(any(UUID.class))).thenReturn(rent1);
-        doNothing().when(memberUseCase).decreaseIssueBook(any(UUID.class));
+        book1.setImage_url("image url");
+
         when(bookGateway.get(any(UUID.class))).thenReturn(book1);
         when(bookGateway.delete(any(UUID.class))).thenReturn(book1);
+
+        when(rentGateway.getAllByBookId(any(UUID.class))).thenReturn(rents);
+        when(rentGateway.delete(any(UUID.class))).thenReturn(rent1);
+
+        doNothing().when(memberUseCase).decreaseIssueBook(any(UUID.class));
+        doNothing().when(fileManagerUseCase).delete(anyString());
 
         assertEquals(book1, bookUseCase.delete(UUID.randomUUID()));
         assertEquals(book1.getName(), bookUseCase.delete(UUID.randomUUID()).getName());
