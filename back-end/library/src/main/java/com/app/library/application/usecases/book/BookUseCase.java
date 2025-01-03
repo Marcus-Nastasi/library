@@ -38,8 +38,8 @@ public class BookUseCase {
         return book;
     }
 
-    public List<Book> getByName(String name) {
-        List<Book> book = bookGateway.getByName(name);
+    public BookPaginated getByName(String name, int page, int size) {
+        BookPaginated book = bookGateway.getByName(name, page, size);
         if (book == null) throw new ApplicationException("book not found");
         return book;
     }

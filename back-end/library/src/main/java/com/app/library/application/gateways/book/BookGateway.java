@@ -14,7 +14,7 @@ public interface BookGateway {
 
     Book get(UUID id);
 
-    List<Book> getByName(String name);
+    BookPaginated getByName(String name, int page, int size);
 
     List<Book> getByAuthor(String author);
 

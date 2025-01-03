@@ -5,16 +5,13 @@ import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
 import com.app.library.domain.entity.exception.DomainException;
-import com.app.library.infrastructure.entity.book.BookEntity;
 import com.app.library.infrastructure.mapper.book.BookEntityMapper;
 import com.app.library.infrastructure.persistence.book.JpaBookRepo;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class BookRepoGateway implements BookGateway {
 
@@ -28,13 +25,7 @@ public class BookRepoGateway implements BookGateway {
 
     @Override
     public BookPaginated getAll(int page, int size) {
-        Page<BookEntity> bookEntityPage = jpaBookRepo.findAll(PageRequest.of(page, size));
-        return new BookPaginated(
-            bookEntityPage.getNumber(),
-            bookEntityPage.getSize(),
-            bookEntityPage.getTotalPages(),
-            bookEntityPage.map(bookEntityMapper::mapFromBookEntity).toList()
-        );
+        return bookEntityMapper.mapToBookPaginated(jpaBookRepo.findAll(PageRequest.of(page, size)));
     }
 
     @Override
@@ -43,8 +34,8 @@ public class BookRepoGateway implements BookGateway {
     }
 
     @Override
-    public List<Book> getByName(String name) {
-        return jpaBookRepo.findByNameContaining(name).stream().map(bookEntityMapper::mapFromBookEntity).toList();
+    public BookPaginated getByName(String name, int page, int size) {
+        return bookEntityMapper.mapToBookPaginated(jpaBookRepo.findByNameContaining(name, PageRequest.of(page, size)));
     }
 
     @Override
@@ -54,13 +45,7 @@ public class BookRepoGateway implements BookGateway {
 
     @Override
     public BookPaginated getByType(BookType bookType, int page, int size) {
-        Page<BookEntity> bookPage = jpaBookRepo.findByType(bookType, PageRequest.of(page, size));
-        return new BookPaginated(
-            bookPage.getNumber(),
-            bookPage.getSize(),
-            bookPage.getTotalPages(),
-            bookPage.getContent().stream().map(bookEntityMapper::mapFromBookEntity).toList()
-        );
+        return bookEntityMapper.mapToBookPaginated(jpaBookRepo.findByType(bookType, PageRequest.of(page, size)));
     }
 
     @Override

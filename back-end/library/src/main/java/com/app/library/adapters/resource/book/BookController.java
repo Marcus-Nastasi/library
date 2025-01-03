@@ -51,8 +51,8 @@ public class BookController {
 
     @GetMapping("name/{name}")
     @Cacheable("books")
-    public List<BookResponseDto> getByName(@PathVariable String name) {
-        return bookUseCase.getByName(name).stream().map(bookDtoMapper::mapToResponse).toList();
+    public BookPaginated getByName(@PathVariable String name, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return bookUseCase.getByName(name, page, size);
     }
 
     @GetMapping("author/{author}")

@@ -1,5 +1,6 @@
 package com.app.library.infrastructure.persistence.book;
 
+import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
 import com.app.library.infrastructure.entity.book.BookEntity;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Repository
 public interface JpaBookRepo extends JpaRepository<BookEntity, UUID> {
 
-    List<BookEntity> findByNameContaining(String name);
+    Page<BookEntity> findByNameContaining(String name, Pageable pageable);
 
     List<BookEntity> findByAuthorContaining(String author);
 
