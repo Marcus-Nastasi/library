@@ -2,6 +2,7 @@ package com.app.library.adapters.resource.rent;
 
 import com.app.library.adapters.input.rent.RentRequestDto;
 import com.app.library.adapters.mapper.rent.RentDtoMapper;
+import com.app.library.adapters.output.rent.RentPaginatedResponseDto;
 import com.app.library.adapters.output.rent.RentResponseDto;
 import com.app.library.application.usecases.rent.RentUseCase;
 import com.app.library.domain.entity.rent.Rent;
@@ -32,10 +33,10 @@ public class RentController {
 
     @GetMapping()
     @Cacheable("rents")
-    public RentPaginated getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+    public RentPaginatedResponseDto getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
         if (page < 0) page = 0;
         if (size < 10) size = 10;
-        return rentUseCase.getAll(page, size);
+        return rentDtoMapper.mapToRentPaginatedResponse(rentUseCase.getAll(page, size));
     }
 
     @GetMapping("/{id}")
@@ -46,14 +47,14 @@ public class RentController {
 
     @GetMapping("/member/{member_id}")
     @Cacheable("rents")
-    public RentPaginated getByMember(@PathVariable UUID member_id, @RequestParam("page") int page, @RequestParam("size") int size) {
-        return rentUseCase.getByMember(member_id, page, size);
+    public RentPaginatedResponseDto getByMember(@PathVariable UUID member_id, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return rentDtoMapper.mapToRentPaginatedResponse(rentUseCase.getByMember(member_id, page, size));
     }
 
     @GetMapping("/book/{book_id}")
     @Cacheable("rents")
-    public RentPaginated getByBook(@PathVariable UUID book_id, @RequestParam("page") int page, @RequestParam("size") int size) {
-        return rentUseCase.getByBook(book_id, page, size);
+    public RentPaginatedResponseDto getByBook(@PathVariable UUID book_id, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return rentDtoMapper.mapToRentPaginatedResponse(rentUseCase.getByBook(book_id, page, size));
     }
 
     @GetMapping("/book/all/{book_id}")

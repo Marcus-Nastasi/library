@@ -1,13 +1,18 @@
 package com.app.library.adapters.mapper.rent;
 
 import com.app.library.adapters.input.rent.RentRequestDto;
+import com.app.library.adapters.output.rent.RentPaginatedResponseDto;
 import com.app.library.adapters.output.rent.RentResponseDto;
 import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.rent.Rent;
+import com.app.library.domain.entity.rent.RentPaginated;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class RentDtoMapper {
+
     @Autowired
     private MemberUseCase memberUseCase;
     @Autowired
@@ -34,6 +39,15 @@ public class RentDtoMapper {
             rent.librarian_id(),
             rent.member_id(),
             rent.returned()
+        );
+    }
+
+    public RentPaginatedResponseDto mapToRentPaginatedResponse(RentPaginated rentPaginated) {
+        return new RentPaginatedResponseDto(
+            rentPaginated.getPage(),
+            rentPaginated.getSize(),
+            rentPaginated.getTotal(),
+            rentPaginated.getData().stream().map(this::mapToResponse).toList()
         );
     }
 }
