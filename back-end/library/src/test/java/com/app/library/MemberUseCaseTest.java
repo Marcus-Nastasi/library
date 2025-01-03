@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MemberUseCaseTest {
+
     @Mock
     private MemberGateway memberGateway;
     @InjectMocks

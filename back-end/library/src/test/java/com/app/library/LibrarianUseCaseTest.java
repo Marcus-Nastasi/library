@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class LibrarianUseCaseTest {
+
     @Mock
     private LibrarianGateway librarianGateway;
     @Mock

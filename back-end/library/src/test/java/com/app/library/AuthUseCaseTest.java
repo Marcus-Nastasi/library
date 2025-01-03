@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthUseCaseTest {
+
     @Mock
     private AuthGateway authGateway;
     @Mock
