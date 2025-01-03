@@ -1,9 +1,9 @@
 package com.app.library.infrastructure.configuration.book;
 
 import com.app.library.adapters.mapper.book.BookDtoMapper;
-import com.app.library.application.gateways.aws.FileManagerGateway;
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.application.gateways.rent.RentGateway;
+import com.app.library.application.usecases.aws.FileManagerUseCase;
 import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.infrastructure.gateway.book.BookRepoGateway;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class BookBeans {
 
     @Bean
-    public BookUseCase bookUseCase(BookGateway bookGateway, FileManagerGateway fileManager, RentGateway rentGateway, MemberUseCase memberUseCase) {
+    public BookUseCase bookUseCase(BookGateway bookGateway, FileManagerUseCase fileManager, RentGateway rentGateway, MemberUseCase memberUseCase) {
         return new BookUseCase(bookGateway, fileManager, rentGateway, memberUseCase);
     }
 

@@ -1,9 +1,9 @@
 package com.app.library.application.usecases.book;
 
 import com.app.library.application.exception.ApplicationException;
-import com.app.library.application.gateways.aws.FileManagerGateway;
 import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.application.gateways.rent.RentGateway;
+import com.app.library.application.usecases.aws.FileManagerUseCase;
 import com.app.library.application.usecases.member.MemberUseCase;
 import com.app.library.domain.entity.book.Book;
 import com.app.library.domain.entity.book.BookPaginated;
@@ -17,13 +17,13 @@ import java.util.UUID;
 public class BookUseCase {
 
     private final BookGateway bookGateway;
-    private final FileManagerGateway fileManagerGateway;
+    private final FileManagerUseCase fileManagerUseCase;
     private final RentGateway rentGateway;
     private final MemberUseCase memberUseCase;
 
-    public BookUseCase(BookGateway bookGateway, FileManagerGateway fileManagerGateway, RentGateway rentGateway, MemberUseCase memberUseCase) {
+    public BookUseCase(BookGateway bookGateway, FileManagerUseCase fileManagerUseCase, RentGateway rentGateway, MemberUseCase memberUseCase) {
         this.bookGateway = bookGateway;
-        this.fileManagerGateway = fileManagerGateway;
+        this.fileManagerUseCase = fileManagerUseCase;
         this.rentGateway = rentGateway;
         this.memberUseCase = memberUseCase;
     }
@@ -66,7 +66,7 @@ public class BookUseCase {
         book.setImage_url(null);
         Book created = bookGateway.save(book);
         if (fileData != null && fileName != null) {
-            String fileUrl = fileManagerGateway.upload(fileData, fileName);
+            String fileUrl = fileManagerUseCase.upload(fileData, fileName);
             created.setImage_url(fileUrl);
             return bookGateway.save(created);
         }
@@ -88,7 +88,7 @@ public class BookUseCase {
                 memberUseCase.decreaseIssueBook(r.getMember_id());
             });
         }
-        if (book.getImage_url() != null) fileManagerGateway.delete(book.getImage_url());
+        if (book.getImage_url() != null) fileManagerUseCase.delete(book.getImage_url());
         return bookGateway.delete(id);
     }
 
