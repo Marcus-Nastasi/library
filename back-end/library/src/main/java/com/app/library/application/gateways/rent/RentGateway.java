@@ -18,7 +18,7 @@ public interface RentGateway {
 
     Rent delete(UUID id);
 
-    List<Rent> getByMember(UUID member_id);
+    RentPaginated getByMember(UUID member_id, int page, int size);
 
     List<Rent> getByBookId(UUID book_id);
 }

@@ -3,7 +3,6 @@ package com.app.library.application.gateways.member;
 import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.member.MemberPaginated;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface MemberGateway {

@@ -6,10 +6,10 @@ import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.member.MemberPaginated;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public class MemberUseCase {
+
     private final MemberGateway memberGateway;
 
     public MemberUseCase(MemberGateway memberGateway) {

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class RentUseCase {
+
     private final RentGateway rentGateway;
     private final BookUseCase bookUseCase;
     private final MemberUseCase memberUseCase;
@@ -32,8 +33,8 @@ public class RentUseCase {
         return rentGateway.get(id);
     }
 
-    public List<Rent> getByMember(UUID member_id) {
-        return rentGateway.getByMember(member_id);
+    public RentPaginated getByMember(UUID member_id, int page, int size) {
+        return rentGateway.getByMember(member_id, page, size);
     }
 
     public List<Rent> getByBook(UUID book_id) {

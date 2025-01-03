@@ -21,6 +21,7 @@ import java.util.UUID;
 @RequestMapping(value = "/api/rent")
 @SecurityRequirement(name = "Bearer Authentication")
 public class RentController {
+
     private final RentUseCase rentUseCase;
     private final RentDtoMapper rentDtoMapper;
 
@@ -45,8 +46,8 @@ public class RentController {
 
     @GetMapping("/member/{member_id}")
     @Cacheable("rents")
-    public List<Rent> getByMember(@PathVariable UUID member_id) {
-        return rentUseCase.getByMember(member_id);
+    public RentPaginated getByMember(@PathVariable UUID member_id, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return rentUseCase.getByMember(member_id, page, size);
     }
 
     @GetMapping("/book/{book_id}")

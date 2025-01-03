@@ -18,6 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RentUseCaseTest {
+
     @Mock
     private RentGateway rentGateway;
     @Mock
@@ -49,10 +51,10 @@ public class RentUseCaseTest {
     Rent rent2 = new Rent(UUID.randomUUID(), book2.getId(), LocalDate.now(), LocalDate.now().plusDays(7), librarian1.getId(), member2.getId(), false);
 
     List<Rent> rents = List.of(rent1, rent2);
+    RentPaginated rentPaginated = new RentPaginated(0, 10, 1, rents);
 
     @Test
     void getAllRents() {
-        RentPaginated rentPaginated = new RentPaginated(0, 10, 1, rents);
         when(rentGateway.getAll(0, 10)).thenReturn(rentPaginated);
 
         assertEquals(rentPaginated, rentUseCase.getAll(0, 10));
@@ -75,13 +77,13 @@ public class RentUseCaseTest {
 
     @Test
     void getByMember() {
-        when(rentGateway.getByMember(rent1.getMember_id())).thenReturn(rents);
+        when(rentGateway.getByMember(rent1.getMember_id(), 0, 10)).thenReturn(rentPaginated);
 
-        assertEquals(rents, rentUseCase.getByMember(rent1.getMember_id()));
-        assertEquals(rents.size(), rentUseCase.getByMember(rent1.getMember_id()).size());
-        assertDoesNotThrow(() -> rentUseCase.getByMember(rent1.getMember_id()));
+        assertEquals(rentPaginated, rentUseCase.getByMember(rent1.getMember_id(), 0, 10));
+        assertEquals(rentPaginated.getData().size(), rentUseCase.getByMember(rent1.getMember_id(), 0, 10).getData().size());
+        assertDoesNotThrow(() -> rentUseCase.getByMember(rent1.getMember_id(), 0, 10));
 
-        verify(rentGateway, times(3)).getByMember(any(UUID.class));
+        verify(rentGateway, times(3)).getByMember(any(UUID.class), anyInt(), anyInt());
     }
 
     @Test
