@@ -14,13 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/librarian")
 @SecurityRequirement(name = "Bearer Authentication")
 public class LibrarianController {
+
     private final LibrarianUseCase librarianUseCase;
     private final LibrarianDtoMapper librarianDtoMapper;
 
@@ -49,8 +49,8 @@ public class LibrarianController {
 
     @GetMapping("name/{name}")
     @Cacheable("librarians")
-    public List<LibrarianResponseDto> getByName(@PathVariable String name) {
-        return librarianUseCase.getByName(name).stream().map(librarianDtoMapper::mapToResponse).toList();
+    public LibrarianPaginated getByName(@PathVariable String name, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return librarianUseCase.getByName(name, page, size);
     }
 
     @PostMapping(value = "/register")

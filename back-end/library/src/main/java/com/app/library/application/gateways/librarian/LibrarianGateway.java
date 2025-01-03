@@ -3,7 +3,6 @@ package com.app.library.application.gateways.librarian;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.domain.entity.librarian.LibrarianPaginated;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface LibrarianGateway {
@@ -14,7 +13,7 @@ public interface LibrarianGateway {
 
     Librarian getByCpf(String cpf);
 
-    List<Librarian> getByName(String name);
+    LibrarianPaginated getByName(String name, int page, int size);
 
     Librarian create(Librarian librarian);
 

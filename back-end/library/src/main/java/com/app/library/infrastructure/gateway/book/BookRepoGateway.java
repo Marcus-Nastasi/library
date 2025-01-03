@@ -8,10 +8,8 @@ import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.infrastructure.mapper.book.BookEntityMapper;
 import com.app.library.infrastructure.persistence.book.JpaBookRepo;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public class BookRepoGateway implements BookGateway {

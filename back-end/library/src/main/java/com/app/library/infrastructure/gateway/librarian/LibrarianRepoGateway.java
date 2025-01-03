@@ -1,16 +1,14 @@
 package com.app.library.infrastructure.gateway.librarian;
 
 import com.app.library.application.gateways.librarian.LibrarianGateway;
-import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.librarian.Librarian;
 import com.app.library.domain.entity.librarian.LibrarianPaginated;
 import com.app.library.infrastructure.entity.librarian.LibrarianEntity;
+import com.app.library.infrastructure.exception.InfraException;
 import com.app.library.infrastructure.mapper.librarian.LibrarianEntityMapper;
 import com.app.library.infrastructure.persistence.librarian.JpaLibrarianRepo;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
 import java.util.UUID;
 
 public class LibrarianRepoGateway implements LibrarianGateway {
@@ -25,18 +23,12 @@ public class LibrarianRepoGateway implements LibrarianGateway {
 
     @Override
     public LibrarianPaginated getAll(int page, int size) {
-        Page<LibrarianEntity> librarianEntities = jpaLibrarianRepo.findAll(PageRequest.of(page, size));
-        return new LibrarianPaginated(
-            librarianEntities.getNumber(),
-            librarianEntities.getSize(),
-            librarianEntities.getTotalPages(),
-            librarianEntities.map(librarianEntityMapper::mapFromLibrarianEntity).toList()
-        );
+        return librarianEntityMapper.mapToLibrarianPaginated(jpaLibrarianRepo.findAll(PageRequest.of(page, size)));
     }
 
     @Override
     public Librarian get(UUID id) {
-        return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
+        return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new InfraException("librarian not found")));
     }
 
     @Override
@@ -45,14 +37,14 @@ public class LibrarianRepoGateway implements LibrarianGateway {
     }
 
     @Override
-    public List<Librarian> getByName(String name) {
-        return jpaLibrarianRepo.findByNameContaining(name).stream().map(librarianEntityMapper::mapFromLibrarianEntity).toList();
+    public LibrarianPaginated getByName(String name, int page, int size) {
+        return librarianEntityMapper.mapToLibrarianPaginated(jpaLibrarianRepo.findByNameContaining(name, PageRequest.of(page, size)));
     }
 
     @Override
     public Librarian create(Librarian librarian) {
         LibrarianEntity found = jpaLibrarianRepo.findByCpf(librarian.getCpf());
-        if (found != null) throw new DomainException("this CPF is already on our records, you cannot register the same CPF again");
+        if (found != null) throw new InfraException("this CPF is already on our records, you cannot register the same CPF again");
         return librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.save(librarianEntityMapper.mapToLibrarianEntity(librarian)));
     }
 
@@ -63,7 +55,7 @@ public class LibrarianRepoGateway implements LibrarianGateway {
 
     @Override
     public Librarian delete(UUID id) {
-        Librarian librarian = librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new DomainException("librarian not found")));
+        Librarian librarian = librarianEntityMapper.mapFromLibrarianEntity(jpaLibrarianRepo.findById(id).orElseThrow(() -> new InfraException("librarian not found")));
         jpaLibrarianRepo.deleteById(id);
         return librarian;
     }
