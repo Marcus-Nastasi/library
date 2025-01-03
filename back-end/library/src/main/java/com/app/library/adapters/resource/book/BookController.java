@@ -63,8 +63,8 @@ public class BookController {
 
     @GetMapping("type/{type}")
     @Cacheable("books")
-    public List<BookResponseDto> findByType(@PathVariable String type) {
-        return bookUseCase.getByType(BookType.valueOf(type.toUpperCase())).stream().map(bookDtoMapper::mapToResponse).toList();
+    public BookPaginated findByType(@PathVariable String type, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return bookUseCase.getByType(BookType.valueOf(type.toUpperCase()), page, size);
     }
 
     @GetMapping("date/{localDate}")

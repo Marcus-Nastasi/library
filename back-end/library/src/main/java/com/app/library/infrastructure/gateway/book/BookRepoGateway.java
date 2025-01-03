@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class BookRepoGateway implements BookGateway {
 
@@ -52,8 +53,14 @@ public class BookRepoGateway implements BookGateway {
     }
 
     @Override
-    public List<Book> getByType(BookType bookType) {
-        return jpaBookRepo.findByType(bookType).stream().map(bookEntityMapper::mapFromBookEntity).toList();
+    public BookPaginated getByType(BookType bookType, int page, int size) {
+        Page<BookEntity> bookPage = jpaBookRepo.findByType(bookType, PageRequest.of(page, size));
+        return new BookPaginated(
+            bookPage.getNumber(),
+            bookPage.getSize(),
+            bookPage.getTotalPages(),
+            bookPage.getContent().stream().map(bookEntityMapper::mapFromBookEntity).toList()
+        );
     }
 
     @Override

@@ -18,7 +18,7 @@ public interface BookGateway {
 
     List<Book> getByAuthor(String author);
 
-    List<Book> getByType(BookType bookType);
+    BookPaginated getByType(BookType bookType, int page, int size);
 
     List<Book> getByDateOfPublish(LocalDate localDate);
 

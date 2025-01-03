@@ -50,8 +50,8 @@ public class BookUseCase {
         return book;
     }
 
-    public List<Book> getByType(BookType bookType) {
-        List<Book> book = bookGateway.getByType(bookType);
+    public BookPaginated getByType(BookType bookType, int page, int size) {
+        BookPaginated book = bookGateway.getByType(bookType, page, size);
         if (book == null) throw new ApplicationException("books not found");
         return book;
     }
