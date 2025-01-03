@@ -6,7 +6,6 @@ import com.app.library.adapters.output.rent.RentPaginatedResponseDto;
 import com.app.library.adapters.output.rent.RentResponseDto;
 import com.app.library.application.usecases.rent.RentUseCase;
 import com.app.library.domain.entity.rent.Rent;
-import com.app.library.domain.entity.rent.RentPaginated;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.CacheEvict;

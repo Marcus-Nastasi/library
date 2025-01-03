@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableCaching
 @EnableJpaRepositories(basePackages = "com.app.library.infrastructure.persistence")
 public class LibraryApplication {
+
     public static void main(String[] args) {
 		SpringApplication.run(LibraryApplication.class, args);
 	}

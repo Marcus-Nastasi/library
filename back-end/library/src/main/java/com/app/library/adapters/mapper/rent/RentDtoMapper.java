@@ -9,8 +9,6 @@ import com.app.library.domain.entity.rent.Rent;
 import com.app.library.domain.entity.rent.RentPaginated;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
 public class RentDtoMapper {
 
     @Autowired
