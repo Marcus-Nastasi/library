@@ -44,8 +44,8 @@ public class BookUseCase {
         return book;
     }
 
-    public List<Book> getByAuthor(String author) {
-        List<Book> book = bookGateway.getByAuthor(author);
+    public BookPaginated getByAuthor(String author, int page, int size) {
+        BookPaginated book = bookGateway.getByAuthor(author, page, size);
         if (book == null) throw new ApplicationException("book not found");
         return book;
     }
