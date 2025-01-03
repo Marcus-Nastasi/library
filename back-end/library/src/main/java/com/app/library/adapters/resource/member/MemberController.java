@@ -21,6 +21,7 @@ import java.util.UUID;
 @RequestMapping(value = "/api/member")
 @SecurityRequirement(name = "Bearer Authentication")
 public class MemberController {
+
     private final MemberUseCase memberUseCase;
     private final MemberDtoMapper memberDtoMapper;
 
@@ -51,8 +52,8 @@ public class MemberController {
 
     @GetMapping("/name/{name}")
     @Cacheable("members")
-    public List<MemberResponseDto> getByName(@PathVariable String name) {
-        return memberUseCase.getByName(name).stream().map(memberDtoMapper::mapToResponse).toList();
+    public MemberPaginated getByName(@PathVariable String name, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return memberUseCase.getByName(name, page, size);
     }
 
     @PostMapping(value = "/register")

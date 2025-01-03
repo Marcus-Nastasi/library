@@ -4,13 +4,10 @@ import com.app.library.application.gateways.member.MemberGateway;
 import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.domain.entity.member.Member;
 import com.app.library.domain.entity.member.MemberPaginated;
-import com.app.library.infrastructure.entity.member.MemberEntity;
 import com.app.library.infrastructure.mapper.member.MemberEntityMapper;
 import com.app.library.infrastructure.persistence.member.JpaMemberRepo;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
 import java.util.UUID;
 
 public class MemberRepoGateway implements MemberGateway {
@@ -25,13 +22,7 @@ public class MemberRepoGateway implements MemberGateway {
 
     @Override
     public MemberPaginated getAll(int page, int size) {
-        Page<MemberEntity> memberEntities = jpaMemberRepo.findAll(PageRequest.of(page, size));
-        return new MemberPaginated(
-            memberEntities.getNumber(),
-            memberEntities.getSize(),
-            memberEntities.getTotalPages(),
-            memberEntities.map(memberEntityMapper::mapFromMemberEntity).toList()
-        );
+        return memberEntityMapper.mapToMemberPaginated(jpaMemberRepo.findAll(PageRequest.of(page, size)));
     }
 
     @Override
@@ -45,8 +36,8 @@ public class MemberRepoGateway implements MemberGateway {
     }
 
     @Override
-    public List<Member> getByName(String name) {
-        return jpaMemberRepo.findByNameContaining(name).stream().map(memberEntityMapper::mapFromMemberEntity).toList();
+    public MemberPaginated getByName(String name, int page, int size) {
+        return memberEntityMapper.mapToMemberPaginated(jpaMemberRepo.findByNameContaining(name, PageRequest.of(page, size)));
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface MemberGateway {
 
     Member getByCpf(String cpf);
 
-    List<Member> getByName(String name);
+    MemberPaginated getByName(String name, int page, int size);
 
     Member create(Member member);
 

@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", exception.getMessage()));
     }
 
-    @ExceptionHandler(ForbiddenException.class)
+    @ExceptionHandler(InfraException.class)
     public ResponseEntity<Object> handleInfraException(InfraException exception, WebRequest request) {
         return ResponseEntity.badRequest().body(Map.of("error", exception.getMessage()));
     }

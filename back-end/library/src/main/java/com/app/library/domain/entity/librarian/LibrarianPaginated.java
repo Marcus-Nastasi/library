@@ -13,8 +13,6 @@ public class LibrarianPaginated implements Serializable {
     private int total;
     private List<Librarian> data;
 
-    public LibrarianPaginated() {}
-
     public LibrarianPaginated(int page, int size, int total, List<Librarian> data) {
         this.page = page;
         this.size = size;

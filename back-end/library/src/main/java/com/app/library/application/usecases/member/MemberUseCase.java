@@ -28,8 +28,8 @@ public class MemberUseCase {
         return memberGateway.getByCpf(cpf);
     }
 
-    public List<Member> getByName(String name) {
-        return memberGateway.getByName(name);
+    public MemberPaginated getByName(String name, int page, int size) {
+        return memberGateway.getByName(name, page, size);
     }
 
     public Member create(Member member) {
