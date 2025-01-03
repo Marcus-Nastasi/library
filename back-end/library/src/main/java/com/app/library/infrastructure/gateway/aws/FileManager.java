@@ -2,7 +2,6 @@ package com.app.library.infrastructure.gateway.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.app.library.application.exception.ApplicationException;
 import com.app.library.application.gateways.aws.FileManagerGateway;
 import com.app.library.infrastructure.exception.InfraException;
 import org.springframework.beans.factory.annotation.Value;

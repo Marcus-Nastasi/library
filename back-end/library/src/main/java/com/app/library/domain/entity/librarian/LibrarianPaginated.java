@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class LibrarianPaginated implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 

@@ -1,7 +1,6 @@
 package com.app.library.domain.entity.rent;
 
-import com.app.library.domain.entity.book.Book;
-import com.app.library.domain.entity.member.Member;
+import com.app.library.domain.entity.exception.DomainException;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -9,6 +8,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class Rent implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -21,9 +21,9 @@ public class Rent implements Serializable {
     private UUID member_id;
 
     public Rent updateDetails(Rent updatedRent) {
-        if (updatedRent.book_id == null) throw new IllegalArgumentException("Book cannot be null");
-        if (updatedRent.member_id == null) throw new IllegalArgumentException("Member cannot be null");
-        if (updatedRent.librarian_id == null) throw new IllegalArgumentException("Librarian cannot be null");
+        if (updatedRent.book_id == null) throw new DomainException("Book cannot be null");
+        if (updatedRent.member_id == null) throw new DomainException("Member cannot be null");
+        if (updatedRent.librarian_id == null) throw new DomainException("Librarian cannot be null");
         this.setId(updatedRent.getId());
         this.setBook_id(updatedRent.getBook_id());
         this.setEmit_date(updatedRent.getEmit_date());

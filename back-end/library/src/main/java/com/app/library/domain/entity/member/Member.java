@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class Member implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -34,8 +35,8 @@ public class Member implements Serializable {
     }
 
     public Member updateDetails(Member updatedMember) {
-        if (updatedMember.cpf == null) throw new IllegalArgumentException("Cpf cannot be null");
-        if (updatedMember.name == null) throw new IllegalArgumentException("Name cannot be null");
+        if (updatedMember.cpf == null) throw new DomainException("Cpf cannot be null");
+        if (updatedMember.name == null) throw new DomainException("Name cannot be null");
         this.setId(updatedMember.getId());
         this.setName(updatedMember.getName());
         this.setCpf(updatedMember.getCpf());

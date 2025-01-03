@@ -27,6 +27,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
     @Autowired
     private TokenFilter tokenFilter;
 
@@ -53,11 +54,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthGateway authGateway(
-            LibrarianEntityMapper librarianEntityMapper,
-            JpaLibrarianRepo jpaLibrarianRepo,
-            TokenProvider tokenProvider
-    ) {
+    public AuthGateway authGateway(LibrarianEntityMapper librarianEntityMapper, JpaLibrarianRepo jpaLibrarianRepo, TokenProvider tokenProvider) {
         return new AuthRepoGateway(librarianEntityMapper, jpaLibrarianRepo, tokenProvider);
     }
 

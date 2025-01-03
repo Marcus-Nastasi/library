@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api/authenticate")
 public class SecurityController {
+
     private final AuthUseCase authUseCase;
 
     public SecurityController(AuthUseCase authUseCase) {

@@ -1,10 +1,13 @@
 package com.app.library.domain.entity.librarian;
 
+import com.app.library.domain.entity.exception.DomainException;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
 public class Librarian implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -15,8 +18,8 @@ public class Librarian implements Serializable {
     private UserRole role;
 
     public Librarian updateDetails(Librarian updatedLibrarian) {
-        if (updatedLibrarian.cpf == null) throw new IllegalArgumentException("Cpf cannot be null");
-        if (updatedLibrarian.password == null) throw new IllegalArgumentException("Password cannot be null");
+        if (updatedLibrarian.cpf == null) throw new DomainException("Cpf cannot be null");
+        if (updatedLibrarian.password == null) throw new DomainException("Password cannot be null");
         this.setId(updatedLibrarian.getId());
         this.setName(updatedLibrarian.getName());
         this.setPassword(updatedLibrarian.getPassword());

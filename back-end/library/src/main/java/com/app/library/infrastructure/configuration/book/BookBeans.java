@@ -6,7 +6,6 @@ import com.app.library.application.gateways.book.BookGateway;
 import com.app.library.application.gateways.rent.RentGateway;
 import com.app.library.application.usecases.book.BookUseCase;
 import com.app.library.application.usecases.member.MemberUseCase;
-import com.app.library.application.usecases.rent.RentUseCase;
 import com.app.library.infrastructure.gateway.book.BookRepoGateway;
 import com.app.library.infrastructure.mapper.book.BookEntityMapper;
 import com.app.library.infrastructure.persistence.book.JpaBookRepo;

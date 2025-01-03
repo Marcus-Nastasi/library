@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class LibrarianBeans {
+
     @Bean
     public LibrarianUseCase librarianUseCase(LibrarianGateway librarianGateway, PasswordUseCase passwordUseCase) {
         return new LibrarianUseCase(librarianGateway, passwordUseCase);
