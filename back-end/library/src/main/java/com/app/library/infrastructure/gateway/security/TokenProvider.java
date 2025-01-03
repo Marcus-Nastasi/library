@@ -1,6 +1,6 @@
 package com.app.library.infrastructure.gateway.security;
 
-import com.app.library.application.exception.ApplicationException;
+import com.app.library.infrastructure.exception.InfraException;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.*;
@@ -13,6 +13,7 @@ import java.time.ZoneOffset;
 
 @Component
 public class TokenProvider {
+
     @Value("${spring.security.token.secret}")
     private String secret;
 
@@ -26,7 +27,7 @@ public class TokenProvider {
                 .withExpiresAt(exp())
                 .sign(algorithm);
         } catch (JWTCreationException e) {
-            throw new ApplicationException(e.getMessage());
+            throw new InfraException(e.getMessage());
         }
     }
 
@@ -45,9 +46,6 @@ public class TokenProvider {
     }
 
     private Instant exp() {
-        return LocalDateTime
-            .now()
-            .plusDays(2)
-            .toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusDays(2).toInstant(ZoneOffset.of("-03:00"));
     }
 }
