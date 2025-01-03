@@ -8,7 +8,7 @@ import com.app.library.domain.entity.exception.DomainException;
 import com.app.library.infrastructure.mapper.book.BookEntityMapper;
 import com.app.library.infrastructure.persistence.book.JpaBookRepo;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -50,8 +50,8 @@ public class BookRepoGateway implements BookGateway {
     }
 
     @Override
-    public List<Book> getByDateOfPublish(LocalDate localDate) {
-        return jpaBookRepo.findByDateOfPublish(localDate).stream().map(bookEntityMapper::mapFromBookEntity).toList();
+    public BookPaginated getByDateOfPublish(LocalDate localDate, int page, int size) {
+        return bookEntityMapper.mapToBookPaginated(jpaBookRepo.findByDateOfPublish(localDate, PageRequest.of(page, size)));
     }
 
     @Override

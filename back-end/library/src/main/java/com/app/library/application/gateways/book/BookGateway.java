@@ -5,7 +5,6 @@ import com.app.library.domain.entity.book.BookPaginated;
 import com.app.library.domain.entity.book.BookType;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public interface BookGateway {
@@ -20,7 +19,7 @@ public interface BookGateway {
 
     BookPaginated getByType(BookType bookType, int page, int size);
 
-    List<Book> getByDateOfPublish(LocalDate localDate);
+    BookPaginated getByDateOfPublish(LocalDate localDate, int page, int size);
 
     Book save(Book book);
 

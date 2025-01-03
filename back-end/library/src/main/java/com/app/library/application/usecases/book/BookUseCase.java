@@ -56,8 +56,8 @@ public class BookUseCase {
         return book;
     }
 
-    public List<Book> getByDateOfPublish(LocalDate localDate) {
-        List<Book> book = bookGateway.getByDateOfPublish(localDate);
+    public BookPaginated getByDateOfPublish(LocalDate localDate, int page, int size) {
+        BookPaginated book = bookGateway.getByDateOfPublish(localDate, page, size);
         if (book == null) throw new ApplicationException("books not found");
         return book;
     }

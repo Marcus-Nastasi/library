@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -52,25 +51,35 @@ public class BookController {
     @GetMapping("name/{name}")
     @Cacheable("books")
     public BookPaginated getByName(@PathVariable String name, @RequestParam("page") int page, @RequestParam("size") int size) {
+        if (page < 0) page = 0;
+        if (size < 10) size = 10;
         return bookUseCase.getByName(name, page, size);
     }
 
     @GetMapping("author/{author}")
     @Cacheable("books")
     public BookPaginated getByAuthor(@PathVariable String author, @RequestParam("page") int page, @RequestParam("size") int size) {
+        if (page < 0) page = 0;
+        if (size < 10) size = 10;
         return bookUseCase.getByAuthor(author, page, size);
     }
 
     @GetMapping("type/{type}")
     @Cacheable("books")
     public BookPaginated findByType(@PathVariable String type, @RequestParam("page") int page, @RequestParam("size") int size) {
+        if (page < 0) page = 0;
+        if (size < 10) size = 10;
         return bookUseCase.getByType(BookType.valueOf(type.toUpperCase()), page, size);
     }
 
     @GetMapping("date/{localDate}")
     @Cacheable("books")
-    public List<BookResponseDto> findByDateOfPublish(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate localDate) {
-        return bookUseCase.getByDateOfPublish(localDate).stream().map(bookDtoMapper::mapToResponse).toList();
+    public BookPaginated findByDateOfPublish(
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate localDate,
+            @RequestParam("page") int page, @RequestParam("size") int size) {
+        if (page < 0) page = 0;
+        if (size < 10) size = 10;
+        return bookUseCase.getByDateOfPublish(localDate, page, size);
     }
 
     @PostMapping(value = "/register")
